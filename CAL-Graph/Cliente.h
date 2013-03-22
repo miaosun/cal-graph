@@ -93,6 +93,8 @@ public:
 	 * \n Cliente número: \n Nome: \n Morada: \n Contacto: \n Email: \n NIF: \n
 	 */
 	void imprimeCliente() const;
+
+	//TODO falta updates
 };
 
 
