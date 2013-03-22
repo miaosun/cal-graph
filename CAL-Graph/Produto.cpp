@@ -38,7 +38,7 @@ void Produto::setDesignacao(string designacao){
 }
 
 bool Produto::operator == (const Produto &p1) const{
-	if(codProduto == p1.getCodProduto()() || (designacao == p1.getDesignacao() ))
+	if(codProduto == p1.getCodProduto() || (designacao == p1.getDesignacao() ))
 		return true;
 	else return false;
 }

@@ -12,6 +12,8 @@
 #ifndef PRODUTO_H_
 #define PRODUTO_H_
 
+#include <string>
+
 using namespace std;
 
 class Produto {
