@@ -98,10 +98,8 @@ void Encomenda::imprimeEncomendas() const {
 
 
 // OPERATOR ==
-bool Cliente::operator== (const Cliente& x) const{
-	if(getNome() == x.getNome())
-		return true;
-	else if(getNIF() == x.getNIF())
-		return true;
+bool Encomenda::operator== (const Encomenda& x) const{
+	if(countEncomendas() == x.countEncomendas())
+		return true;	
 	else return false;
 }
