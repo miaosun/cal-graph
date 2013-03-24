@@ -20,7 +20,7 @@ using namespace std;
 class Zona
 {
 	string localizacao;
-	//Loja *loja;
+	Loja *loja;
 
 public:
 	Zona(string localizacao);
