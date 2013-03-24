@@ -11,14 +11,15 @@
 
 #include "Zona.h"
 
-Zona::Zona(string Localidade)
+Zona::Zona(unsigned int codZona, string Localidade)
 {
+	this->codZona = codZona;
 	this->localizacao = localizacao;
 }
 
 Zona::~Zona(){}
 
-string Zona::getLocalizacao()
+string Zona::getLocalizacao() const
 {
 	return localizacao;
 }
@@ -28,3 +29,12 @@ void Zona::setLocalizacao(string localizacao)
 	this->localizacao = localizacao;
 }
 
+unsigned int Zona::getCodZona() const
+{
+	return this->codZona;
+}
+
+void Zona::setCodZona(unsigned int codZona)
+{
+	this->codZona = codZona;
+}
