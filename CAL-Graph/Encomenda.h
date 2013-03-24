@@ -12,6 +12,7 @@
 #ifndef ENCOMENDA_H_
 #define ENCOMENDA_H_
 
+using namespace std;
 class Encomenda
 {
 	const unsigned int codEncomenda;
