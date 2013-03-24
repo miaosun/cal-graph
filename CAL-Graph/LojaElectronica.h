@@ -13,9 +13,10 @@
 #include "Produto.h"
 #include "Encomenda.h"
 
+#include <stdlib.h>
 #include <vector>
+#include <sstream>
 #include <fstream>
-using namespace std;
 
 class LojaElectronica
 {
