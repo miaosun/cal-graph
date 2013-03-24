@@ -1,8 +1,12 @@
 /*
- * LojaElectronica.cpp
- *
- *  Created on: 23 de Mar de 2013
- *      Author: Miao
+ * 	FICHEIRO: LojaElectronica.h
+ *	PROJECTO: Projecto CAL - Loja de Comercio Electronico (T3)
+ *	DESCRICAO: Implementacao da classe LojaElectronica
+ *  TURMA / GRUPO: Turma 2MIEIC2 / Grupo D
+ *  AUTORES:
+ *  - Jorge Miguel Reis
+ *  - Miao Sun
+ *  - Vitor Castro
  */
 
 
