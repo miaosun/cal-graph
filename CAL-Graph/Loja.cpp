@@ -15,12 +15,9 @@
 unsigned int Loja::countLojas=0;
 
  Loja::Loja(string desig, string mor, Zona *zon):codLoja(++countLojas) {
- 
 	designacao=desig;
 	morada=mor;
 	zona=zon;
-
- 
  }
  
  // GETS Loja
