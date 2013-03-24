@@ -5,15 +5,12 @@
  *      Author: Miao
  */
 
-#include <iostream>
-
-using namespace std;
+#include "LojaElectronica.h"
 
 int main()
 {
-	cout << "Hello Eclipse Subversive!"<<endl;
-	cout << "Vamos exprimentar outra commit"<<endl;
-	cout << "Done!" << endl;
+	LojaElectronica lj;
+	lj.startLojaElectronica();
 	return 0;
 }
 

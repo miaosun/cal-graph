@@ -11,8 +11,6 @@
 
 #include "Produto.h"
 
-using namespace std;
-
 unsigned int Produto::countProdutos = 0;
 
 Produto::Produto(string d, int s): codProduto(++countProdutos) {
