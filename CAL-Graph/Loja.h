@@ -74,6 +74,14 @@ public:
 	 */
 	bool operator==(const Loja & x) const;
 	
+	//! Membro-função estatico para setar o membro-dado estatico countLojas
+		/** \param n e um inteiro com conteúdo a ser atribuido ao membro-dado estatico countLojas. */
+		static void setCount(unsigned int n) {countLojas = n;}
+		//! Membro-função estatico para retornar o valor do membro-dado estatico countClientes
+		/**
+		 * \return um inteiro com conteúdo do membro-dado estatico countLojas. */
+		static unsigned int getCount() {return countLojas;}
+
 	//! Membro-função que imprime no ecrã os membros-dado de um objeto tipo Loja
 	/**
 	 * Membro-função para imprimir no ecrã o conteúdo dos membros-dado de um objeto tipo Loja no formato,
