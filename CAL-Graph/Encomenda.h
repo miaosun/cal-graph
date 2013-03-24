@@ -11,6 +11,9 @@
 
 #ifndef ENCOMENDA_H_
 #define ENCOMENDA_H_
+#include "Cliente.h"
+#include "Produto.h"
+
 
 using namespace std;
 class Encomenda

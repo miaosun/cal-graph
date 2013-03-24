@@ -14,7 +14,7 @@
 
 #include <iostream>
 #include <string>
-
+#include "Zona.h"
 using namespace std;
 class Loja
 {
