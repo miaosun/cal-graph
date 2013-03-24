@@ -1,8 +1,12 @@
 /*
- * Zona.h
- *
- *  Created on: 23 de Mar de 2013
- *      Author: Miao
+ * 	FICHEIRO: Zona.h
+ *	PROJECTO: Projecto CAL - Loja de Comercio Electronico (T3)
+ *	DESCRICAO: Definicao da classe Zona
+ *  TURMA / GRUPO: Turma 2MIEIC2 / Grupo D
+ *  AUTORES:
+ *  - Jorge Miguel Reis
+ *  - Miao Sun
+ *  - Vitor Castro
  */
 
 #ifndef ZONA_H_
