@@ -1,11 +1,12 @@
 /*
  * 	FICHEIRO: Data.h
- *	PROJECTO: Projecto AEDA - Gestão de uma Oficina Mecânica (T1)
- *	DESCRICAO: Definição da classe Data
- *  TURMA / GRUPO: Turma 2MIEIC3 / Grupo 1
+ *	PROJECTO: Projecto CAL - Loja de Comercio Electronico (T3)
+ *	DESCRICAO: Definicao da classe Data
+ *  TURMA / GRUPO: Turma 2MIEIC2 / Grupo D
  *  AUTORES:
- *  - Gustavo Henrique da Silva Sobral
- *  - Jorge Miguel Marques dos Reis
+ *  - Jorge Miguel Reis
+ *  - Miao Sun
+ *  - Vitor Castro
  */
 
 #ifndef DATA_H_

@@ -1,11 +1,12 @@
 /*
- *  FICHEIRO: Data.cpp
- * 	PROJECTO: Projecto AEDA - Gestao de uma Oficina Mecanica (T1)
- *	DESCRICAO: Implementacao da Classe Data
- *  TURMA / GRUPO: Turma 2MIEIC3 / Grupo 1
+ * 	FICHEIRO: Data.h
+ *	PROJECTO: Projecto CAL - Loja de Comercio Electronico (T3)
+ *	DESCRICAO: Implementacao da classe Data
+ *  TURMA / GRUPO: Turma 2MIEIC2 / Grupo D
  *  AUTORES:
- *  - Gustavo Henrique da Silva Sobral
- *  - Jorge Miguel Marques dos Reis
+ *  - Jorge Miguel Reis
+ *  - Miao Sun
+ *  - Vitor Castro
  */
 
 #include "Data.h"
