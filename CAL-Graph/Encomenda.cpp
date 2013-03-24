@@ -56,6 +56,11 @@ int Encomenda::getNumEncomendas() {
 	return countEncomendas;
 }
 
+unsigned int Encomenda::getcodEncomenda()const{
+
+	return codEncomenda;
+}
+
 // SETS CLIENTE
 
 void Encomenda::setDescricao(string desc) {
@@ -91,9 +96,9 @@ void Encomenda::imprimeEncomendas() const {
 	cout << "Data: " << data << endl;
 	cout << "Hora: " << hora << endl;
 	cout << "\nDados do Cliente: ";
-	cout << "Cliente: " << cliente.info() << endl;
-	cout << "\nDados do Produto: ";
-	cout << "Cliente: " << produto.info() << endl;
+	//cout << "Cliente: " << cliente->imprimeCliente() << endl;
+	/*cout << "\nDados do Produto: ";
+	cout << "Cliente: " << produto->.info() << endl;*/
 }
 
 

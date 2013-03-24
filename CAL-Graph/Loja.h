@@ -14,12 +14,14 @@
 
 #include <iostream>
 #include <string>
-#include "Zona.h"
+//#include "Zona.h"
+class Zona;
 
 using namespace std;
 class Loja
 {
 	const unsigned int codLoja;
+	static unsigned int countLojas;
 	string designacao;
 	string morada;
 	Zona * zona;

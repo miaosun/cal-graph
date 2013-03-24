@@ -12,12 +12,14 @@
 #include "Loja.h"
 #include <cstdio>
 
- Loja::Loja(string desig, string mor, Zona *zon){
+unsigned int Loja::countLojas=0;
+
+ Loja::Loja(string desig, string mor, Zona *zon):codLoja(++countLojas) {
  
 	designacao=desig;
 	morada=mor;
 	zona=zon;
-	codLoja++;
+
  
  }
  
@@ -43,7 +45,7 @@ return codLoja;
 
 // SETS Loja
 
-void Loja::setDescricao(string desc) {
+void Loja::setDesignacao(string desc) {
 	designacao=desc;
 }
 
@@ -60,7 +62,7 @@ void Loja::setZona(Zona* zon) {
 
 void Loja::imprimeLoja() const {
 	cout << "\nLoja numero: " << codLoja << endl ;
-	cout << "Descricao: " << descricao << endl;	
+	cout << "Descricao: " << designacao << endl;
 	cout << "Morada: " << morada << endl;
 	//cout << "Zona: " << zona.info() << endl;
 	
