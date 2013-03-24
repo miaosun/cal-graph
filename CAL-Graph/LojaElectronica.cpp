@@ -110,6 +110,95 @@ void LojaElectronica::removeProduto(unsigned int codProduto)
 
 }
 
+void LojaElectronica::addZona()
+{
+
+}
+
+void LojaElectronica::removeZona(unsigned int codZona)
+{
+
+}
+
+void LojaElectronica::addLoja()
+{
+
+}
+
+void LojaElectronica::removeLoja(unsigned int codLoja)
+{
+
+}
+
+void LojaElectronica::addEncomenda()
+{
+
+}
+
+void LojaElectronica::removeEncomenda(unsigned int codEncomenda)
+{
+
+}
+
+void LojaElectronica::listaClientes()
+{
+
+}
+
+void LojaElectronica::listaProdutos()
+{
+
+}
+
+void LojaElectronica::listaLojas()
+{
+
+}
+
+void LojaElectronica::listaEncomendas()
+{
+
+}
+
+void LojaElectronica::loadClientes(string filename)
+{
+
+}
+
+void LojaElectronica::saveClientes(string filename)
+{
+
+}
+
+void LojaElectronica::loadProdutos(string filename)
+{
+
+}
+
+void LojaElectronica::saveProdutos(string filename)
+{
+
+}
+
+void LojaElectronica::loadZonas(string filename)
+{
+
+}
+
+void LojaElectronica::saveZonas(string filename)
+{
+
+}
+
+void LojaElectronica::loadEncomendas(string filenmae)
+{
+
+}
+
+void LojaElectronica::saveEncomendas(string filename)
+{
+
+}
 /*
  *
  *    fica para depois
