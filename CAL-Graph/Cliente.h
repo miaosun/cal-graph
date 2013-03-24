@@ -25,6 +25,7 @@ class Cliente {
 	string morada;
 	string contacto;
 	string email;
+
 public:
 	//! Construtor que inicializa todos os membros-dado
 	/**

@@ -13,9 +13,12 @@
 #define ENCOMENDA_H_
 #include "Cliente.h"
 #include "Produto.h"
+//class Cliente;
+//class Produto;
 
 
 using namespace std;
+
 class Encomenda
 {
 	const unsigned int codEncomenda;
