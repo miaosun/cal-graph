@@ -1,8 +1,17 @@
-/*
- * main.cpp
+/**
+ * \mainpage LOJA DE COMERCIO ELECTRONICO (T3)
+ * \section Informações
+ * Turma: 2MIEIC2\n
+ * Tema: 3\n
+ * \authors
+ * - Jorge Miguel Marques dos Reis - ei08053@fe.up.pt\n
+ *  - Miao Sun - ei08162@fe.up.pt\n
+ *  - Vitor Castro - ei09131@fe.up.pt\n
  *
- *  Created on: 22 de Mar de 2013
- *      Author: Miao
+ * \date 24/03/2013
+ * \section Funcionalidade
+ *      Este sistema reliza a gestão de uma Loja Electrónica de Electrodomesticos, com base no uso
+ *      de grafos.
  */
 
 #include "LojaElectronica.h"

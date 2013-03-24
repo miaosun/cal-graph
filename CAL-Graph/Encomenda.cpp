@@ -61,7 +61,7 @@ unsigned int Encomenda::getcodEncomenda()const{
 	return codEncomenda;
 }
 
-// SETS CLIENTE
+// SETS
 
 void Encomenda::setDescricao(string desc) {
 	descricao=desc;
