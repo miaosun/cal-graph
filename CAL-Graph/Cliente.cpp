@@ -12,8 +12,6 @@
 #include "Cliente.h"
 #include <cstdio>
 
-using namespace std;
-
 //inicializacao de variavel estatica
 unsigned int Cliente::countClientes=0;
 
