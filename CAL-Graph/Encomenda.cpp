@@ -16,14 +16,14 @@
 unsigned int Encomenda::countEncomendas=0;
 
 
-Encomenda::Encomenda(string desc, int quant, string date, string hor, Cliente * clie, Produto * prod) {
+Encomenda::Encomenda(string desc, int quant, string date, string hor, Cliente * clie, Produto * prod): codEncomenda(++countEncomendas) {
 	descricao=desc;
 	quantidade=quant;
 	data=date;
 	hora=hor;
 	cliente=clie;
 	produto=prod;
-	countEncomenda++;
+
 }
 
 // GETS Encomendas
@@ -32,7 +32,7 @@ string Encomenda::getDescricao() const {
 	return descricao;
 }
 
-int Encomenda::getQuantidade() const {
+unsigned int Encomenda::getQuantidade() const {
 	return quantidade;
 }
 
@@ -99,7 +99,7 @@ void Encomenda::imprimeEncomendas() const {
 
 // OPERATOR ==
 bool Encomenda::operator== (const Encomenda& x) const{
-	if(countEncomendas() == x.countEncomendas())
+	if(getcodEncomenda() == x.getcodEncomenda())
 		return true;	
 	else return false;
 }

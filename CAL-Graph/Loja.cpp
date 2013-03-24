@@ -23,8 +23,8 @@
  
  // GETS Loja
 
-string Loja::getDescricao() const {
-	return descricao;
+string Loja::getDesignacao() const {
+	return designacao;
 }
 
 string Loja::getMorada() const {
@@ -43,8 +43,8 @@ return codLoja;
 
 // SETS Loja
 
-void Loja::setDescrica(string desc) {
-	descricao=desc;
+void Loja::setDescricao(string desc) {
+	designacao=desc;
 }
 
 void Loja::setMorada(string m) {
@@ -58,7 +58,7 @@ void Loja::setZona(Zona* zon) {
 
 // IMPRIME
 
-void Cliente::imprimeLoja() const {
+void Loja::imprimeLoja() const {
 	cout << "\nLoja numero: " << codLoja << endl ;
 	cout << "Descricao: " << descricao << endl;	
 	cout << "Morada: " << morada << endl;
@@ -67,7 +67,7 @@ void Cliente::imprimeLoja() const {
 }
 
 // OPERATOR ==
-bool Cliente::operator== (const Loja& x) const{
+bool Loja::operator== (const Loja& x) const{
 	if(getCodLoja() == x.getCodLoja())
 		return true;	
 	else return false;

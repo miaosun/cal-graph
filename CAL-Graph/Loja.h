@@ -15,13 +15,15 @@
 #include <iostream>
 #include <string>
 #include "Zona.h"
+
 using namespace std;
 class Loja
 {
 	const unsigned int codLoja;
 	string designacao;
 	string morada;
-	Zona *zona;
+	Zona * zona;
+
 public:
 	//! Construtor que inicializa todos os membros-dado
 	/**
