@@ -34,6 +34,7 @@ cout	<< "-------------------------GESTAO DE UMA LOJA DE COMERCIO ELETRONICO-- --
 		
 			cout << "-----------MENU INICIAL-----------" << endl;
 			cout << "1-Gestão de Clientes" << endl;
+			cout << "2-Gestão de Encomendas" << endl;
 			cout << "0-Sair" << endl << endl;
 			
 			cout << "Insira o numero da sua escolha :";
@@ -49,13 +50,114 @@ cout	<< "-------------------------GESTAO DE UMA LOJA DE COMERCIO ELETRONICO-- --
 
 			if (choice == 1) {
 			
-				cout<<"Menu De Gestão de CLiente";
+				int choice;
+				bool exit_menu1 = false;
+
+				while (exit_menu1 == false) {
+
+					cout << "-------GESTÃO DE CANDIDATOS------" << endl;
+					cout << "1-Adicionar Candidato" << endl;
+					cout << "2-Eliminar Candidato" << endl;
+					cout << "3-Editar Candidato" << endl;
+					cout << "4-Procurar Candidato :"<< endl;
+					cout << "5-Listar Candidatos :"<< endl;
+					cout <<" 6- MENU INICIAL"<< endl;
+					cout << "Insira o numero da sua escolha :";
+					cin >> choice;
+
+					while ((choice < 1 || choice > 6) && (isdigit(choice) != true)) {
+						cout << "Opcao invalida!! Introduza um numero entre 1 e 5."
+							<< endl;
+						cin >> choice;
+					}
+
+					if(choice==1){
+						lj.addCliente();
+					}
+
+					else if(choice==2){
+							//NAO ESTA A ATUALIZAR O NUMERO DE CLIENTES DEPOIS DE ELIMINACAO
+							string nome;
+							cout <<" Qual é o candidato que quer remover?";
+							cin>>nome;
+							try {
+								lj.removeCliente(nome);
+							} catch (Excepcao &ex) {
+								cout << ex.getMessage();
+							}
+
+
+					}/*else if(choice==3){
+							string nome;
+							cout<<" Qual é o candidato que quer alterar? ";
+							cin>> nome;
+							//agencia.ProcuraCandidato_nome1(nome)->setPessoa();
+							try {
+								agencia.ProcuraCandidato_nome1(nome)->setPessoa();
+							} catch (Excepccao &ex)
+							{
+								cout << ex.getMessage();
+							}
+
+					}*/
+					else if(choice==4){
+							string nome;
+							cout<<" Qual é o candidato que quer Procurar? ";
+							cin>> nome;
+							try {
+								lj.ProcuraCandidato_nome(nome)->imprimeCliente();
+							} catch (Excepcao &ex) {
+								cout << ex.getMessage();
+							}
+
+					}else if(choice==5){
+							try {
+								lj.listaClientes();
+							} catch (Excepcao &ex) {
+								cout << ex.getMessage();
+							}
+
+
+					}
+				else if (choice == 6) {
+						exit_menu1=true;
+					}
+				}
+
+			}else if(choice==2){
+
+						int choice;
+						bool exit_menu1 = false;
+
+						while (exit_menu1 == false) {
+
+							cout << "\n-------GESTÃO DE ENCOMENDAS------\n" << endl;
+							cout << "1-Criar Encomenda" << endl;
+							cout <<" 6- MENU INICIAL"<< endl;
+							cout << "Insira o numero da sua escolha :";
+							cin >> choice;
+
+							while ((choice < 1 || choice > 6) && (isdigit(choice) != true)) {
+								cout << "Opcao invalida!! Introduza um numero entre 1 e 5."
+								<< endl;
+								cin >> choice;
+							}
+
+							if(choice==1){
+
+								lj.addEncomenda();
+							}
+
+							else if (choice == 6) {
+								exit_menu1=true;
+							}
+						}
 			}
-			
-			else if (choice == 0) {
-				exit_console=true;
-		 }
-	 }
+
+	}
+
+
+
 
 return 0;
 }
