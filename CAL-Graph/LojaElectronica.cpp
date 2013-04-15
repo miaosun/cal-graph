@@ -93,11 +93,70 @@ void LojaElectronica::menuProduto()
 void LojaElectronica::addCliente()
 {
 
+	int nif;
+	string nome,morada,contacto,email;
+
+	cout << "Nome: " << endl;
+	cin>>nome;
+
+	cout << "Morada: " << endl;
+	cin>>morada;
+
+	cout << "Telefone: "<< endl;
+	cin>>contacto;
+
+	cout << "Email: " << endl;
+	cin>>email;
+
+	cout << "NIF: " << endl;
+	cin>>nif;
+
+	Cliente *c=new Cliente(nome,morada,contacto,email,nif);
+
+	clientes.push_back(c);
+
+
 }
 
 void LojaElectronica::removeCliente(unsigned int codCliente)
 {
+ //TO DO? Este obriga nos a saber o codigo de todos os clientes... pode ser mais confuso :S
+	//temporariamente uso o metodo abaixo
+}
 
+void LojaElectronica::removeCliente(string nome)
+{
+	bool encontrou=false;
+
+	for(unsigned int i=0;i<clientes.size();i++)
+		if (clientes[i]->getNome() == nome) {
+			encontrou=true;
+			clientes.erase(clientes.begin() + i);
+			break;
+
+		}
+
+	if(encontrou==false){
+
+		throw Excepcao("\n Não existe nenhum candidato com esse nome \n");
+
+	} else cout<<"Cliente Eliminado com sucesso";
+}
+
+Cliente *LojaElectronica::ProcuraCandidato_nome(string nome)
+{
+	for (unsigned int i=0; i < clientes.size(); i++)
+	{
+		if (nome == clientes.at(i)->getNome())
+		{
+			return clientes.at(i);
+
+		}
+	}
+
+
+	throw Excepcao("\n Não existe nenhum candidato com esse nome \n");
+	return NULL;
 }
 
 void LojaElectronica::addProduto()
@@ -133,6 +192,59 @@ void LojaElectronica::removeLoja(unsigned int codLoja)
 void LojaElectronica::addEncomenda()
 {
 
+	cout<<"Add Encomenda vamos ver o q sai daqui -.-";
+
+	Graph<int> myGraph;
+
+	int idNo=0;
+	int X=0;
+	int Y=0;
+	string zona;
+
+	idNo=0;
+	X=741;
+	Y=199;
+
+	myGraph.addVertex(idNo);
+
+	idNo=1;
+	X=512;
+	Y=316;
+
+	myGraph.addVertex(idNo);
+
+	int idAresta=0;
+	int idNoOrigem=0;
+	int idNoDestino=0;
+	int custo=0;
+	int tempo=0;
+	string aresta;
+
+	idAresta=0;
+	idNoOrigem=1;
+	idNoDestino=4;
+	custo=140;
+	tempo=1201;
+
+	double custo_tempo=0.0;
+	custo_tempo=(custo*60)/tempo;
+
+	myGraph.addEdge(idNoOrigem, idNoDestino, custo_tempo);
+
+	idAresta=1;
+	idNoOrigem=6;
+	idNoDestino=205;
+	custo=1082;
+	tempo=1;
+
+	custo_tempo=0.0;
+	custo_tempo=(custo*60)/tempo;
+
+	myGraph.addEdge(idNoOrigem, idNoDestino, custo_tempo);
+
+	int a=myGraph.getNumVertex();
+	cout<<"aaaaaaaaaaaaa"<<a;
+
 }
 
 void LojaElectronica::removeEncomenda(unsigned int codEncomenda)
@@ -142,6 +254,12 @@ void LojaElectronica::removeEncomenda(unsigned int codEncomenda)
 
 void LojaElectronica::listaClientes()
 {
+	if(clientes.size()==0 ) throw Excepcao("\n Não existem candidadtos no sistema \n");
+
+		for (unsigned int i=0; i < clientes.size(); i++)
+				{
+					clientes[i]->imprimeCliente();
+				}
 
 }
 

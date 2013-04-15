@@ -16,6 +16,7 @@
 #include "Loja.h"
 #include "Produto.h"
 #include "Encomenda.h"
+#include "Graph.h"
 
 #include <stdlib.h>
 #include <vector>
@@ -54,7 +55,13 @@ public:
 	//! Membro-fucao que permite a adicao de clientes novos
 	void addCliente();
 	//! Membro-fucao que permite a remocao de clientes existentes
-	/** dado o codigo do cliente que pretende remover */
+	/** dado o nome do cliente que pretende remover */
+	void removeCliente(string nome);
+	//! Membro-fucao que permite a remocao de clientes existentes
+		/** dado o nome do cliente que pretende remover */
+	Cliente *ProcuraCandidato_nome(string nome);
+	//! Membro-fucao que permite a remocao de clientes existentes
+		/** dado o codigo do cliente que pretende remover */
 	void removeCliente(unsigned int codCliente);
 	//! Membro-fucao que permite a adicao de produtos novos
 	void addProduto();
@@ -105,5 +112,16 @@ public:
 
 };
 
+//Classe Excepcao utilizada para excepções. Retorna uma mensagem para o utilizador com a excepção
+class Excepcao{
+private:
+	string message;
+public:
+Excepcao( string mens ){message=mens;};
+ string getMessage() { return message; };
+
+
+
+};
 
 #endif /* LOJAELECTRONICA_H_ */
