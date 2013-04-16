@@ -29,7 +29,7 @@ public:
 	/**
 	 * \param licalizacao uma string que vai atribuir valor ao membro-dado localizacao.
 	*/
-	Zona(string localizacao, Loja *lj);
+	Zona(string localizacao);
 
 	//! Destrutor que liberta o recurso de memoria foi alocado
 	~Zona();
