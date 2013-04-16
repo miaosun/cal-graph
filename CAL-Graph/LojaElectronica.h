@@ -28,6 +28,7 @@ class LojaElectronica
 	vector <Cliente *> clientes;
 	vector <Loja *> lojas;
 	vector <Encomenda *> encomendas;
+	
 	//vector <Produto *> produtos;  passa para classe Loja
 
 public:

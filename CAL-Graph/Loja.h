@@ -25,6 +25,7 @@ class Loja
     string designacao;
     string morada;
     Zona * zona;
+	//FAZER VECTOR PRODUTOS
 
 public:
     //! Construtor que inicializa todos os membros-dado
