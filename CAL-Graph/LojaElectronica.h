@@ -59,7 +59,7 @@ public:
 	void removeCliente(string nome);
 	//! Membro-fucao que permite a remocao de clientes existentes
 		/** dado o nome do cliente que pretende remover */
-	Cliente *ProcuraCandidato_nome(string nome);
+	Cliente *ProcuraCliente_nome(string nome);
 	//! Membro-fucao que permite a remocao de clientes existentes
 		/** dado o codigo do cliente que pretende remover */
 	void removeCliente(unsigned int codCliente);
