@@ -66,7 +66,11 @@ void Loja::imprimeLoja() const {
 	cout << "\nLoja numero: " << codLoja << endl ;
 	cout << "Descricao: " << designacao << endl;
 	cout << "Morada: " << morada << endl;
-	//cout << "Zona: " << zona.info() << endl;
+	cout<<"Produtos Existentes na Loja:"<<endl;
+	if(produtos.size()==0) cout<<"Loja sem produtos de momento"<<endl;
+	else
+		for(unsigned int i=0;i<produtos.size();i++)
+			produtos[i]->info();
 	
 }
 

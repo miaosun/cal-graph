@@ -14,10 +14,11 @@
 
 unsigned int Zona::countZonas=0;
 
-Zona::Zona(string Localidade):codZona(++countZonas)
+Zona::Zona(string Localidade, Loja* lj):codZona(++countZonas)
 {
 
 	this->localizacao = Localidade;
+	this->loja=lj;
 }
 
 Zona::~Zona(){}
@@ -31,11 +32,20 @@ unsigned int Zona::getCodZona() const {
 	return codZona;
 }
 
+Loja* Zona::getLoja() const
+{
+	return loja;
+}
+
 void Zona::setLocalizacao(string localizacao)
 {
 	this->localizacao = localizacao;
 }
 
+void Zona::setLoja(Loja* lj)
+{
+	this->loja = lj;
+}
 // IMPRIME
 
 void Zona::info() const {

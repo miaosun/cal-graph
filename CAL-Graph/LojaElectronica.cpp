@@ -104,6 +104,7 @@ Zona * LojaElectronica::determinaZona(string morada){
 		localizacaoZona="Algarve";
 	else if(morada=="Leira")
 			localizacaoZona="Leiria";
+	else localizacaoZona="Inexistente";
 
 	for(unsigned int i=0;i<zonas.size();i++){
 
@@ -194,6 +195,7 @@ void LojaElectronica::addProduto()
 void LojaElectronica::removeProduto(unsigned int codProduto)
 {
 
+
 }
 
 void LojaElectronica::addZona()
@@ -247,12 +249,41 @@ void LojaElectronica::listaZonas()
 
 void LojaElectronica::addLoja()
 {
+	    string designacao;
+	    string morada;
+
+		cout << "Designacao: " << endl;
+		cin>>designacao;
+
+		cout << "Morada: " << endl;
+		cin>>morada;
+
+		Zona *zonaLoja=determinaZona(morada);
+
+		Loja *c=new Loja(designacao,morada,zonaLoja);
+
+		lojas.push_back(c);
 
 }
 
 void LojaElectronica::removeLoja(unsigned int codLoja)
 {
 
+	bool encontrou=false;
+
+	for(unsigned int i=0;i<lojas.size();codLoja++)
+		if (lojas[i]->getCodLoja()==codLoja) {
+			encontrou=true;
+			lojas.erase(lojas.begin() + i);
+			break;
+
+		}
+
+	if(encontrou==false){
+
+		throw Excepcao("\n Não existe nenhuma loja com esse ID \n");
+
+	} else cout<<"Loja Eliminada com sucesso";
 }
 
 void LojaElectronica::addEncomenda()
@@ -260,7 +291,7 @@ void LojaElectronica::addEncomenda()
 
 	cout<<"Add Encomenda vamos ver o q sai daqui -.-";
 
-	Graph<int> myGraph;
+	Graph<Zona> myGraph;
 
 	int idNo=0;
 	int X=0;
@@ -316,6 +347,7 @@ void LojaElectronica::addEncomenda()
 void LojaElectronica::removeEncomenda(unsigned int codEncomenda)
 {
 
+
 }
 
 void LojaElectronica::listaClientes()
@@ -337,6 +369,12 @@ void LojaElectronica::listaProdutos()
 void LojaElectronica::listaLojas()
 {
 
+	if(lojas.size()==0 ) throw Excepcao("\n Não existem lojas no sistema \n");
+
+		for (unsigned int i=0; i < lojas.size(); i++)
+				{
+					lojas[i]->imprimeLoja();
+				}
 }
 
 void LojaElectronica::listaEncomendas()
