@@ -25,6 +25,7 @@ class Cliente {
 	string morada;
 	string contacto;
 	string email;
+	Zona * zona;
 
 public:
 	//! Construtor que inicializa todos os membros-dado
@@ -35,7 +36,7 @@ public:
 	 * \param email é uma string que vai atribuir valor ao membro-dado email.
 	 * \param nif é um inteiro que vai atribuir valor ao membro-dado estatico nif.
 	 */
-	Cliente(string nome, string morada, string contacto, string email, unsigned int nif);
+	Cliente(string nome, string morada, string contacto, string email, unsigned int nif, Zona *zon);
 	//! Membro-função para retornar o valor do membro-dado codCliente
 	/** É um membro-função const para garantir a não modificação de nenhum membro-dado.
 	 * \return um unsgined int com valor do membro-dado codCliente. */
