@@ -16,6 +16,7 @@
 #include "Loja.h"
 #include "Produto.h"
 #include "Encomenda.h"
+#include "Zona.h"
 #include "Graph.h"
 
 #include <stdlib.h>
@@ -27,6 +28,7 @@ class LojaElectronica
 {
 	vector <Cliente *> clientes;
 	vector <Loja *> lojas;
+	vector <Zona *> zonas;
 	vector <Encomenda *> encomendas;
 	
 	//vector <Produto *> produtos;  passa para classe Loja
@@ -52,7 +54,8 @@ public:
 	void menuCliente();
 	//! Membro-fucao que mostra o menu produto ao utilizador
 	void menuProduto();
-
+	//! Membro-fucao que com base na morada do utilizador determina a sua zona
+	Zona * determinaZona(string morada);
 	//! Membro-fucao que permite a adicao de clientes novos
 	void addCliente();
 	//! Membro-fucao que permite a remocao de clientes existentes
@@ -74,6 +77,8 @@ public:
 	//! Membro-fucao que permite a remocao de zonas novos
 	/** dado o codigo da zona que pretende remover */
 	void removeZona(unsigned int codZona);
+	//! Membro-fucao que lista as zonas existentes no base de dados
+	void listaZonas();
 	//! Membro-fucao que permite a adicao de lojas novas
 	void addLoja();
 	//! Membro-fucao que permite a remocao de lojas novos

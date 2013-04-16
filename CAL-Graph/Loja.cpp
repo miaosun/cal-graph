@@ -40,6 +40,11 @@ return codLoja;
 
 }
 
+vector <Produto *> Loja::getProdutos() const{
+
+	return produtos;
+}
+
 // SETS Loja
 
 void Loja::setDesignacao(string desc) {

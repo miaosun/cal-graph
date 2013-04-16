@@ -14,6 +14,12 @@
 
 #include <iostream>
 #include <string>
+#include "Produto.h"
+
+#include <stdlib.h>
+#include <vector>
+#include <sstream>
+#include <fstream>
 
 class Zona;
 
@@ -25,7 +31,7 @@ class Loja
     string designacao;
     string morada;
     Zona * zona;
-	//FAZER VECTOR PRODUTOS
+    vector <Produto *> produtos;
 
 public:
     //! Construtor que inicializa todos os membros-dado
@@ -36,25 +42,29 @@ public:
      */
     Loja(string desig, string mor, Zona *zon);
 
-    //! Membro-funo para retornar o valor do membro-dado codLoja
-    /**  um membro-funo const para garantir a no modificao de nenhum membro-dado.
+    //! Membro-funcao para retornar o valor do membro-dado codLoja
+    /**  um membro-funcao const para garantir a nao modificao de nenhum membro-dado.
      * \return um unsgined int com valor do membro-dado codLoja. */
     unsigned int getCodLoja() const;
 
-    //! Membro-funo para retornar o valor do membro-dado designacao
-    /**  um membro-funo const para garantir a no modificao de nenhum membro-dado.
+    //! Membro-funcao para retornar o valor do membro-dado designacao
+    /**  um membro-funcao const para garantir a nao modificao de nenhum membro-dado.
      * \return uma string com valor do membro-dado designacao. */
     string getDesignacao() const;
 
-    //! Membro-funo para retornar o valor do membro-dado morada
-    /**  um membro-funo const para garantir a no modificao de nenhum membro-dado.
+    //! Membro-funcao para retornar o valor do membro-dado morada
+    /**  um membro-funcao const para garantir a nao modificao de nenhum membro-dado.
      * \return uma string com valor do membro-dado morada. */
     string getMorada() const;
 
-    //! Membro-funo para retornar o valor do membro-dado zona
-    /**  um membro-funo const para garantir a no modificao de nenhum membro-dado.
+    //! Membro-funcao para retornar o valor do membro-dado zona
+    /**  um membro-funcao const para garantir a nao modificao de nenhum membro-dado.
      * \return um apontador para a zona */
     Zona* getZona() const;
+    //! Membro-funcao para retornar o valor do membro-dado produtos que contem todos os produtos de uma loja
+      /**  um membro-funcao const para garantir a nao modificao de nenhum membro-dado.
+       * \return um apontador para produtos */
+    vector <Produto *> getProdutos() const;
 
     //! Membro-funo para setar o membro-dado nome de um objeto tipo Loja j instanciado
     /** \param designacao  o contedo da string a ser atribuida ao membro-dado designacao. */

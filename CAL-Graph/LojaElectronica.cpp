@@ -90,6 +90,31 @@ void LojaElectronica::menuProduto()
 
 }
 
+Zona * LojaElectronica::determinaZona(string morada){
+
+	Zona *zona;
+
+	string localizacaoZona;
+
+	if(morada=="Porto"||morada=="Paranhos"||morada=="Gondomar"||morada=="Gaia"||morada=="Matosinhos")
+		localizacaoZona="Porto";
+	else if(morada=="Lisboa"||morada=="Amadora"||morada=="Alvalade"||morada=="Benfica")
+	localizacaoZona="Lisboa";
+	else if(morada=="Algarve"||morada=="Faro"||morada=="Portimao"||morada=="Quarteira")
+		localizacaoZona="Algarve";
+	else if(morada=="Leira")
+			localizacaoZona="Leiria";
+
+	for(unsigned int i=0;i<zonas.size();i++){
+
+		if(zonas[i]->getLocalizacao()==localizacaoZona)
+			zona=zonas[i];
+	}
+
+
+	return zona;
+}
+
 void LojaElectronica::addCliente()
 {
 
@@ -111,7 +136,9 @@ void LojaElectronica::addCliente()
 	cout << "NIF: " << endl;
 	cin>>nif;
 
-	Cliente *c=new Cliente(nome,morada,contacto,email,nif);
+	Zona *zonaCliente=determinaZona(morada);
+
+	Cliente *c=new Cliente(nome,morada,contacto,email,nif,zonaCliente);
 
 	clientes.push_back(c);
 
@@ -172,10 +199,49 @@ void LojaElectronica::removeProduto(unsigned int codProduto)
 void LojaElectronica::addZona()
 {
 
+		string localizacao;
+
+		cout << "Localizacao da Loja: " << endl;
+		cin>>localizacao;
+
+
+		Zona *zona=new Zona(localizacao);
+
+		zona->info();
+
+		zonas.push_back(zona);
+
 }
 
 void LojaElectronica::removeZona(unsigned int codZona)
 {
+
+	bool encontrou=false;
+
+	for(unsigned int i=0;i<zonas.size();i++)
+		if (zonas[i]->getCodZona()==codZona) {
+			encontrou=true;
+			zonas.erase(zonas.begin() + i);
+			break;
+
+		}
+
+	if(encontrou==false){
+
+		throw Excepcao("\n Não existe nenhuma zona com esse ID \n");
+
+	} else cout<<"Zona Eliminada com sucesso";
+
+}
+
+void LojaElectronica::listaZonas()
+{
+	if(zonas.size()==0 ) throw Excepcao("\n Não existem zonas no sistema \n");
+
+		for (unsigned int i=0; i < zonas.size(); i++)
+				{
+			zonas[i]->info();
+				}
 
 }
 
