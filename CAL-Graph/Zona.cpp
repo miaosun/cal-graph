@@ -14,11 +14,11 @@
 
 unsigned int Zona::countZonas=0;
 
-Zona::Zona(string Localidade, Loja* lj):codZona(++countZonas)
+Zona::Zona(string Localidade):codZona(++countZonas)
 {
 
 	this->localizacao = Localidade;
-	this->loja=lj;
+	this->loja=NULL;
 }
 
 Zona::~Zona(){}
