@@ -13,9 +13,10 @@
 
 unsigned int Produto::countProdutos = 0;
 
-Produto::Produto(string d, int s): codProduto(++countProdutos) {
+Produto::Produto(string d, int s,double p): codProduto(++countProdutos) {
 	designacao=d;
 	stock=s;
+	preco=p;
 }
 
 unsigned int Produto::getCodProduto() const{
@@ -24,6 +25,11 @@ unsigned int Produto::getCodProduto() const{
 unsigned int Produto::getStock() const{
 	return stock;
 }
+
+double Produto::getPreco() const{
+	return preco;
+}
+
 string Produto::getDesignacao() const{
 	return designacao;
 }
@@ -31,6 +37,11 @@ string Produto::getDesignacao() const{
 void Produto::setStock(unsigned int stock){
 	this->stock = stock;
 }
+
+void Produto::setPreco(double preco){
+	this->preco = preco;
+}
+
 void Produto::setDesignacao(string designacao){
 	this->designacao = designacao;
 }
@@ -43,4 +54,13 @@ bool Produto::operator == (const Produto &p1) const{
 
 void Produto::decStock() {
 	stock--;
+}
+
+// IMPRIME
+
+void Produto::info() const {
+	cout << "\nProduto numero: " << codProduto << endl ;
+	cout << "Designação: " << designacao << endl;
+	cout << "Quantidade em Stock: " << stock << endl;
+	cout << "Preço: " << preco << endl;
 }
