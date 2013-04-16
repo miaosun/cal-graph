@@ -16,11 +16,12 @@
 unsigned int Cliente::countClientes=0;
 
 
-Cliente::Cliente(string nm, string mrd, string c, string e, unsigned int n): NIF(n),codCliente(++countClientes) {
+Cliente::Cliente(string nm, string mrd, string c, string e, unsigned int n,Zona *zon): NIF(n),codCliente(++countClientes) {
 	nome=nm;
 	morada=mrd;
 	contacto=c;
 	email=e;
+	zona=zon;
 }
 
 // GETS CLIENTE
