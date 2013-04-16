@@ -12,6 +12,8 @@
 #ifndef CLIENTE_H_
 #define CLIENTE_H_
 
+#include "Loja.h"
+#include "Zona.h"
 #include <iostream>
 #include <string>
 

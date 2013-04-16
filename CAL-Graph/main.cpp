@@ -35,6 +35,7 @@ cout	<< "-------------------------GESTAO DE UMA LOJA DE COMERCIO ELETRONICO-- --
 			cout << "-----------MENU INICIAL-----------" << endl;
 			cout << "1-Gestão de Clientes" << endl;
 			cout << "2-Gestão de Encomendas" << endl;
+			cout << "3-Gestão de Zonas" << endl;
 			cout << "0-Sair" << endl << endl;
 			
 			cout << "Insira o numero da sua escolha :";
@@ -152,6 +153,54 @@ cout	<< "-------------------------GESTAO DE UMA LOJA DE COMERCIO ELETRONICO-- --
 								exit_menu1=true;
 							}
 						}
+			}else if(choice==3){
+
+				int choice;
+				bool exit_menu1 = false;
+
+				while (exit_menu1 == false) {
+
+					cout << "\n-------GESTÃO DE ZONAS------\n" << endl;
+					cout << "1-Criar Zona" << endl;
+					cout << "2-Eliminar Zona" << endl;
+					cout << "3-Listar Zonas" << endl;
+					cout <<" 0- MENU INICIAL"<< endl;
+					cout << "Insira o numero da sua escolha :";
+					cin >> choice;
+
+					while ((choice < 0 || choice > 3) && (isdigit(choice) != true)) {
+						cout << "Opcao invalida!! Introduza um numero entre 1 e 5."
+						<< endl;
+						cin >> choice;
+					}
+
+					if(choice==1){
+
+						lj.addZona();
+
+					}else if(choice==2){
+						//NAO ESTA A ATUALIZAR O NUMERO DE ZONAS DEPOIS DE ELIMINACAO
+						int idZona;
+						cout <<" Qual é a zona que quer remover?";
+						cin>>idZona;
+						try {
+							lj.removeZona(idZona);
+						} catch (Excepcao &ex) {
+							cout << ex.getMessage();
+						}
+
+					}else if(choice==3){
+						try {
+							lj.listaZonas();
+						} catch (Excepcao &ex) {
+							cout << ex.getMessage();
+						}
+					}
+
+					else if (choice == 0) {
+						exit_menu1=true;
+					}
+				}
 			}
 
 	}

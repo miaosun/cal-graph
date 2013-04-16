@@ -19,17 +19,17 @@ using namespace std;
 
 class Zona
 {
-	unsigned int codZona;
+	const unsigned int codZona;
+	static unsigned int countZonas;
 	string localizacao;
-	Loja *loja;
+	//Loja *loja;
 
 public:
 	//! Construtor que inicializa membros-dado
 	/**
-	 * \param codZona um inteiro que vai atribuir valor ao membro-dado codZona.
 	 * \param licalizacao uma string que vai atribuir valor ao membro-dado localizacao.
 	*/
-	Zona(unsigned int codZona, string localizacao);
+	Zona(string localizacao);
 
 	//! Destrutor que liberta o recurso de memoria foi alocado
 	~Zona();
@@ -37,17 +37,26 @@ public:
 	/** um membro-funcao const para garantir a nao modificacao de nenhum membro-dado.
 	 * \return uma string com conteudo do membro-dado localizacao. */
 	string getLocalizacao() const;
-
+	//! Membro-função para retornar o valor do membro-dado codZona
+	/** É um membro-função const para garantir a não modificação de nenhum membro-dado.
+	 * \return um unsgined int com valor do membro-dado codZona. */
+	unsigned int getCodZona() const;
 	//! Membro-funcao para setar o membro-dado localizacao de um objeto tipo Zona ja instanciado
 	/** \param localizacao o conteudo da string a ser atribuida ao membro-dado localizacao. */
 	void setLocalizacao(string localizacao);
-	//! Membro-fucao para retornar o valor do membro-dado codZona
-	/** um membro-funcao const para garantir a nao modificacao de nenhum membro-dado.
-	 * \return uma inteiro com conteudo do membro-dado codZona. */
-	unsigned int getCodZona() const;
-	//! Membro-funcao para setar o membro-dado codZona de um objeto tipo Zona ja instanciado
-	/** \param id o conteudo da inteiro a ser atribuida ao membro-dado codZona. */
-	void setCodZona(unsigned int codZona);
+	//! Membro-função estatico para setar o membro-dado estatico countZonas
+	/** \param n e um inteiro com conteúdo a ser atribuido ao membro-dado estatico countZonas. */
+	static void setCount(unsigned int n) {countZonas = n;}
+	//! Membro-função estatico para retornar o valor do membro-dado estatico countZonas
+	/**
+	 * \return um inteiro com conteúdo do membro-dado estatico countZonas. */
+	static unsigned int getCount() {return countZonas;}
+	//! Membro-função que imprime no ecrã os membros-dado de um objeto tipo Zona
+	/**
+	 * Membro-função para imprimir no ecrã o conteúdo dos membros-dado de um objeto tipo Cliente no formato,
+	 * \n Zona número: \n Localização: \n
+	 */
+	void info() const;
 
 };
 
