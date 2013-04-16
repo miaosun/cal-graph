@@ -138,12 +138,12 @@ void LojaElectronica::removeCliente(string nome)
 
 	if(encontrou==false){
 
-		throw Excepcao("\n Não existe nenhum candidato com esse nome \n");
+		throw Excepcao("\n Não existe nenhum cliente com esse nome \n");
 
 	} else cout<<"Cliente Eliminado com sucesso";
 }
 
-Cliente *LojaElectronica::ProcuraCandidato_nome(string nome)
+Cliente *LojaElectronica::ProcuraCliente_nome(string nome)
 {
 	for (unsigned int i=0; i < clientes.size(); i++)
 	{
@@ -155,7 +155,7 @@ Cliente *LojaElectronica::ProcuraCandidato_nome(string nome)
 	}
 
 
-	throw Excepcao("\n Não existe nenhum candidato com esse nome \n");
+	throw Excepcao("\n Não existe nenhum cliente com esse nome \n");
 	return NULL;
 }
 
@@ -254,7 +254,7 @@ void LojaElectronica::removeEncomenda(unsigned int codEncomenda)
 
 void LojaElectronica::listaClientes()
 {
-	if(clientes.size()==0 ) throw Excepcao("\n Não existem candidadtos no sistema \n");
+	if(clientes.size()==0 ) throw Excepcao("\n Não existem clientes no sistema \n");
 
 		for (unsigned int i=0; i < clientes.size(); i++)
 				{

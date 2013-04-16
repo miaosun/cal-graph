@@ -55,12 +55,12 @@ cout	<< "-------------------------GESTAO DE UMA LOJA DE COMERCIO ELETRONICO-- --
 
 				while (exit_menu1 == false) {
 
-					cout << "-------GESTÃO DE CANDIDATOS------" << endl;
-					cout << "1-Adicionar Candidato" << endl;
-					cout << "2-Eliminar Candidato" << endl;
-					cout << "3-Editar Candidato" << endl;
-					cout << "4-Procurar Candidato :"<< endl;
-					cout << "5-Listar Candidatos :"<< endl;
+					cout << "-------GESTÃO DE CLIENTES------" << endl;
+					cout << "1-Adicionar Cliente" << endl;
+					cout << "2-Eliminar Cliente" << endl;
+					cout << "3-Editar Cliente" << endl;
+					cout << "4-Procurar Cliente :"<< endl;
+					cout << "5-Listar Cliente :"<< endl;
 					cout <<" 6- MENU INICIAL"<< endl;
 					cout << "Insira o numero da sua escolha :";
 					cin >> choice;
@@ -78,7 +78,7 @@ cout	<< "-------------------------GESTAO DE UMA LOJA DE COMERCIO ELETRONICO-- --
 					else if(choice==2){
 							//NAO ESTA A ATUALIZAR O NUMERO DE CLIENTES DEPOIS DE ELIMINACAO
 							string nome;
-							cout <<" Qual é o candidato que quer remover?";
+							cout <<" Qual é o cliente que quer remover?";
 							cin>>nome;
 							try {
 								lj.removeCliente(nome);
@@ -89,11 +89,11 @@ cout	<< "-------------------------GESTAO DE UMA LOJA DE COMERCIO ELETRONICO-- --
 
 					}/*else if(choice==3){
 							string nome;
-							cout<<" Qual é o candidato que quer alterar? ";
+							cout<<" Qual é o cliente que quer alterar? ";
 							cin>> nome;
-							//agencia.ProcuraCandidato_nome1(nome)->setPessoa();
+							//agencia.ProcuraCliente_nome(nome)->setPessoa();
 							try {
-								agencia.ProcuraCandidato_nome1(nome)->setPessoa();
+								agencia.ProcuraCliente_nome(nome)->setPessoa();
 							} catch (Excepccao &ex)
 							{
 								cout << ex.getMessage();
@@ -102,10 +102,10 @@ cout	<< "-------------------------GESTAO DE UMA LOJA DE COMERCIO ELETRONICO-- --
 					}*/
 					else if(choice==4){
 							string nome;
-							cout<<" Qual é o candidato que quer Procurar? ";
+							cout<<" Qual é o cliente que quer Procurar? ";
 							cin>> nome;
 							try {
-								lj.ProcuraCandidato_nome(nome)->imprimeCliente();
+								lj.ProcuraCliente_nome(nome)->imprimeCliente();
 							} catch (Excepcao &ex) {
 								cout << ex.getMessage();
 							}
