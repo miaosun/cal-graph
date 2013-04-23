@@ -206,7 +206,6 @@ void LojaElectronica::addZona()
 	cout << "Localizacao da Loja: " << endl;
 	cin>>localizacao;
 
-
 	Zona *zona=new Zona(localizacao);
 
 	zona->info();
@@ -476,12 +475,111 @@ void LojaElectronica::saveClientes(string filename)
 
 void LojaElectronica::loadProdutos(string filename)
 {
+	/*
+	ifstream file;
+	string line;
+	const unsigned int cod;
+	string desig;
+	unsigned int stock;
+	double preco;
 
+	file.open(filename.c_str());
+
+	if (file.is_open()) {
+		getline(file, line);
+		//Produto::setCount(atoi(line.c_str()));
+
+		while(! file.eof() ){
+
+			getline(file, line);
+			cod = atoi(line.c_str());
+			...
+		}
+	} */
 }
-
 void LojaElectronica::saveProdutos(string filename)
 {
+	/*
+}
+	int i = 0, f;
+	int tam = produtos.size();
+	ofstream myfile("veiculos.txt");
+	if (myfile.is_open()) {
+		if(veiculos[i] != NULL){
+			while (i < tam) {
+				if(veiculos[i] != NULL){
+					myfile << veiculos[i]->getTipo() << endl;
+					myfile << veiculos[i]->getMatricula() << endl;
+					myfile << veiculos[i]->getMarca() << endl;
+					myfile << veiculos[i]->getModelo() << endl;
+					myfile << veiculos[i]->getAno() << endl;
+					myfile << veiculos[i]->getCombustivel() << endl;
 
+					for(f=0; (unsigned int)f<funcionarios.size();f++){
+						if(funcionarios[f]==(veiculos[i]->getFuncionario())) {
+							myfile << f << endl;
+							break;
+						}
+					}
+
+					myfile << veiculos[i]->getProprietario()->getCodCliente() << endl;
+
+					veiculos[i]->auxSave(myfile);
+				}
+				i++;
+			}
+		}
+		myfile.close();
+	 */
+}
+
+void LojaElectronica::loadLojas(string filename)
+{
+	ifstream file;
+	string line;
+	const unsigned int cod;
+	string desig;
+	string morada;
+
+	file.open(filename.c_str());
+
+	if (file.is_open()) {
+		getline(file, line);
+		Loja::setCount(atoi(line.c_str()));
+
+		while(! file.eof() ){
+
+			getline(file, line);
+			cod = atoi(line.c_str());
+
+			getline(file, desig);
+
+			getline(file,morada);
+
+			Loja *l1 = new Loja(desig,morada,cod);
+			lojas.push_back(l1);
+		}
+		file.close();
+	}
+}
+
+void LojaElectronica::saveLojas(string filename)
+{
+	int i = 0;
+	int tam = lojas.size();
+	ofstream myfile(filename);
+	if (myfile.is_open()) {
+		myfile << Loja::getCount() << endl;
+		while (i < tam) {
+			if(lojas[i] != NULL){
+				myfile << lojas[i]->getCodLoja() << endl;
+				myfile << lojas[i]->getDesignacao() << endl;
+				myfile << lojas[i]->getMorada() << endl;
+			}
+			i++;
+		}
+		myfile.close();
+	}
 }
 
 void LojaElectronica::loadZonas(string filename)
@@ -503,6 +601,7 @@ void LojaElectronica::saveEncomendas(string filename)
 {
 
 }
+
 /*
  *
  *    fica para depois

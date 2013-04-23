@@ -30,7 +30,7 @@ class LojaElectronica
 	vector <Loja *> lojas;
 	vector <Zona *> zonas;
 	vector <Encomenda *> encomendas;
-	
+
 	//vector <Produto *> produtos;  passa para classe Loja
 
 public:
@@ -40,80 +40,84 @@ public:
 	//! Destrutor que liberta o recurso de memoria foi alocado
 	~LojaElectronica();
 
-	//! Membro-fucao que mostra a mensagem inicial do programa ao utilizador
+	//! Membro-funcao que mostra a mensagem inicial do programa ao utilizador
 	void welcome();
-	//! Membro-fucao que auxilia a mostracao dos menu
+	//! Membro-funcao que auxilia a mostracao dos menu
 	/** recebe um string como um atribuito, titulo dum menu
 	 *  um vector de string, as opcoes disponiveis dum menu */
 	void showMenu(string titulo, vector <string> opcoes);
-	//! Membro-fucao que mostra o menu principal ao utilizador
+	//! Membro-funcao que mostra o menu principal ao utilizador
 	void menuPrincipal();
-	//! Membro-fucao que mostra o menu encomenda ao utilizador
+	//! Membro-funcao que mostra o menu encomenda ao utilizador
 	void menuEncomenda();
-	//! Membro-fucao que mostra o menu cliente ao utilizador
+	//! Membro-funcao que mostra o menu cliente ao utilizador
 	void menuCliente();
-	//! Membro-fucao que mostra o menu produto ao utilizador
+	//! Membro-funcao que mostra o menu produto ao utilizador
 	void menuProduto();
-	//! Membro-fucao que com base na morada do utilizador determina a sua zona
+	//! Membro-funcao que com base na morada do utilizador determina a sua zona
 	Zona * determinaZona(string morada);
-	//! Membro-fucao que permite a adicao de clientes novos
+	//! Membro-funcao que permite a adicao de clientes novos
 	void addCliente();
-	//! Membro-fucao que permite a remocao de clientes existentes
+	//! Membro-funcao que permite a remocao de clientes existentes
 	/** dado o nome do cliente que pretende remover */
 	void removeCliente(string nome);
-	//! Membro-fucao que permite a remocao de clientes existentes
-		/** dado o nome do cliente que pretende remover */
+	//! Membro-funcao que permite a remocao de clientes existentes
+	/** dado o nome do cliente que pretende remover */
 	Cliente *ProcuraCliente_nome(string nome);
-	//! Membro-fucao que permite a remocao de clientes existentes
-		/** dado o codigo do cliente que pretende remover */
+	//! Membro-funcao que permite a remocao de clientes existentes
+	/** dado o codigo do cliente que pretende remover */
 	void removeCliente(unsigned int codCliente);
-	//! Membro-fucao que permite a adicao de produtos novos
+	//! Membro-funcao que permite a adicao de produtos novos
 	void addProduto();
-	//! Membro-fucao que permite a remocao de produtos novos
+	//! Membro-funcao que permite a remocao de produtos novos
 	/** dado o codigo do produto que pretende remover */
 	void removeProduto(unsigned int codProduto);
-	//! Membro-fucao que permite a adicao de zonas novas
+	//! Membro-funcao que permite a adicao de zonas novas
 	void addZona();
-	//! Membro-fucao que permite a adicao de zonas novas ao grafo
+	//! Membro-funcao que permite a adicao de zonas novas ao grafo
 	void addZonaGrafo();
-	//! Membro-fucao que permite a remocao de zonas novos
+	//! Membro-funcao que permite a remocao de zonas novos
 	/** dado o codigo da zona que pretende remover */
 	void removeZona(unsigned int codZona);
-	//! Membro-fucao que lista as zonas existentes no base de dados
+	//! Membro-funcao que lista as zonas existentes no base de dados
 	void listaZonas();
-	//! Membro-fucao que permite a adicao de lojas novas
+	//! Membro-funcao que permite a adicao de lojas novas
 	void addLoja();
-	//! Membro-fucao que permite a remocao de lojas novos
+	//! Membro-funcao que permite a remocao de lojas novos
 	/** dado o codigo da loja que pretende remover */
 	void removeLoja(unsigned int codLoja);
-	//! Membro-fucao que permite a adicao de encomendas novas
+	//! Membro-funcao que permite a adicao de encomendas novas
 	void addEncomenda();
-	//! Membro-fucao que permite a remocao de encomendas novos
+	//! Membro-funcao que permite a remocao de encomendas novos
 	/** dado o codigo da encomenda que pretende remover */
 	void removeEncomenda(unsigned int codEncomenda);
-	//! Membro-fucao que lista os clientes existentes no base de dados
+	//! Membro-funcao que lista os clientes existentes no base de dados
 	void listaClientes();
-	//! Membro-fucao que lista os produtos existentes na determinada loja no base de dados
+	//! Membro-funcao que lista os produtos existentes na determinada loja no base de dados
 	void listaProdutos();
-	//! Membro-fucao que lista as lojas existentes no base de dados
+	//! Membro-funcao que lista as lojas existentes no base de dados
 	void listaLojas();
-	//! Membro-fucao que lista as encomendas existentes no base de dados
+	//! Membro-funcao que lista as encomendas existentes no base de dados
 	void listaEncomendas();
-	//! Membro-fucao que le os clientes partir dum ficheiro
+	//! Membro-funcao que le os clientes a partir dum ficheiro
 	void loadClientes(string filename);
-	//! Membro-fucao que grava os clientes a um ficheiro
+	//! Membro-funcao que grava os clientes num ficheiro
 	void saveClientes(string filename);
-	//! Membro-fucao que le os produtos partir dum ficheiro
+	//! Membro-funcao que le os produtos a partir dum ficheiro
 	void loadProdutos(string filename);
-	//! Membro-fucao que grava os produtos a um ficheiro
+	//! Membro-funcao que grava os produtos num ficheiro
 	void saveProdutos(string filename);
-	//! Membro-fucao que le as zonas partir dum ficheiro
+	//! Membro-funcao que le as lojas a partir dum ficheiro
+	void loadLojas(string filename);
+	//! Membro-funcao que grava as lojas num ficheiro
+	void saveLojas(string filename);
+	//! Membro-funcao que le as zonas a partir dum ficheiro
 	void loadZonas(string filename);
-	//! Membro-fucao que grava os zonas a um ficheiro
+	//! Membro-funcao que grava os zonas num ficheiro
 	void saveZonas(string filename);
-	//! Membro-fucao que le as encomendas partir dum ficheiro
+	//! Membro-funcao que le as encomendas a partir dum ficheiro
 	void loadEncomendas(string filename);
-	//! Membro-fucao que grava as encomendas a um ficheiro
+	//! Membro-funcao que grava as encomendas num ficheiro
 	void saveEncomendas(string filename);
 
 	void startLojaElectronica();
@@ -125,8 +129,8 @@ class Excepcao{
 private:
 	string message;
 public:
-Excepcao( string mens ){message=mens;};
- string getMessage() { return message; };
+	Excepcao( string mens ){message=mens;};
+	string getMessage() { return message; };
 
 
 
