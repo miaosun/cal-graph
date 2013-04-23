@@ -71,6 +71,7 @@ public:
 	 * \n Produto número: \n Designacao: \n Quantidade em stock: \n Preco: \n
 	 */
 	void info() const;
+	static void setCount(unsigned int n);
 
 	//TODO falta updates
 };

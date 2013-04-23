@@ -14,13 +14,17 @@
 
 unsigned int Loja::countLojas=0;
 
- Loja::Loja(string desig, string mor):codLoja(++countLojas) {
+Loja::Loja(string desig, string mor):codLoja(++countLojas) {
 	designacao=desig;
 	morada=mor;
 
- }
- 
- // GETS Loja
+}
+
+Loja::Loja(string desig, string mor, unsigned int cod):codLoja(cod) {
+	designacao=desig;
+	morada=mor;
+}
+// GETS Loja
 
 string Loja::getDesignacao() const {
 	return designacao;
@@ -33,7 +37,7 @@ string Loja::getMorada() const {
 
 unsigned int Loja::getCodLoja() const{
 
-return codLoja;
+	return codLoja;
 
 }
 
@@ -65,7 +69,7 @@ void Loja::imprimeLoja() const {
 	else
 		for(unsigned int i=0;i<produtos.size();i++)
 			produtos[i]->info();
-	
+
 }
 
 // OPERATOR ==
