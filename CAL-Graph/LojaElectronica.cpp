@@ -108,7 +108,7 @@ Zona * LojaElectronica::determinaZona(string morada){
 
 	for(unsigned int i=0;i<zonas.size();i++){
 
-		if(zonas[i]->getLocalizacao()==localizacaoZona)
+		if(zonas[i]->getDesignacao()==localizacaoZona)
 			zona=zonas[i];
 	}
 
@@ -200,13 +200,13 @@ void LojaElectronica::removeProduto(unsigned int codProduto)
 
 void LojaElectronica::addZona()
 {
+	string designacao;
 
-	string localizacao;
+	cout << "Designação da Zona: " << endl;
+	fflush(stdin);
+	getline(cin,designacao);
 
-	cout << "Localizacao da Loja: " << endl;
-	cin>>localizacao;
-
-	Zona *zona=new Zona(localizacao);
+	Zona *zona=new Zona(designacao);
 
 	zona->info();
 
@@ -267,7 +267,7 @@ void LojaElectronica::addLoja()
 
 void LojaElectronica::removeLoja(unsigned int codLoja)
 {
-
+/*
 	bool encontrou=false;
 
 	for(unsigned int i=0;i<lojas.size();codLoja++)
@@ -283,6 +283,7 @@ void LojaElectronica::removeLoja(unsigned int codLoja)
 		throw Excepcao("\n Não existe nenhuma loja com esse ID \n");
 
 	} else cout<<"Loja Eliminada com sucesso";
+	*/
 }
 
 void LojaElectronica::addEncomenda()
@@ -357,39 +358,40 @@ void LojaElectronica::addEncomenda()
 				inFile.close();*/
 
 
-	Graph<Zona*> myGraph1;
+	Graph<Zona*> myGraph;
 	Zona *a=new Zona("Lisbon");
 	Zona *b=new Zona("Porto");
 	Zona *c=new Zona("Coimbra");
 	Zona *d=new Zona("Algarve");
 
 
-	myGraph1.addVertex(a);
-	myGraph1.addVertex(b);
-	myGraph1.addVertex(c);
-	myGraph1.addVertex(d);
+	myGraph.addVertex(a);
+	myGraph.addVertex(b);
+	myGraph.addVertex(c);
+	myGraph.addVertex(d);
 
-	myGraph1.addEdge(a, b, 3);
-	myGraph1.addEdge(b, a, 3);
+	myGraph.addEdge(a, b, 3);
+	myGraph.addEdge(b, a, 3);
 
-	myGraph1.addEdge(a, c, 1);
-	myGraph1.addEdge(c, a, 1);
+	myGraph.addEdge(a, c, 1);
+	myGraph.addEdge(c, a, 1);
 
-	myGraph1.addEdge(b, d, 7);
-	myGraph1.addEdge(d, a, 7);
+	myGraph.addEdge(b, d, 7);
+	myGraph.addEdge(d, a, 7);
 
-	myGraph1.addEdge(c, d, 10);
-	myGraph1.addEdge(d, c, 10);
+	myGraph.addEdge(c, d, 10);
+	myGraph.addEdge(d, c, 10);
 
-	//Caminhos mais curtos a partir de noOrigem --> Grafos Pesados - Djikstra
 
 	Zona *noOrigem =a;
 
-	myGraph1.dijkstraShortestPath(noOrigem);
+	//Caminhos mais curtos a partir de noOrigem --> Grafos Pesados - Djikstra
+	myGraph.dijkstraShortestPath(noOrigem);
 
+	//Caminhos mais curtos a partir de noOrigem --> Grafos Nao Pesados
 	//myGraph1.unweightedShortestPath(noOrigem);
 
-	vector<Vertex<Zona*>* > vs = myGraph1.getVertexSet();
+	vector<Vertex<Zona*>* > vs = myGraph.getVertexSet();
 
 
 	int menor=2000000000;
@@ -400,27 +402,23 @@ void LojaElectronica::addEncomenda()
 
 	for(unsigned int i=0;i<vs.size();i++){
 		if(vs[i]->getInfo()!=noOrigem && vs[i]->getDist()<=menor){
-			cout<<"Dijkstra: Distancia de: "<< a->getLocalizacao() << " a "<<vs[i]->getInfo()->getLocalizacao()<<":  "<<vs[i]->getDist()<<endl;
+			cout<<"Dijkstra: Distancia de: "<< a->getDesignacao() << " a "<<vs[i]->getInfo()->getDesignacao()<<":  "<<vs[i]->getDist()<<endl;
 			menor=vs[i]->getDist();
 			noMenor=vs[i]->getInfo();
 		}
 	}
 
 	cout<<"Menor Custo: "<<menor<<endl;
-	cout<<"No de Menor custo: "<<noMenor->getLocalizacao()<<endl;
+	cout<<"No de Menor custo: "<<noMenor->getDesignacao()<<endl;
 
 
 
 	//Caminho de No Origem até No menor Custo
-	vector<Zona*> path = myGraph1.getPath(noOrigem, noMenor);
+	vector<Zona*> path = myGraph.getPath(noOrigem, noMenor);
 
 	for(int j=0;j<path.size();j++){
-		cout<<"Path: "<<path[j]->getLocalizacao()<<endl;
+		cout<<"Path: "<<path[j]->getDesignacao()<<endl;
 	}
-
-
-
-
 
 
 }
@@ -499,45 +497,14 @@ void LojaElectronica::loadProdutos(string filename)
 }
 void LojaElectronica::saveProdutos(string filename)
 {
-	/*
-}
-	int i = 0, f;
-	int tam = produtos.size();
-	ofstream myfile("veiculos.txt");
-	if (myfile.is_open()) {
-		if(veiculos[i] != NULL){
-			while (i < tam) {
-				if(veiculos[i] != NULL){
-					myfile << veiculos[i]->getTipo() << endl;
-					myfile << veiculos[i]->getMatricula() << endl;
-					myfile << veiculos[i]->getMarca() << endl;
-					myfile << veiculos[i]->getModelo() << endl;
-					myfile << veiculos[i]->getAno() << endl;
-					myfile << veiculos[i]->getCombustivel() << endl;
 
-					for(f=0; (unsigned int)f<funcionarios.size();f++){
-						if(funcionarios[f]==(veiculos[i]->getFuncionario())) {
-							myfile << f << endl;
-							break;
-						}
-					}
-
-					myfile << veiculos[i]->getProprietario()->getCodCliente() << endl;
-
-					veiculos[i]->auxSave(myfile);
-				}
-				i++;
-			}
-		}
-		myfile.close();
-	 */
 }
 
 void LojaElectronica::loadLojas(string filename)
 {
 	ifstream file;
 	string line;
-	const unsigned int cod;
+	unsigned int cod;
 	string desig;
 	string morada;
 
@@ -567,7 +534,7 @@ void LojaElectronica::saveLojas(string filename)
 {
 	int i = 0;
 	int tam = lojas.size();
-	ofstream myfile(filename);
+	ofstream myfile(filename.c_str());
 	if (myfile.is_open()) {
 		myfile << Loja::getCount() << endl;
 		while (i < tam) {

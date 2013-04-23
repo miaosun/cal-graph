@@ -21,22 +21,22 @@ class Zona
 {
 	const unsigned int codZona;
 	static unsigned int countZonas;
-	string localizacao;
+	string designacao;
 	Loja *loja;
 
 public:
 	//! Construtor que inicializa membros-dado
 	/**
-	 * \param licalizacao uma string que vai atribuir valor ao membro-dado localizacao.
+	 * \param licalizacao uma string que vai atribuir valor ao membro-dado designação.
 	*/
-	Zona(string localizacao);
+	Zona(string designacao);
 
 	//! Destrutor que liberta o recurso de memoria foi alocado
 	~Zona();
-	//! Membro-fucao para retornar o valor do membro-dado localizacao
+	//! Membro-fucao para retornar o valor do membro-dado designação
 	/** um membro-funcao const para garantir a nao modificacao de nenhum membro-dado.
-	 * \return uma string com conteudo do membro-dado localizacao. */
-	string getLocalizacao() const;
+	 * \return uma string com conteudo do membro-dado designação. */
+	string getDesignacao() const;
 	//! Membro-função para retornar o valor do membro-dado codZona
 	/** É um membro-função const para garantir a não modificação de nenhum membro-dado.
 	 * \return um unsgined int com valor do membro-dado codZona. */
@@ -45,9 +45,9 @@ public:
 	/** um membro-funcao const para garantir a nao modificacao de nenhum membro-dado.
 	 * \return um apontador para a loja da zona. */
 	Loja* getLoja() const;
-	//! Membro-funcao para setar o membro-dado localizacao de um objeto tipo Zona ja instanciado
-	/** \param localizacao o conteudo da string a ser atribuida ao membro-dado localizacao. */
-	void setLocalizacao(string localizacao);
+	//! Membro-funcao para setar o membro-dado designação de um objeto tipo Zona ja instanciado
+	/** \param designação o conteudo da string a ser atribuida ao membro-dado designação. */
+	void setDesignacao(string designacao);
 	//! Membro-função estatico para setar o membro-dado estatico countZonas
 	/** \param n e um inteiro com conteúdo a ser atribuido ao membro-dado estatico countZonas. */
 	static void setCount(unsigned int n) {countZonas = n;}
@@ -61,7 +61,7 @@ public:
 	//! Membro-função que imprime no ecrã os membros-dado de um objeto tipo Zona
 	/**
 	 * Membro-função para imprimir no ecrã o conteúdo dos membros-dado de um objeto tipo Cliente no formato,
-	 * \n Zona número: \n Localização: \n
+	 * \n Zona número: \n designação: \n
 	 */
 	void info() const;
 
