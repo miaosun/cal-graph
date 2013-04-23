@@ -23,72 +23,73 @@ int main()
 	LojaElectronica lj;
 	//lj.startLojaElectronica();
 
-using namespace std;
+	using namespace std;
 
-cout	<< "-------------------------GESTAO DE UMA LOJA DE COMERCIO ELETRONICO-- ------------------------"
+	cout	<< "-------------------------GESTAO DE UMA LOJA DE COMERCIO ELETRONICO-- ------------------------"
 			<< endl << endl;
 
 	bool exit_console = false;
 
 	while (exit_console == false) {
-		
-			cout << "-----------MENU INICIAL-----------" << endl;
-			cout << "1-Gestão de Clientes" << endl;
-			cout << "2-Gestão de Encomendas" << endl;
-			cout << "3-Gestão de Zonas" << endl;
-			cout << "0-Sair" << endl << endl;
-			
-			cout << "Insira o numero da sua escolha :";
+
+		cout << "-----------MENU INICIAL-----------" << endl;
+		cout << "1-Gestão de Clientes" << endl;
+		cout << "2-Gestão de Encomendas" << endl;
+		cout << "3-Gestão de Zonas" << endl;
+		cout << "4-Gestão de Grafo" << endl;
+		cout << "0-Sair" << endl << endl;
+
+		cout << "Insira o numero da sua escolha :";
+
+		int choice;
+		cin >> choice;
+
+		while ((choice < 0 || choice > 5) && (isdigit(choice)!=true))
+		{
+			cout << "Opcao invalida!! Introduza um numero entre 0 e 4." << endl;
+			cin >> choice;
+		}
+
+		if (choice == 1) {
 
 			int choice;
-			cin >> choice;
+			bool exit_menu1 = false;
 
-			while ((choice < 0 || choice > 4) && (isdigit(choice)!=true))
-			{
-				cout << "Opcao invalida!! Introduza um numero entre 0 e 4." << endl;
+			while (exit_menu1 == false) {
+
+				cout << "-------GESTÃO DE CLIENTES------" << endl;
+				cout << "1-Adicionar Cliente" << endl;
+				cout << "2-Eliminar Cliente" << endl;
+				cout << "3-Editar Cliente" << endl;
+				cout << "4-Procurar Cliente :"<< endl;
+				cout << "5-Listar Cliente :"<< endl;
+				cout <<" 6- MENU INICIAL"<< endl;
+				cout << "Insira o numero da sua escolha :";
 				cin >> choice;
-			}
 
-			if (choice == 1) {
-			
-				int choice;
-				bool exit_menu1 = false;
-
-				while (exit_menu1 == false) {
-
-					cout << "-------GESTÃO DE CLIENTES------" << endl;
-					cout << "1-Adicionar Cliente" << endl;
-					cout << "2-Eliminar Cliente" << endl;
-					cout << "3-Editar Cliente" << endl;
-					cout << "4-Procurar Cliente :"<< endl;
-					cout << "5-Listar Cliente :"<< endl;
-					cout <<" 6- MENU INICIAL"<< endl;
-					cout << "Insira o numero da sua escolha :";
-					cin >> choice;
-
-					while ((choice < 1 || choice > 6) && (isdigit(choice) != true)) {
-						cout << "Opcao invalida!! Introduza um numero entre 1 e 5."
+				while ((choice < 1 || choice > 6) && (isdigit(choice) != true)) {
+					cout << "Opcao invalida!! Introduza um numero entre 1 e 5."
 							<< endl;
-						cin >> choice;
+					cin >> choice;
+				}
+
+				if(choice==1){
+					lj.addCliente();
+				}
+
+				else if(choice==2){
+					//NAO ESTA A ATUALIZAR O NUMERO DE CLIENTES DEPOIS DE ELIMINACAO
+					string nome;
+					cout <<" Qual é o cliente que quer remover?";
+					cin>>nome;
+					try {
+						lj.removeCliente(nome);
+					} catch (Excepcao &ex) {
+						cout << ex.getMessage();
 					}
 
-					if(choice==1){
-						lj.addCliente();
-					}
 
-					else if(choice==2){
-							//NAO ESTA A ATUALIZAR O NUMERO DE CLIENTES DEPOIS DE ELIMINACAO
-							string nome;
-							cout <<" Qual é o cliente que quer remover?";
-							cin>>nome;
-							try {
-								lj.removeCliente(nome);
-							} catch (Excepcao &ex) {
-								cout << ex.getMessage();
-							}
-
-
-					}/*else if(choice==3){
+				}/*else if(choice==3){
 							string nome;
 							cout<<" Qual é o cliente que quer alterar? ";
 							cin>> nome;
@@ -101,112 +102,141 @@ cout	<< "-------------------------GESTAO DE UMA LOJA DE COMERCIO ELETRONICO-- --
 							}
 
 					}*/
-					else if(choice==4){
-							string nome;
-							cout<<" Qual é o cliente que quer Procurar? ";
-							cin>> nome;
-							try {
-								lj.ProcuraCliente_nome(nome)->imprimeCliente();
-							} catch (Excepcao &ex) {
-								cout << ex.getMessage();
-							}
-
-					}else if(choice==5){
-							try {
-								lj.listaClientes();
-							} catch (Excepcao &ex) {
-								cout << ex.getMessage();
-							}
-
-
+				else if(choice==4){
+					string nome;
+					cout<<" Qual é o cliente que quer Procurar? ";
+					cin>> nome;
+					try {
+						lj.ProcuraCliente_nome(nome)->imprimeCliente();
+					} catch (Excepcao &ex) {
+						cout << ex.getMessage();
 					}
-				else if (choice == 6) {
-						exit_menu1=true;
+
+				}else if(choice==5){
+					try {
+						lj.listaClientes();
+					} catch (Excepcao &ex) {
+						cout << ex.getMessage();
 					}
+
+
 				}
-
-			}else if(choice==2){
-
-						int choice;
-						bool exit_menu1 = false;
-
-						while (exit_menu1 == false) {
-
-							cout << "\n-------GESTÃO DE ENCOMENDAS------\n" << endl;
-							cout << "1-Criar Encomenda" << endl;
-							cout <<" 6- MENU INICIAL"<< endl;
-							cout << "Insira o numero da sua escolha :";
-							cin >> choice;
-
-							while ((choice < 1 || choice > 6) && (isdigit(choice) != true)) {
-								cout << "Opcao invalida!! Introduza um numero entre 1 e 5."
-								<< endl;
-								cin >> choice;
-							}
-
-							if(choice==1){
-
-								lj.addEncomenda();
-							}
-
-							else if (choice == 6) {
-								exit_menu1=true;
-							}
-						}
-			}else if(choice==3){
-
-				int choice;
-				bool exit_menu1 = false;
-
-				while (exit_menu1 == false) {
-
-					cout << "\n-------GESTÃO DE ZONAS------\n" << endl;
-					cout << "1-Criar Zona" << endl;
-					cout << "2-Eliminar Zona" << endl;
-					cout << "3-Listar Zonas" << endl;
-					cout <<" 0- MENU INICIAL"<< endl;
-					cout << "Insira o numero da sua escolha :";
-					cin >> choice;
-
-					while ((choice < 0 || choice > 3) && (isdigit(choice) != true)) {
-						cout << "Opcao invalida!! Introduza um numero entre 1 e 5."
-						<< endl;
-						cin >> choice;
-					}
-
-					if(choice==1){
-
-						lj.addZona();
-
-					}else if(choice==2){
-						//NAO ESTA A ATUALIZAR O NUMERO DE ZONAS DEPOIS DE ELIMINACAO
-						int idZona;
-						cout <<" Qual é a zona que quer remover?";
-						cin>>idZona;
-						try {
-							lj.removeZona(idZona);
-						} catch (Excepcao &ex) {
-							cout << ex.getMessage();
-						}
-
-					}else if(choice==3){
-						try {
-							lj.listaZonas();
-						} catch (Excepcao &ex) {
-							cout << ex.getMessage();
-						}
-					}
-
-					else if (choice == 0) {
-						exit_menu1=true;
-					}
+				else if (choice == 6) {
+					exit_menu1=true;
 				}
 			}
+
+		}else if(choice==2){
+
+			int choice;
+			bool exit_menu1 = false;
+
+			while (exit_menu1 == false) {
+
+				cout << "\n-------GESTÃO DE ENCOMENDAS------\n" << endl;
+				cout << "1-Criar Encomenda" << endl;
+				cout <<" 6- MENU INICIAL"<< endl;
+				cout << "Insira o numero da sua escolha :";
+				cin >> choice;
+
+				while ((choice < 1 || choice > 6) && (isdigit(choice) != true)) {
+					cout << "Opcao invalida!! Introduza um numero entre 1 e 5."
+							<< endl;
+					cin >> choice;
+				}
+
+				if(choice==1){
+
+					lj.addEncomenda();
+				}
+
+				else if (choice == 6) {
+					exit_menu1=true;
+				}
+			}
+		}else if(choice==3){
+
+			int choice;
+			bool exit_menu1 = false;
+
+			while (exit_menu1 == false) {
+
+				cout << "\n-------GESTÃO DE ZONAS------\n" << endl;
+				cout << "1-Criar Zona" << endl;
+				cout << "2-Eliminar Zona" << endl;
+				cout << "3-Listar Zonas" << endl;
+				cout <<" 0- MENU INICIAL"<< endl;
+				cout << "Insira o numero da sua escolha :";
+				cin >> choice;
+
+				while ((choice < 0 || choice > 3) && (isdigit(choice) != true)) {
+					cout << "Opcao invalida!! Introduza um numero entre 1 e 5."
+							<< endl;
+					cin >> choice;
+				}
+
+				if(choice==1){
+
+					lj.addZona();
+
+				}else if(choice==2){
+					//NAO ESTA A ATUALIZAR O NUMERO DE ZONAS DEPOIS DE ELIMINACAO
+					int idZona;
+					cout <<" Qual é a zona que quer remover?";
+					cin>>idZona;
+					try {
+						lj.removeZona(idZona);
+					} catch (Excepcao &ex) {
+						cout << ex.getMessage();
+					}
+
+				}else if(choice==3){
+					try {
+						lj.listaZonas();
+					} catch (Excepcao &ex) {
+						cout << ex.getMessage();
+					}
+				}
+
+				else if (choice == 0) {
+					exit_menu1=true;
+				}
+			}
+		}else if(choice==3){
+			int choice;
+			bool exit_menu1 = false;
+
+			while (exit_menu1 == false) {
+
+				cout << "\n-------GESTÃO DE GRAFOS------\n" << endl;
+				cout << "1-Acrescentar Zona" << endl;
+				cout << "2-Eliminar Zona" << endl;
+				cout << "3-Acrescentar Aresta" << endl;
+				cout << "3-Eliminar Aresta" << endl;
+				cout <<" 0- MENU INICIAL"<< endl;
+				cout << "Insira o numero da sua escolha :";
+				cin >> choice;
+
+				while ((choice < 0 || choice > 3) && (isdigit(choice) != true)) {
+					cout << "Opcao invalida!! Introduza um numero entre 1 e 5."
+							<< endl;
+					cin >> choice;
+				}
+
+				if(choice==1){
+
+									//lj.addZonaGrafo();
+
+								}
+			}
+
+
+		}
 
 	}
 
 
 
 
-return 0;
+	return 0;
 }

@@ -21,6 +21,7 @@ Zona::Zona(string Localidade):codZona(++countZonas)
 	this->loja=NULL;
 }
 
+
 Zona::~Zona(){}
 
 string Zona::getLocalizacao() const
@@ -53,6 +54,14 @@ void Zona::info() const {
 	cout << "Localização: " << localizacao << endl;
 
 }
+
+// OPERATOR ==
+bool Zona::operator== (const Zona& x) const{
+	if(getLocalizacao() == x.getLocalizacao())
+		return true;
+	else return false;
+}
+
 /*
 unsigned int Zona::getCodZona() const
 {

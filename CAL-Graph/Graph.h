@@ -18,7 +18,7 @@ template <class T> class Graph;
 const int NOT_VISITED = 0;
 const int BEING_VISITED = 1;
 const int DONE_VISITED = 2;
-const int INT_INFINITY = INT_MAX;
+const int INT_INFINITY = 23455;
 
 /*
  * ================================================================================================
@@ -108,6 +108,7 @@ template <class T>
 T Vertex<T>::getInfo() const {
 	return this->info;
 }
+
 
 template <class T>
 int Vertex<T>::getDist() const {
@@ -235,6 +236,7 @@ public:
 	int getNumCycles();
 	vector<T> topologicalOrder();
 	vector<T> getPath(const T &origin, const T &dest);
+	vector<T> getPathNaoPesados(const T &origin, const T &dest);
 	void unweightedShortestPath(const T &v);
 	bool isDAG();
 
@@ -557,6 +559,31 @@ vector<T> Graph<T>::topologicalOrder() {
 	return res;
 }
 
+template<class T>
+vector<T> Graph<T>::getPathNaoPesados(const T &origin, const T &dest){
+	unweightedShortestPath(origin);
+
+	list<T> buffer;
+	Vertex<T>* v = getVertex(dest);
+	//cout << "Path to " << v->info << ": ";
+
+	//cout << v->info << " ";
+	buffer.push_front(v->info);
+	while ( v->path->info != origin ) {
+		v = v->path;
+		//cout << v->info << " ";
+		buffer.push_front(v->info);
+	}
+	buffer.push_front(v->path->info);
+	//cout << endl;
+
+	vector<T> res;
+	while( !buffer.empty() ) {
+		res.push_back( buffer.front() );
+		buffer.pop_front();
+	}
+	return res;
+}
 
 
 template<class T>
@@ -758,7 +785,7 @@ int Graph<T>::edgeCost(int vOrigIndex, int vDestIndex)
 	return INT_INFINITY;
 }
 
-
+/*
 void printSquareArray(int ** arr, unsigned int size)
 {
 	for(unsigned int k = 0; k < size; k++)
@@ -784,7 +811,7 @@ void printSquareArray(int ** arr, unsigned int size)
 
 		cout << endl;
 	}
-}
+}*/
 
 
 template<class T>
