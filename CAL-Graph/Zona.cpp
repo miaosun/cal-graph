@@ -17,16 +17,16 @@ unsigned int Zona::countZonas=0;
 Zona::Zona(string Localidade):codZona(++countZonas)
 {
 
-	this->localizacao = Localidade;
+	this->designacao = Localidade;
 	this->loja=NULL;
 }
 
 
 Zona::~Zona(){}
 
-string Zona::getLocalizacao() const
+string Zona::getDesignacao() const
 {
-	return localizacao;
+	return designacao;
 }
 
 unsigned int Zona::getCodZona() const {
@@ -38,9 +38,9 @@ Loja* Zona::getLoja() const
 	return loja;
 }
 
-void Zona::setLocalizacao(string localizacao)
+void Zona::setDesignacao(string designacao)
 {
-	this->localizacao = localizacao;
+	this->designacao = designacao;
 }
 
 void Zona::setLoja(Loja* lj)
@@ -51,13 +51,13 @@ void Zona::setLoja(Loja* lj)
 
 void Zona::info() const {
 	cout << "\n Zona numero: " << codZona << endl ;
-	cout << "Localização: " << localizacao << endl;
+	cout << "Designação: " << designacao << endl;
 
 }
 
 // OPERATOR ==
 bool Zona::operator== (const Zona& x) const{
-	if(getLocalizacao() == x.getLocalizacao())
+	if(getDesignacao() == x.getDesignacao())
 		return true;
 	else return false;
 }

@@ -30,6 +30,7 @@ class LojaElectronica
 	vector <Loja *> lojas;
 	vector <Zona *> zonas;
 	vector <Encomenda *> encomendas;
+	Graph<Zona*> myGraph;
 
 	//vector <Produto *> produtos;  passa para classe Loja
 

@@ -71,7 +71,9 @@ public:
 	 * \n Produto número: \n Designacao: \n Quantidade em stock: \n Preco: \n
 	 */
 	void info() const;
-	static void setCount(unsigned int n);
+	//! Membro-função estatico para setar o membro-dado estatico countProdutos
+	/** \param n e um inteiro com conteúdo a ser atribuido ao membro-dado estatico countProdutos. */
+	static void setCount(unsigned int n)  {countProdutos = n;}
 
 	//TODO falta updates
 };

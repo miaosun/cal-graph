@@ -56,9 +56,6 @@ void Produto::decStock() {
 	stock--;
 }
 
-static void Produto::setCount(unsigned int n) {
-	countProdutos = n;
-}
 
 // IMPRIME
 
