@@ -74,6 +74,8 @@ public:
 	void removeProduto(unsigned int codProduto);
 	//! Membro-fucao que permite a adicao de zonas novas
 	void addZona();
+	//! Membro-fucao que permite a adicao de zonas novas ao grafo
+	void addZonaGrafo();
 	//! Membro-fucao que permite a remocao de zonas novos
 	/** dado o codigo da zona que pretende remover */
 	void removeZona(unsigned int codZona);

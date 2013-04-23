@@ -14,10 +14,10 @@
 
 unsigned int Loja::countLojas=0;
 
- Loja::Loja(string desig, string mor, Zona *zon):codLoja(++countLojas) {
+ Loja::Loja(string desig, string mor):codLoja(++countLojas) {
 	designacao=desig;
 	morada=mor;
-	zona=zon;
+
  }
  
  // GETS Loja
@@ -30,9 +30,6 @@ string Loja::getMorada() const {
 	return morada;
 }
 
-Zona* Loja::getZona() const {
-	return zona;
-}
 
 unsigned int Loja::getCodLoja() const{
 
@@ -55,9 +52,6 @@ void Loja::setMorada(string m) {
 	morada=m;
 }
 
-void Loja::setZona(Zona* zon) {
-	zona=zon;
-}
 
 
 // IMPRIME

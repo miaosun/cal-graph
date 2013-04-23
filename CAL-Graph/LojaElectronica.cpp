@@ -23,46 +23,46 @@ LojaElectronica::~LojaElectronica(){}
 void LojaElectronica::welcome()
 {
 	stringstream o;
-		for(unsigned int i=0; i<79; i++)
-			o<<"*";
-		o<<endl;
-		for (unsigned int i=0; i<3; i++)
-		{
-			o<<"*";
-			for(unsigned int j=0; j<77; j++)
-				o<<" ";
-			o<<"*"<<endl;
-		}
-		o<<"*                   *          * * *      ********     *                      *\n";
-		o<<"*                   *         *     *         *      *   *                    *\n";
-		o<<"*                   *        *       *        *     *     *                   *\n";
-		o<<"*                   *        *       *        *     *******                   *\n";
-		o<<"*                   *         *     *     *   *     *     *                   *\n";
-		o<<"*                   ******     * * *       * *      *     *                   *\n";
-		for (unsigned int i=0; i<3; i++)
-		{
-			o<<"*";
-			for(unsigned int j=0; j<77; j++)
-				o<<" ";
-			o<<"*"<<endl;
-		}
-		o<<"*    ***** *     *****  **** ***** ****   ****  *    * *****  ****   *        *\n";
-		o<<"*    *     *     *     *       *   *   * *    * **   *   *   *      *  *      *\n";
-		o<<"*    ***** *     ***** *       *   *   * *    * * *  *   *   *     *    *     *\n";
-		o<<"*    *     *     *     *       *   ****  *    * *  * *   *   *     ******     *\n";
-		o<<"*    *     *     *     *       *   *   * *    * *   **   *   *     *    *     *\n";
-		o<<"*    ***** ***** *****  ****   *   *    * ****  *    * *****  **** *    *     *\n";
-		for (unsigned int i=0; i<3; i++)
-		{
-			o<<"*";
-			for(unsigned int j=0; j<77; j++)
-				o<<" ";
-			o<<"*"<<endl;
-		}
-		for(unsigned int i=0; i<79; i++)
-			o<<"*";
-		cout<<o.str()<<endl<<endl;
-		system("pause");
+	for(unsigned int i=0; i<79; i++)
+		o<<"*";
+	o<<endl;
+	for (unsigned int i=0; i<3; i++)
+	{
+		o<<"*";
+		for(unsigned int j=0; j<77; j++)
+			o<<" ";
+		o<<"*"<<endl;
+	}
+	o<<"*                   *          * * *      ********     *                      *\n";
+	o<<"*                   *         *     *         *      *   *                    *\n";
+	o<<"*                   *        *       *        *     *     *                   *\n";
+	o<<"*                   *        *       *        *     *******                   *\n";
+	o<<"*                   *         *     *     *   *     *     *                   *\n";
+	o<<"*                   ******     * * *       * *      *     *                   *\n";
+	for (unsigned int i=0; i<3; i++)
+	{
+		o<<"*";
+		for(unsigned int j=0; j<77; j++)
+			o<<" ";
+		o<<"*"<<endl;
+	}
+	o<<"*    ***** *     *****  **** ***** ****   ****  *    * *****  ****   *        *\n";
+	o<<"*    *     *     *     *       *   *   * *    * **   *   *   *      *  *      *\n";
+	o<<"*    ***** *     ***** *       *   *   * *    * * *  *   *   *     *    *     *\n";
+	o<<"*    *     *     *     *       *   ****  *    * *  * *   *   *     ******     *\n";
+	o<<"*    *     *     *     *       *   *   * *    * *   **   *   *     *    *     *\n";
+	o<<"*    ***** ***** *****  ****   *   *    * ****  *    * *****  **** *    *     *\n";
+	for (unsigned int i=0; i<3; i++)
+	{
+		o<<"*";
+		for(unsigned int j=0; j<77; j++)
+			o<<" ";
+		o<<"*"<<endl;
+	}
+	for(unsigned int i=0; i<79; i++)
+		o<<"*";
+	cout<<o.str()<<endl<<endl;
+	system("pause");
 }
 
 void LojaElectronica::showMenu(string titulo, vector<string> opcoes)
@@ -99,11 +99,11 @@ Zona * LojaElectronica::determinaZona(string morada){
 	if(morada=="Porto"||morada=="Paranhos"||morada=="Gondomar"||morada=="Gaia"||morada=="Matosinhos")
 		localizacaoZona="Porto";
 	else if(morada=="Lisboa"||morada=="Amadora"||morada=="Alvalade"||morada=="Benfica")
-	localizacaoZona="Lisboa";
+		localizacaoZona="Lisboa";
 	else if(morada=="Algarve"||morada=="Faro"||morada=="Portimao"||morada=="Quarteira")
 		localizacaoZona="Algarve";
 	else if(morada=="Leira")
-			localizacaoZona="Leiria";
+		localizacaoZona="Leiria";
 	else localizacaoZona="Inexistente";
 
 	for(unsigned int i=0;i<zonas.size();i++){
@@ -148,7 +148,7 @@ void LojaElectronica::addCliente()
 
 void LojaElectronica::removeCliente(unsigned int codCliente)
 {
- //TO DO? Este obriga nos a saber o codigo de todos os clientes... pode ser mais confuso :S
+	//TO DO? Este obriga nos a saber o codigo de todos os clientes... pode ser mais confuso :S
 	//temporariamente uso o metodo abaixo
 }
 
@@ -201,17 +201,17 @@ void LojaElectronica::removeProduto(unsigned int codProduto)
 void LojaElectronica::addZona()
 {
 
-		string localizacao;
+	string localizacao;
 
-		cout << "Localizacao da Loja: " << endl;
-		cin>>localizacao;
+	cout << "Localizacao da Loja: " << endl;
+	cin>>localizacao;
 
 
-		Zona *zona=new Zona(localizacao);
+	Zona *zona=new Zona(localizacao);
 
-		zona->info();
+	zona->info();
 
-		zonas.push_back(zona);
+	zonas.push_back(zona);
 
 }
 
@@ -240,29 +240,29 @@ void LojaElectronica::listaZonas()
 {
 	if(zonas.size()==0 ) throw Excepcao("\n Não existem zonas no sistema \n");
 
-		for (unsigned int i=0; i < zonas.size(); i++)
-				{
-			zonas[i]->info();
-				}
+	for (unsigned int i=0; i < zonas.size(); i++)
+	{
+		zonas[i]->info();
+	}
 
 }
 
 void LojaElectronica::addLoja()
 {
-	    string designacao;
-	    string morada;
+	string designacao;
+	string morada;
 
-		cout << "Designacao: " << endl;
-		cin>>designacao;
+	cout << "Designacao: " << endl;
+	cin>>designacao;
 
-		cout << "Morada: " << endl;
-		cin>>morada;
+	cout << "Morada: " << endl;
+	cin>>morada;
 
-		Zona *zonaLoja=determinaZona(morada);
+	Zona *zonaLoja=determinaZona(morada);
 
-		Loja *c=new Loja(designacao,morada,zonaLoja);
+	Loja *c=new Loja(designacao,morada);
 
-		lojas.push_back(c);
+	lojas.push_back(c);
 
 }
 
@@ -289,58 +289,140 @@ void LojaElectronica::removeLoja(unsigned int codLoja)
 void LojaElectronica::addEncomenda()
 {
 
-	cout<<"Add Encomenda vamos ver o q sai daqui -.-";
+	/*ifstream inFile;
+		Graph<Zona> myGraph1;
 
-	Graph<Zona> myGraph;
+		//Ler o ficheiro nos.txt
+			inFile.open("nos.txt");
 
-	int idNo=0;
-	int X=0;
-	int Y=0;
-	string zona;
+			if (!inFile) {
+			    cerr << "Unable to open file datafile.txt";
+			    exit(1);   // call system to stop
+			}
 
-	idNo=0;
-	X=741;
-	Y=199;
+			std::string   line;
 
-	myGraph.addVertex(idNo);
 
-	idNo=1;
-	X=512;
-	Y=316;
 
-	myGraph.addVertex(idNo);
+			string nome, morada,  contacto,  email, zona,zonaCliente;
+			unsigned int nif;
 
-	int idAresta=0;
-	int idNoOrigem=0;
-	int idNoDestino=0;
-	int custo=0;
-	int tempo=0;
-	string aresta;
+			string designacao, moradaLoja;
 
-	idAresta=0;
-	idNoOrigem=1;
-	idNoDestino=4;
-	custo=140;
-	tempo=1201;
 
-	double custo_tempo=0.0;
-	custo_tempo=(custo*60)/tempo;
 
-	myGraph.addEdge(idNoOrigem, idNoDestino, custo_tempo);
+			while(std::getline(inFile, line))
+				{
+				    std::stringstream linestream(line);
+				    std::string         data;
 
-	idAresta=1;
-	idNoOrigem=6;
-	idNoDestino=205;
-	custo=1082;
-	tempo=1;
+				    linestream >> zona;
 
-	custo_tempo=0.0;
-	custo_tempo=(custo*60)/tempo;
+				    //Zona *idNo=new Zona(zona);
 
-	myGraph.addEdge(idNoOrigem, idNoDestino, custo_tempo);
+				    Zona a("Lisbon");
 
-	int a=myGraph.getNumVertex();
-	cout<<"aaaaaaaaaaaaa"<<a;
+				    std::getline(linestream, data, ';');  // read up-to the first ; (discard ;).
+				    linestream >> nome;
+				    std::getline(linestream, data, ';');  // read up-to the first ; (discard ;).
+				    linestream >> morada;
+				    std::getline(linestream, data, ';');  // read up-to the first ; (discard ;).
+				    linestream >> contacto;
+				    std::getline(linestream, data, ';');  // read up-to the first ; (discard ;).
+				    linestream >> email;
+				    std::getline(linestream, data, ';');  // read up-to the first ; (discard ;).
+				    linestream >> zonaCliente;
+
+				    Zona *ZonaX=new Zona(zonaCliente);
+
+				    Cliente *cliente=new Cliente(nome,morada,contacto,email,2345678,ZonaX);
+
+				    std::getline(linestream, data, ';');  // read up-to the first ; (discard ;).
+					linestream >> designacao;
+				    std::getline(linestream, data, ';');  // read up-to the first ; (discard ;).
+					linestream >> moradaLoja;
+
+					Zona *zon=new Zona(moradaLoja);
+
+					Loja *loja=new Loja(designacao,moradaLoja,zon);
+
+					std::getline(linestream, data, ';');
+
+
+
+					myGraph1.addVertex(a);
+
+
+				}
+
+				inFile.close();*/
+
+
+	Graph<Zona*> myGraph1;
+	Zona *a=new Zona("Lisbon");
+	Zona *b=new Zona("Porto");
+	Zona *c=new Zona("Coimbra");
+	Zona *d=new Zona("Algarve");
+
+
+	myGraph1.addVertex(a);
+	myGraph1.addVertex(b);
+	myGraph1.addVertex(c);
+	myGraph1.addVertex(d);
+
+	myGraph1.addEdge(a, b, 3);
+	myGraph1.addEdge(b, a, 3);
+
+	myGraph1.addEdge(a, c, 1);
+	myGraph1.addEdge(c, a, 1);
+
+	myGraph1.addEdge(b, d, 7);
+	myGraph1.addEdge(d, a, 7);
+
+	myGraph1.addEdge(c, d, 10);
+	myGraph1.addEdge(d, c, 10);
+
+	//Caminhos mais curtos a partir de noOrigem --> Grafos Pesados - Djikstra
+
+	Zona *noOrigem =a;
+
+	myGraph1.dijkstraShortestPath(noOrigem);
+
+	//myGraph1.unweightedShortestPath(noOrigem);
+
+	vector<Vertex<Zona*>* > vs = myGraph1.getVertexSet();
+
+
+	int menor=2000000000;
+	Zona *noMenor=vs[0]->getInfo();
+
+
+	//Ver qual o caminho mais curto de todos e guardar o menor
+
+	for(unsigned int i=0;i<vs.size();i++){
+		if(vs[i]->getInfo()!=noOrigem && vs[i]->getDist()<=menor){
+			cout<<"Dijkstra: Distancia de: "<< a->getLocalizacao() << " a "<<vs[i]->getInfo()->getLocalizacao()<<":  "<<vs[i]->getDist()<<endl;
+			menor=vs[i]->getDist();
+			noMenor=vs[i]->getInfo();
+		}
+	}
+
+	cout<<"Menor Custo: "<<menor<<endl;
+	cout<<"No de Menor custo: "<<noMenor->getLocalizacao()<<endl;
+
+
+
+	//Caminho de No Origem até No menor Custo
+	vector<Zona*> path = myGraph1.getPath(noOrigem, noMenor);
+
+	for(int j=0;j<path.size();j++){
+		cout<<"Path: "<<path[j]->getLocalizacao()<<endl;
+	}
+
+
+
+
+
 
 }
 
@@ -354,10 +436,10 @@ void LojaElectronica::listaClientes()
 {
 	if(clientes.size()==0 ) throw Excepcao("\n Não existem clientes no sistema \n");
 
-		for (unsigned int i=0; i < clientes.size(); i++)
-				{
-					clientes[i]->imprimeCliente();
-				}
+	for (unsigned int i=0; i < clientes.size(); i++)
+	{
+		clientes[i]->imprimeCliente();
+	}
 
 }
 
@@ -371,10 +453,10 @@ void LojaElectronica::listaLojas()
 
 	if(lojas.size()==0 ) throw Excepcao("\n Não existem lojas no sistema \n");
 
-		for (unsigned int i=0; i < lojas.size(); i++)
-				{
-					lojas[i]->imprimeLoja();
-				}
+	for (unsigned int i=0; i < lojas.size(); i++)
+	{
+		lojas[i]->imprimeLoja();
+	}
 }
 
 void LojaElectronica::listaEncomendas()

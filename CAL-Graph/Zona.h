@@ -65,6 +65,13 @@ public:
 	 */
 	void info() const;
 
+	//! Overloading do operador de comparação == para objetos do tipo Zona
+	/**
+	 * Uma zona é igual a outro se seus nomes são iguais.
+	 * \return um booleano que é true se uma zona for igual a outra e false caso contrário.
+	 */
+	bool operator==(const Zona & x) const;
+
 };
 
 #endif /* ZONA_H_ */

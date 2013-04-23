@@ -30,7 +30,6 @@ class Loja
     static unsigned int countLojas;
     string designacao;
     string morada;
-    Zona * zona;
     vector <Produto *> produtos;
 
 public:
@@ -40,7 +39,7 @@ public:
      * \param morada  uma string que vai atribuir valor ao membro-dado morada.
      * \param zona  um apontador para a zona da loja
      */
-    Loja(string desig, string mor, Zona *zon);
+    Loja(string desig, string mor);
 
     //! Membro-funcao para retornar o valor do membro-dado codLoja
     /**  um membro-funcao const para garantir a nao modificao de nenhum membro-dado.
@@ -57,10 +56,6 @@ public:
      * \return uma string com valor do membro-dado morada. */
     string getMorada() const;
 
-    //! Membro-funcao para retornar o valor do membro-dado zona
-    /**  um membro-funcao const para garantir a nao modificao de nenhum membro-dado.
-     * \return um apontador para a zona */
-    Zona* getZona() const;
     //! Membro-funcao para retornar o valor do membro-dado produtos que contem todos os produtos de uma loja
       /**  um membro-funcao const para garantir a nao modificao de nenhum membro-dado.
        * \return um apontador para produtos */
@@ -74,9 +69,6 @@ public:
     /** \param morada  o contedo da string a ser atribuida ao membro-dado morada. */
     void setMorada(string morada);
 
-    //! Membro-funo para setar o membro-dado zona de um objeto tipo Loja j instanciado
-    /** \param zona  um apontador para a zona da loja */
-    void setZona(Zona* zon);
 
     //! Overloading do operador de comparao == para objetos do tipo Loja
     /**
