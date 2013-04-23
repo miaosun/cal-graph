@@ -27,8 +27,8 @@
 class LojaElectronica
 {
 	vector <Cliente *> clientes;
-	vector <Loja *> lojas;
-	vector <Zona *> zonas;
+	vector <Loja *> lojas; //retirar?
+	vector <Zona *> zonas; //retirar?
 	vector <Encomenda *> encomendas;
 	Graph<Zona*> myGraph;
 
@@ -73,25 +73,37 @@ public:
 	//! Membro-funcao que permite a remocao de produtos novos
 	/** dado o codigo do produto que pretende remover */
 	void removeProduto(unsigned int codProduto);
+
+
 	//! Membro-funcao que permite a adicao de zonas novas
 	void addZona();
 	//! Membro-funcao que permite a adicao de zonas novas ao grafo
-	void addZonaGrafo();
+	void addZonaGrafo(Zona* z);
+
+	void addArestaBidireccional(Zona* z1, Zona* z2, int dist);
+
 	//! Membro-funcao que permite a remocao de zonas novos
 	/** dado o codigo da zona que pretende remover */
 	void removeZona(unsigned int codZona);
 	//! Membro-funcao que lista as zonas existentes no base de dados
 	void listaZonas();
+
+
 	//! Membro-funcao que permite a adicao de lojas novas
 	void addLoja();
 	//! Membro-funcao que permite a remocao de lojas novos
 	/** dado o codigo da loja que pretende remover */
 	void removeLoja(unsigned int codLoja);
+
+
 	//! Membro-funcao que permite a adicao de encomendas novas
 	void addEncomenda();
 	//! Membro-funcao que permite a remocao de encomendas novos
 	/** dado o codigo da encomenda que pretende remover */
 	void removeEncomenda(unsigned int codEncomenda);
+
+
+
 	//! Membro-funcao que lista os clientes existentes no base de dados
 	void listaClientes();
 	//! Membro-funcao que lista os produtos existentes na determinada loja no base de dados
@@ -100,6 +112,9 @@ public:
 	void listaLojas();
 	//! Membro-funcao que lista as encomendas existentes no base de dados
 	void listaEncomendas();
+
+
+
 	//! Membro-funcao que le os clientes a partir dum ficheiro
 	void loadClientes(string filename);
 	//! Membro-funcao que grava os clientes num ficheiro
