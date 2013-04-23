@@ -206,12 +206,44 @@ void LojaElectronica::addZona()
 	fflush(stdin);
 	getline(cin,designacao);
 
+	//verifica se já existe alguma zona c mesma designação
+	//procuraZona(designacao); TODO lança excepção caso exista!
+
 	Zona *zona=new Zona(designacao);
 
-	zona->info();
+	addZonaGrafo(zona);
 
-	zonas.push_back(zona);
+}
 
+void LojaElectronica::addZonaGrafo(Zona* z1) {
+	myGraph.addVertex(z1);
+
+	char resp;
+	do {
+		//TODO print zonas
+		string zona;
+		int dist;
+		cout << "Insira uma Zona à qual ligar: ";
+		fflush(stdin);
+		getline(cin,zona);
+
+		//TODO procura zona, excepção caso n exista
+
+		cout << "Distância: ";
+		fflush(stdin);
+		cin >> dist;
+
+		//addArestaBidireccional(z1,z2,dist);
+
+		cout << "Deseja inserir mais alguma distância a outra zona? (S/N): ";
+		fflush(stdin);
+		cin >> resp;
+	} while(resp!='n' || resp != 'N');
+}
+
+void LojaElectronica::addArestaBidireccional(Zona* z1, Zona* z2, int dist) {
+	myGraph.addEdge(z1,z2,dist);
+	myGraph.addEdge(z2,z1,dist);
 }
 
 void LojaElectronica::removeZona(unsigned int codZona)
