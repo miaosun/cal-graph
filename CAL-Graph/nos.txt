@@ -1,6 +1,0 @@
-5
-|1|Porto|
-|2|Lisboa|
-|3|Coimbra|
-|4|Aveiro|
-|5|Algarvo|
