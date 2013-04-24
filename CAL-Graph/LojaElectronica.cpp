@@ -753,7 +753,7 @@ void LojaElectronica::saveEdges(string filename)
 			vector<Edge<Zona> > vedges = (*it)->getAdj();
 			for(unsigned int i=vedges.begin(); i<vedges.end(); i++)
 			{
-				myfile<<"|"<<(*it)->getInfo()->getCodZona()<<"|"<<vedges[i].getDest()->getInfo().getCodZona()<<"|"<<vedges[i].getDest()->getDist()<<"|";
+				myfile<<"|"<<(*it)->getInfo()->getCodZona()<<"|"<<vedges[i].getDest()->getInfo().getCodZona()<<"|"<<vedges[i].getWeight()<<"|";
 			}
 		}
 
