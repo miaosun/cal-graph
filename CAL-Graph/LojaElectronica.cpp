@@ -526,12 +526,63 @@ void LojaElectronica::listaEncomendas()
 
 void LojaElectronica::loadClientes(string filename)
 {
+	ifstream file;
+	string line;
+	vector<Cliente> vec_cliente;
+	string nome,morada,contacto,email,NIB;
+	unsigned int NIF, cod, codzona;
 
+	file.open(filename.c_str());
+
+	if (file.is_open()) {
+
+		getline(file, line);
+		Cliente::setCount(atoi(line.c_str()));
+		while(!file.eof() ){
+
+			getline(file, line);
+			if(line == "") break;
+			nome = line;
+
+			getline(file, morada);
+			getline(file, contacto);
+			getline(file, email);
+			getline(file, line);
+			NIF = atoi(line.c_str());
+			getline(file, line);
+			cod = atoi(line.c_str());
+			getline(file, line);
+			codzona = atoi(line.c_str());
+
+			Zona *z = procuraZona(codzona);
+			Cliente *c1 = new Cliente(nome,morada,contacto,email,NIF, cod, z);
+			clientes.push_back(c1);
+		}
+		file.close();
+	}
 }
 
 void LojaElectronica::saveClientes(string filename)
 {
-
+	int i = 0;
+	int tam = clientes.size();
+	ofstream myfile(filename.c_str());
+	if (myfile.is_open()) {
+		myfile << Cliente::getCount() << endl;
+		while (i < tam) {
+			if(clientes[i] != NULL){
+				myfile << clientes[i]->getNome() << endl;
+				myfile << clientes[i]->getMorada() << endl;
+				myfile << clientes[i]->getContacto() << endl;
+				myfile << clientes[i]->getEmail() << endl;
+				myfile << clientes[i]->getNIF() << endl;
+				myfile << clientes[i]->getCodCliente() << endl;
+				myfile << clientes[i]->getZona()->getCodZona() << endl;
+			}
+			i++;
+		}
+		myfile.close();
+	}
 }
 
 void LojaElectronica::loadProdutos(string filename)
@@ -581,6 +632,7 @@ void LojaElectronica::loadLojas(string filename)
 		while(! file.eof() ){
 
 			getline(file, line);
+			if(line=="") break;
 			v=split('|', line);
 
 			idzona = atoi(v[0].c_str());

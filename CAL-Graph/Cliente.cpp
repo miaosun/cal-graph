@@ -24,6 +24,14 @@ Cliente::Cliente(string nm, string mrd, string c, string e, unsigned int n,Zona 
 	zona=zon;
 }
 
+Cliente::Cliente(string nm, string mrd, string c, string e, unsigned int n, unsigned int cod, Zona *zon): NIF(n),codCliente(cod) {
+	nome=nm;
+	morada=mrd;
+	contacto=c;
+	email=e;
+	zona=zon;
+}
+
 // GETS CLIENTE
 
 string Cliente::getNome() const {
@@ -40,6 +48,9 @@ string Cliente::getContacto() const {
 
 string Cliente::getEmail() const {
 	return email;
+}
+Zona * Cliente::getZona() const {
+	return zona;
 }
 
 unsigned int Cliente::getCodCliente() const {
