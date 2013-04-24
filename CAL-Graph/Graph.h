@@ -57,6 +57,10 @@ public:
 	void updateEdgeFlow(unsigned int index, float f);
 };
 
+template <class T>
+bool Vertex<T>::operator<(const Vertex<T> vertex) {
+	return this->dist < vertex->dist;
+}
 
 template <class T>
 struct vertex_greater_than {
