@@ -18,7 +18,7 @@
 #include "Graph.h"
 #include "graphviewer.h"
 #include "insertionSort.h"
-#include "sequentialSearch.h"
+//#include "sequentialSearch.h"
 #include <stdlib.h>
 #include <vector>
 #include <sstream>
