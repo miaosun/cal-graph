@@ -693,7 +693,6 @@ void LojaElectronica::loadVertices(string filename)
 			getline(myfile, linha);
 			if(linha=="") break;
 			v=split('|', linha);
-			cout<<"test: "<< v[1].c_str()<<endl;
 			Zona *z = new Zona(atoi(v[0].c_str()), v[1].c_str());
 			myGraph.addVertex(z);
 		}
@@ -708,6 +707,7 @@ void LojaElectronica::loadVertices(string filename)
 
 void LojaElectronica::saveVertices(string filename)
 {
+	vector<Vertex<Zona*> *> vs = myGraph.getVertexSet();
 	vector<Vertex<Zona*> *>::iterator it;
 
 	ofstream myfile (filename.c_str());
@@ -715,7 +715,7 @@ void LojaElectronica::saveVertices(string filename)
 	{
 		myfile << Zona::getCount();
 
-		for(it=myGraph.getVertexSet().begin(); it!=myGraph.getVertexSet().end(); it++)
+		for(it=vs.begin(); it!=vs.end(); it++)
 			myfile<<(*it)->getInfo()->toString()<<endl;
 
 		myfile.close();
@@ -759,11 +759,12 @@ void LojaElectronica::loadEdges(string filename)
 
 void LojaElectronica::saveEdges(string filename)
 {
+	vector<Vertex<Zona*> *> vs = myGraph.getVertexSet();
 	vector<Vertex<Zona*> *>::iterator it;
 	ofstream myfile (filename.c_str());
 	if(myfile.is_open())
 	{
-		for(it=myGraph.getVertexSet().begin(); it!=myGraph.getVertexSet().end(); it++)
+		for(it=vs.begin(); it!=vs.end(); it++)
 		{
 			vector<Edge<Zona*> > vedges = (*it)->getAdj();
 			vector<Edge<Zona*> >::iterator ited;
@@ -794,41 +795,44 @@ void LojaElectronica::windows(){
 	//configurar a cor das arestas
 	gv->defineEdgeColor("black");
 
-	//criar um n� com ID=0
-
+	//criar os nos partir do vector vertexSet
 	for(unsigned int i=0;i<myGraph.getVertexSet().size();i++){
 
 		gv->addNode(myGraph.getVertexSet()[i]->getInfo()->getCodZona());
-		cout<<myGraph.getVertexSet()[i]->getInfo()->getDesignacao();
 		gv->setVertexLabel(myGraph.getVertexSet()[i]->getInfo()->getCodZona(), myGraph.getVertexSet()[i]->getInfo()->getDesignacao());
 		gv->rearrange();
 	}
 
+	//Nota: para criar uma aresta deve utilizar o seguinte comando:
+	// para arestas bidireccionais
 
-	/*gv->addNode(1);
-		gv->addNode(2);
-		gv->addNode(3);
-
-		//atribuir as novas altera��es ao grafo
-		gv->rearrange();
-
-
-		//Nota: para criar uma aresta deve utilizar o seguinte comando:
-		// para arestas bidireccionais
-		gv->addEdge(0,0,1,EdgeType::UNDIRECTED);
+	/*gv->addEdge(0,0,1,EdgeType::UNDIRECTED);
 		gv->addEdge(1,0,2,EdgeType::UNDIRECTED);
 		gv->addEdge(2,1,3,EdgeType::UNDIRECTED);
-		gv->addEdge(3,2,3,EdgeType::UNDIRECTED);
-		// para arestas direccionais
-		//gv->addEdge(0,0,1, EdgeType::DIRECTED);
+		gv->addEdge(3,2,3,EdgeType::UNDIRECTED);*/
+	// para arestas direccionais
+	//vector<Vertex<Zona*> *>::iterator it;
+	int idEdge=0;
+	vector<Vertex<Zona*> *> vs = myGraph.getVertexSet();
+	vector<Vertex<Zona*> *>::iterator it;
+	for(it=vs.begin(); it!=vs.end(); it++)
+	{
+		//TODO  nao esta a funcionar
+		vector<Edge<Zona*> > vedges = (*it)->getAdj();
+		vector<Edge<Zona*> >::iterator ited;
+		for(ited=vedges.begin(); ited!=vedges.end(); ited++)
+			gv->addEdge(idEdge, (*it)->getInfo()->getCodZona(), ited->getDest()->getInfo()->getCodZona(), EdgeType::UNDIRECTED);
+	}
 
-
-		gv->setEdgeLabel(2,"isto � uma aresta");
-
-		gv->setVertexColor(2,"green");
-		gv->setEdgeColor(2,"yellow");*/
 
 	gv->rearrange();
+
+	/*
+		gv->setVertexColor(2,"green");
+		gv->setEdgeColor(2,"yellow");
+		gv->rearrange();
+	 */
+
 }
 
 /*
