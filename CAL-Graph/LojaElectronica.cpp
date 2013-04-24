@@ -627,6 +627,7 @@ void LojaElectronica::saveLojas(string filename)
 	}
 	 */
 
+	/*
 	vector<Vertex<Zona*> *>::iterator it;
 
 	ofstream myfile (filename.c_str());
@@ -639,7 +640,7 @@ void LojaElectronica::saveLojas(string filename)
 		}
 
 
-	}
+	} */
 }
 
 void LojaElectronica::loadZonas(string filename)

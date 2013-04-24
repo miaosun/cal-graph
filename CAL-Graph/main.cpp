@@ -234,7 +234,7 @@ int main()
 
 		}else if(choice==5){
 
-			lj.loadVertices("nos");
+			lj.loadVertices("nos.txt");
 
 
 		}
