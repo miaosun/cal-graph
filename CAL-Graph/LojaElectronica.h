@@ -83,8 +83,8 @@ public:
 	void addArestaBidireccional(Zona* z1, Zona* z2, int dist);
 
 	Zona* procuraZona(string designacao);
-	Zona* procuraZona(int id);
-
+	Zona* procuraZona(unsigned int id);
+	Loja* procuraLoja(unsigned int id);
 	//! Membro-funcao que permite a remocao de zonas novos
 	/** dado a designacao da zona que pretende remover */
 	void removeZona(string designacao);
