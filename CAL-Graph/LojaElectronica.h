@@ -27,8 +27,6 @@
 class LojaElectronica
 {
 	vector <Cliente *> clientes;
-	//vector <Loja *> lojas; //retirar?
-	//vector <Zona *> zonas; //retirar?
 	vector <Encomenda *> encomendas;
 	Graph<Zona*> myGraph;
 

@@ -610,8 +610,8 @@ void LojaElectronica::loadLojas(string filename)
 void LojaElectronica::saveLojas(string filename)
 {
 	/*
+}
 	int i = 0;
-	int tam = lojas.size();
 	ofstream myfile(filename.c_str());
 	if (myfile.is_open()) {
 		myfile << Loja::getCount() << endl;
@@ -626,6 +626,20 @@ void LojaElectronica::saveLojas(string filename)
 		myfile.close();
 	}
 	 */
+
+	vector<Vertex<Zona*> *>::iterator it;
+
+	ofstream myfile (filename.c_str());
+	if(myfile.is_open())
+	{
+		myfile << Loja::getCount();
+
+		for(it=myGraph.getVertexSet().begin(); it!=myGraph.getVertexSet().end(); it++) {
+			myfile <<
+		}
+
+
+	}
 }
 
 void LojaElectronica::loadZonas(string filename)
@@ -659,26 +673,19 @@ void LojaElectronica::loadVertices(string filename)
 	if(myfile.is_open())
 	{
 		getline(myfile, linha);
-		s<<linha;
-		s>>nVertices;
-
+		Zona::setCount(atoi(linha.c_str()));
 		/*
 		 * falta implementar a excepcao
 		 */
 
-		if(nVertices>0)
-		{
-			for(unsigned int i=0; i<nVertices; i++)
-			{
-				getline(myfile, linha);
-				v=split('|', linha);
-				//int idLoja = atoi(v[2].c_str());
-				Zona *z = new Zona(atoi(v[0].c_str()), v[1].c_str());
-				myGraph.addVertex(z);
-			}
-
-			cout<<endl<<endl<<"Vertices importadas com sucesso!"<<endl<<endl;
+		while(!myfile.eof() ){
+			getline(myfile, linha);
+			v=split('|', linha);
+			//int idLoja = atoi(v[2].c_str());
+			Zona *z = new Zona(atoi(v[0].c_str()), v[1].c_str());
+			myGraph.addVertex(z);
 		}
+		cout<<endl<<endl<<"Vertices importadas com sucesso!"<<endl<<endl;
 		myfile.close();
 	}
 	else
@@ -694,7 +701,7 @@ void LojaElectronica::saveVertices(string filename)
 	ofstream myfile (filename.c_str());
 	if(myfile.is_open())
 	{
-		myfile<<myGraph.getVertexSet().size()<<endl;
+		myfile << Zona::getCount();
 
 		for(it=myGraph.getVertexSet().begin(); it!=myGraph.getVertexSet().end(); it++)
 			myfile<<(*it)->getInfo()->toString()<<endl;
