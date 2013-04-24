@@ -227,6 +227,15 @@ Zona* LojaElectronica::procuraZona(string designacao) {
 	}
 	return NULL;
 }
+Zona* LojaElectronica::procuraZona(int id) {
+	vector<Vertex<Zona*> *>::iterator it = myGraph.getVertexSet().begin();
+
+	for(;it != myGraph.getVertexSet().end();it++) {
+		if((*it)->getInfo()->getCodZona()==id)
+			return (*it)->getInfo();
+	}
+	return NULL;
+}
 
 void LojaElectronica::addZona()
 {
