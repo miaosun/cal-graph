@@ -28,7 +28,7 @@ public:
 	//! Construtor que inicializa membros-dado
 	/**
 	 * \param licalizacao uma string que vai atribuir valor ao membro-dado designaï¿½ï¿½o.
-	*/
+	 */
 	Zona(string designacao);
 	Zona(unsigned int codZona, string designacao, Loja *loja);
 
@@ -59,12 +59,7 @@ public:
 	/**
 	 * \return um inteiro com conteï¿½do do membro-dado estatico countZonas. */
 	static unsigned int getCount() {return countZonas;}
-	//! Membro-funï¿½ï¿½o que imprime no ecrï¿½ os membros-dado de um objeto tipo Zona
-	/**
-	 * Membro-funï¿½ï¿½o para imprimir no ecrï¿½ o conteï¿½do dos membros-dado de um objeto tipo Cliente no formato,
-	 * \n Zona nï¿½mero: \n designaï¿½ï¿½o: \n
-	 */
-	void info() const;
+
 
 	//! Overloading do operador de comparaï¿½ï¿½o == para objetos do tipo Zona
 	/**
@@ -72,6 +67,12 @@ public:
 	 * \return um booleano que ï¿½ true se uma zona for igual a outra e false caso contrï¿½rio.
 	 */
 	bool operator==(const Zona & x) const;
+
+	//! Overloading do operador de exibição << para objetos do tipo Peca
+	/**
+	 * \return um ostream com conteúdo dos membros-dado codPeca, designacao, loja e stock.
+	 */
+	friend ostream & operator << (ostream & o, const Zona & z);
 
 	string toString();
 

@@ -82,6 +82,8 @@ public:
 
 	void addArestaBidireccional(Zona* z1, Zona* z2, int dist);
 
+	Zona* procuraZona(string designacao);
+
 	//! Membro-funcao que permite a remocao de zonas novos
 	/** dado o codigo da zona que pretende remover */
 	void removeZona(unsigned int codZona);
@@ -101,7 +103,6 @@ public:
 	//! Membro-funcao que permite a remocao de encomendas novos
 	/** dado o codigo da encomenda que pretende remover */
 	void removeEncomenda(unsigned int codEncomenda);
-
 
 
 	//! Membro-funcao que lista os clientes existentes no base de dados

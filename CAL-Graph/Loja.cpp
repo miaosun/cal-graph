@@ -14,20 +14,20 @@
 
 unsigned int Loja::countLojas=0;
 
-Loja::Loja(string desig, string mor):codLoja(++countLojas) {
-	designacao=desig;
+Loja::Loja(string nm, string mor):codLoja(++countLojas) {
+	nome=nm;
 	morada=mor;
 
 }
 
-Loja::Loja(string desig, string mor, unsigned int cod):codLoja(cod) {
-	designacao=desig;
+Loja::Loja(string nm, string mor, unsigned int cod):codLoja(cod) {
+	nome=nm;
 	morada=mor;
 }
 // GETS Loja
 
-string Loja::getDesignacao() const {
-	return designacao;
+string Loja::getNome() const {
+	return nome;
 }
 
 string Loja::getMorada() const {
@@ -48,8 +48,8 @@ vector <Produto *> Loja::getProdutos() const{
 
 // SETS Loja
 
-void Loja::setDesignacao(string desc) {
-	designacao=desc;
+void Loja::setNome(string nm) {
+	nome=nm;
 }
 
 void Loja::setMorada(string m) {
@@ -62,7 +62,7 @@ void Loja::setMorada(string m) {
 
 void Loja::imprimeLoja() const {
 	cout << "\nLoja numero: " << codLoja << endl ;
-	cout << "Descricao: " << designacao << endl;
+	cout << "Nome: " << nome << endl;
 	cout << "Morada: " << morada << endl;
 	cout<<"Produtos Existentes na Loja:"<<endl;
 	if(produtos.size()==0) cout<<"Loja sem produtos de momento"<<endl;
