@@ -85,8 +85,8 @@ public:
 	Zona* procuraZona(string designacao);
 
 	//! Membro-funcao que permite a remocao de zonas novos
-	/** dado o codigo da zona que pretende remover */
-	void removeZona(unsigned int codZona);
+	/** dado a designacao da zona que pretende remover */
+	void removeZona(string designacao);
 	//! Membro-funcao que lista as zonas existentes no base de dados
 	void listaZonas();
 
