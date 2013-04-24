@@ -21,10 +21,9 @@ Zona::Zona(string Localidade):codZona(++countZonas)
 	this->loja=NULL;
 }
 
-Zona::Zona(unsigned int cod, string designacao, Loja *loja): codZona(cod)
+Zona::Zona(unsigned int cod, string designacao): codZona(cod)
 {
 	this->designacao = designacao;
-	this->loja = loja;
 }
 
 Zona::~Zona(){}
@@ -72,6 +71,6 @@ ostream & operator << (ostream & o, const Zona & z){
 string Zona::toString()
 {
 	stringstream ss;
-	ss<<"|"<<this->codZona<<"|"<<this->designacao<<"|"<<this->loja->getCodLoja()<<"|";
+	ss<<"|"<<this->codZona<<"|"<<this->designacao<<"|";
 	return ss.str();
 }

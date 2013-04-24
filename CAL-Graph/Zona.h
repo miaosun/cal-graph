@@ -30,7 +30,7 @@ public:
 	 * \param licalizacao uma string que vai atribuir valor ao membro-dado designaï¿½ï¿½o.
 	 */
 	Zona(string designacao);
-	Zona(unsigned int codZona, string designacao, Loja *loja);
+	Zona(unsigned int codZona, string designacao);
 
 	//! Destrutor que liberta o recurso de memoria foi alocado
 	~Zona();
@@ -68,9 +68,9 @@ public:
 	 */
 	bool operator==(const Zona & x) const;
 
-	//! Overloading do operador de exibição << para objetos do tipo Peca
+	//! Overloading do operador de exibiï¿½ï¿½o << para objetos do tipo Peca
 	/**
-	 * \return um ostream com conteúdo dos membros-dado codPeca, designacao, loja e stock.
+	 * \return um ostream com conteï¿½do dos membros-dado codPeca, designacao, loja e stock.
 	 */
 	friend ostream & operator << (ostream & o, const Zona & z);
 
