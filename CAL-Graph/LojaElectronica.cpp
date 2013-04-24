@@ -28,6 +28,13 @@ vector<string> split(char delim, string s)
 	return result;
 }
 
+int pesquisaSequencial(vector<string> v, string s){
+	for(unsigned int i=0; i < v.size(); i++) {
+		if(v[i] == s)
+			return 1;
+	}
+	return -1;
+}
 
 LojaElectronica::LojaElectronica()
 {
@@ -138,11 +145,6 @@ void LojaElectronica::addCliente()
 	clientes.push_back(c);
 }
 
-void LojaElectronica::removeCliente(unsigned int codCliente)
-{
-	//TO DO? Este obriga nos a saber o codigo de todos os clientes... pode ser mais confuso :S
-	//temporariamente uso o metodo abaixo
-}
 
 void LojaElectronica::removeCliente(string nome)
 {
@@ -154,7 +156,6 @@ void LojaElectronica::removeCliente(string nome)
 			clientes.erase(clientes.begin() + i);
 			break;
 		}
-
 	if(encontrou==false){
 		throw Excepcao("\n Nao existe nenhum cliente com esse nome \n");
 	} else cout<<"Cliente Eliminado com sucesso";
@@ -163,10 +164,8 @@ void LojaElectronica::removeCliente(string nome)
 Cliente *LojaElectronica::ProcuraCliente_nome(string nome)
 {
 	for (unsigned int i=0; i < clientes.size(); i++)
-	{
 		if (nome == clientes.at(i)->getNome())
 			return clientes.at(i);
-	}
 
 	throw Excepcao("\n Nao existe nenhum cliente com esse nome \n");
 	return NULL;
@@ -268,12 +267,10 @@ void LojaElectronica::removeZona(string desig)
 			break;
 		}
 	}
-
-	if(encontrou==false){
-
+	if(encontrou==false)
 		throw Excepcao("\n Nao existe nenhuma zona com esse ID \n");
-
-	} else cout<<"Zona Eliminada com sucesso";
+	else
+		cout<<"Zona Eliminada com sucesso";
 }
 
 void LojaElectronica::listaZonas()
@@ -481,13 +478,8 @@ void LojaElectronica::listaProdutos()
 	for(unsigned int i=0; i< vp.size(); i++)
 		cout << vp[i];
 }
-//int pesquisaSequencial(vector<string> v, string s){
-//	for(unsigned int i=0; i < v.end(); i++) {
-//		if(v[i] == s)
-//			return 0;
-//	}
-//	return -1;
-//}
+
+
 vector<string> LojaElectronica::nomesProdutos(){
 
 	string prod;
@@ -496,7 +488,7 @@ vector<string> LojaElectronica::nomesProdutos(){
 	{
 		for(unsigned int j=0;j<myGraph.getVertexSet()[i]->getInfo()->getLoja()->getProdutos().size();j++) {
 			prod=myGraph.getVertexSet()[i]->getInfo()->getLoja()->getProdutos()[j]->getDesignacao();
-		//	if(pesquisaSequencial(res,prod)==-1)
+			if(pesquisaSequencial(res,prod)==-1)
 				res.push_back(prod);
 		}
 	}
@@ -508,9 +500,7 @@ void LojaElectronica::listaLojas()
 	if(myGraph.getVertexSet().size()==0 ) throw Excepcao("\n Nao existem lojas no sistema \n");
 
 	for (unsigned int i=0; i < myGraph.getVertexSet().size(); i++)
-	{
 		cout << myGraph.getVertexSet()[i]->getInfo()->getLoja() << endl << endl;
-	}
 }
 
 void LojaElectronica::listaEncomendas()
@@ -677,14 +667,14 @@ void LojaElectronica::saveLojas(string filename) {
 	}
 }
 
-void LojaElectronica::loadEncomendas(string filenmae)
+void LojaElectronica::loadEncomendas(string filename)
 {
-
+	// TODO
 }
 
 void LojaElectronica::saveEncomendas(string filename)
 {
-
+	// TODO
 }
 
 ///////////////////// loads e saves para grafo
@@ -706,7 +696,6 @@ void LojaElectronica::loadVertices(string filename)
 			getline(myfile, linha);
 			if(linha=="") break;
 			v=split('|', linha);
-			//int idLoja = atoi(v[2].c_str());
 			cout<<"test: "<< v[1].c_str()<<endl;
 			Zona *z = new Zona(atoi(v[0].c_str()), v[1].c_str());
 			myGraph.addVertex(z);
@@ -718,39 +707,6 @@ void LojaElectronica::loadVertices(string filename)
 	{
 		cout<<"Nao foi possivel abrir o ficheiro "<<filename<<"!"<<endl<<endl;
 	}
-	/*	unsigned int nVertices;
-	string linha;
-	vector<string> v;
-	stringstream s;
-	ifstream myfile (filename.c_str());
-	if(myfile.is_open())
-	{
-		getline(myfile, linha);
-		s<<linha;
-		s>>nVertices;
-
-		if(nVertices>0)
-		{
-			for(unsigned int i=0; i<nVertices; i++)
-			{
-				getline(myfile, linha);
-				v=split('|', linha);
-				cout<<"test: "<< v[1].c_str()<<endl;
-				//int idLoja = atoi(v[2].c_str());
-				Zona *z = new Zona(atoi(v[0].c_str()), v[1].c_str());
-				myGraph.addVertex(z);
-			}
-
-			cout<<endl<<endl<<"Vertices importadas com sucesso!"<<endl<<endl;
-
-		}
-		myfile.close();
-	}
-	else
-	{
-		cout<<"Nao foi possivel abrir o ficheiro "<<filename<<"!"<<endl<<endl;
-	}
-	 */
 }
 
 void LojaElectronica::saveVertices(string filename)
@@ -777,7 +733,6 @@ void LojaElectronica::saveVertices(string filename)
 
 void LojaElectronica::loadEdges(string filename)
 {
-	unsigned int nEdges;
 	string linha;
 	vector<string> v;
 	stringstream s;
@@ -795,7 +750,6 @@ void LojaElectronica::loadEdges(string filename)
 			double peso = atof(v[2].c_str());
 
 			myGraph.addEdge(z1, z2, peso, 0);
-
 		}
 		myfile.close();
 		cout<<endl<<endl<<"Edges importadas com sucesso!"<<endl<<endl;
@@ -817,12 +771,8 @@ void LojaElectronica::saveEdges(string filename)
 			vector<Edge<Zona*> > vedges = (*it)->getAdj();
 			vector<Edge<Zona*> >::iterator ited;
 			for(ited=vedges.begin(); ited!=vedges.end(); ited++)
-			{
 				myfile<<"|"<<(*it)->getInfo()->getCodZona()<<"|"<<ited->getDest()->getInfo()->getCodZona()<<"|"<<ited->getWeight()<<"|";
-
-			}
 		}
-
 		myfile.close();
 		cout<<endl<<endl<<"Edges exportadas com sucesso!"<<endl;
 	}
@@ -831,7 +781,6 @@ void LojaElectronica::saveEdges(string filename)
 		cout<<"Nao foi possivel abrir o ficheiro!"<<endl<<endl;
 		system("pause");
 	}
-
 }
 
 
@@ -849,7 +798,6 @@ void LojaElectronica::windows(){
 	gv->defineEdgeColor("black");
 
 	//criar um n� com ID=0
-
 
 	for(unsigned int i=0;i<myGraph.getVertexSet().size();i++){
 
