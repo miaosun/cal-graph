@@ -35,18 +35,18 @@ class Loja
 public:
 	//! Construtor que inicializa todos os membros-dado
 	/**
-	 * \param nome é uma string que vai atribuir valor ao membro-dado nome.
-	 * \param morada é uma string que vai atribuir valor ao membro-dado morada.
-	 * \param zona é um apontador para a zona da loja
+	 * \param nome ï¿½uma string que vai atribuir valor ao membro-dado nome.
+	 * \param morada ï¿½uma string que vai atribuir valor ao membro-dado morada.
+	 * \param zona ï¿½um apontador para a zona da loja
 	 */
 	Loja(string nome, string mor);
 
-	//! Construtor que inicializa todos os membros-dado, incluíndo código
+	//! Construtor que inicializa todos os membros-dado, incluéŸ“do céª´igo
 	/**
-	 * \param nome é uma string que vai atribuir valor ao membro-dado nome.
-	 * \param morada é uma string que vai atribuir valor ao membro-dado morada.
-	 * \param zona é um apontador para a zona da loja
-	 * \param cod é um inteiro que vai atribuir valor ao membro-dado codLoja.
+	 * \param nome ï¿½uma string que vai atribuir valor ao membro-dado nome.
+	 * \param morada ï¿½uma string que vai atribuir valor ao membro-dado morada.
+	 * \param zona ï¿½um apontador para a zona da loja
+	 * \param cod ï¿½um inteiro que vai atribuir valor ao membro-dado codLoja.
 	 */
 	Loja(string nome, string mor, unsigned int cod);
 
@@ -78,9 +78,9 @@ public:
 	/** \param morada  o contedo da string a ser atribuida ao membro-dado morada. */
 	void setMorada(string morada);
 
-	void Loja::addProduto();
+	void addProduto();
 
-	void Loja::removeProduto(unsigned int codProduto);
+	void removeProduto(unsigned int codProduto);
 
 	//! Overloading do operador de comparao == para objetos do tipo Loja
 	/**
