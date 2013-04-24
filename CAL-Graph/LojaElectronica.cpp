@@ -240,7 +240,6 @@ void LojaElectronica::addZona()
 	Zona *zona=new Zona(designacao);
 
 	addZonaGrafo(zona);
-
 }
 
 void LojaElectronica::addZonaGrafo(Zona* z1) {
@@ -277,25 +276,23 @@ void LojaElectronica::addArestaBidireccional(Zona* z1, Zona* z2, int dist) {
 	myGraph.addEdge(z2,z1,dist);
 }
 
-void LojaElectronica::removeZona(unsigned int codZona)
+void LojaElectronica::removeZona(string desig)
 {
-
 	bool encontrou=false;
 
-	for(unsigned int i=0;i<zonas.size();i++)
-		if (zonas[i]->getCodZona()==codZona) {
+	for(unsigned int i=0;i<myGraph.getVertexSet().size();i++) {
+		if(myGraph.getVertexSet()[i]->getInfo()->getDesignacao()==desig) {
 			encontrou=true;
-			zonas.erase(zonas.begin() + i);
+			myGraph.getVertexSet().erase(myGraph.getVertexSet().begin()+i);
 			break;
-
 		}
+	}
 
 	if(encontrou==false){
 
-		throw Excepcao("\n N鉶 existe nenhuma zona com esse ID \n");
+		throw Excepcao("\n Nao existe nenhuma zona com esse ID \n");
 
 	} else cout<<"Zona Eliminada com sucesso";
-
 }
 
 void LojaElectronica::listaZonas()
