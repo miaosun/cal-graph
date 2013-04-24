@@ -637,6 +637,8 @@ void LojaElectronica::loadVertices(string filename)
 
 			while(!myfile.eof() ){
 				getline(myfile, linha);
+				//if(linha.c_str() == "")
+					//break;
 				v=split('|', linha);
 				//int idLoja = atoi(v[2].c_str());
 				cout<<"test: "<< v[1].c_str()<<endl;
