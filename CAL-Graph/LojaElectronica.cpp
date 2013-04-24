@@ -519,7 +519,7 @@ vector<string> LojaElectronica::nomesProdutos(){
 	{
 		for(unsigned int j=0;j<myGraph.getVertexSet()[i]->getInfo()->getLoja()->getProdutos().size();j++) {
 			prod=myGraph.getVertexSet()[i]->getInfo()->getLoja()->getProdutos()[j]->getDesignacao();
-			//if(pesquisaSequencial(res,prod)==-1)
+			if(pesquisaSequencial(res,prod)==-1)
 				res.push_back(prod);
 		}
 	}
