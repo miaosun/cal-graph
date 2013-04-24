@@ -1,0 +1,5 @@
+|1|Porto
+|2|Coimbra
+|3|Braga
+|4|Lisboa
+|5|Algarve

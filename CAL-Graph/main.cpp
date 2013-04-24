@@ -37,6 +37,7 @@ int main()
 		cout << "2-Gestão de Encomendas" << endl;
 		cout << "3-Gestão de Zonas" << endl;
 		cout << "4-Gestão de Grafo" << endl;
+		cout << "5-Importar Ficheiro" << endl;
 		cout << "0-Sair" << endl << endl;
 
 		cout << "Insira o numero da sua escolha :";
@@ -44,7 +45,7 @@ int main()
 		int choice;
 		cin >> choice;
 
-		while ((choice < 0 || choice > 5) && (isdigit(choice)!=true))
+		while ((choice < 0 || choice > 6) && (isdigit(choice)!=true))
 		{
 			cout << "Opcao invalida!! Introduza um numero entre 0 e 4." << endl;
 			cin >> choice;
@@ -202,7 +203,7 @@ int main()
 					exit_menu1=true;
 				}
 			}
-		}else if(choice==3){
+		}else if(choice==4){
 			int choice;
 			bool exit_menu1 = false;
 
@@ -225,10 +226,15 @@ int main()
 
 				if(choice==1){
 
-									//lj.addZonaGrafo();
+					//lj.addZonaGrafo();
 
-								}
+				}
 			}
+
+
+		}else if(choice==5){
+
+			lj.loadVertices("nos");
 
 
 		}
