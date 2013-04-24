@@ -106,6 +106,7 @@ void LojaElectronica::menuProduto()
 
 }
 
+/*
 Zona * LojaElectronica::determinaZona(string morada){
 
 	Zona *zona;
@@ -128,15 +129,13 @@ Zona * LojaElectronica::determinaZona(string morada){
 			zona=zonas[i];
 	}
 
-
 	return zona;
 }
-
+ */
 void LojaElectronica::addCliente()
 {
-
 	int nif;
-	string nome,morada,contacto,email;
+	string nome,morada,contacto,email,zona;
 
 	cout << "Nome: " << endl;
 	cin>>nome;
@@ -153,13 +152,18 @@ void LojaElectronica::addCliente()
 	cout << "NIF: " << endl;
 	cin>>nif;
 
-	Zona *zonaCliente=determinaZona(morada);
+	listaZonas();
+
+	cout << "Defina a Zona do Cliente: ";
+	fflush(stdin);
+	getline(cin,zona);
+
+	Zona *zonaCliente=procuraZona(zona);
+	//TODO excepção
 
 	Cliente *c=new Cliente(nome,morada,contacto,email,nif,zonaCliente);
 
 	clientes.push_back(c);
-
-
 }
 
 void LojaElectronica::removeCliente(unsigned int codCliente)
@@ -182,7 +186,7 @@ void LojaElectronica::removeCliente(string nome)
 
 	if(encontrou==false){
 
-		throw Excepcao("\n Né‰¶ existe nenhum cliente com esse nome \n");
+		throw Excepcao("\n Nao existe nenhum cliente com esse nome \n");
 
 	} else cout<<"Cliente Eliminado com sucesso";
 }
@@ -204,22 +208,22 @@ Cliente *LojaElectronica::ProcuraCliente_nome(string nome)
 
 void LojaElectronica::addProduto()
 {
-
+	//TODO ?
 }
 
 void LojaElectronica::removeProduto(unsigned int codProduto)
 {
-
+	//TODO ?
 
 }
 
 
 Zona* LojaElectronica::procuraZona(string designacao) {
-	vector<Zona*>::iterator it = myGraph.getVertexSet().begin();
+	vector<Vertex<Zona*> *>::iterator it = myGraph.getVertexSet().begin();
 
-	for(;it!=myGraph.getVertexSet().end();it++) {
-		if((*it)->getDesignacao()==designacao)
-			return it;
+	for(;it != myGraph.getVertexSet().end();it++) {
+		if((*it)->getInfo()->getDesignacao()==designacao)
+			return (*it)->getInfo();
 	}
 	return NULL;
 }
@@ -308,20 +312,23 @@ void LojaElectronica::listaZonas()
 
 void LojaElectronica::addLoja()
 {
-	string designacao;
-	string morada;
+	string nome, morada, zona;
 
-	cout << "Designacao: " << endl;
-	cin>>designacao;
-
+	cout << "Nome: " << endl;
+	getline(cin,nome);
 	cout << "Morada: " << endl;
-	cin>>morada;
+	getline(cin,morada);
 
-	Zona *zonaLoja=determinaZona(morada);
+	listaZonas();
+	cout << "Defina a Zona onde pertence a loja: " << endl;
+	getline(cin,zona);
 
-	Loja *c=new Loja(designacao,morada);
+	Loja *l1=new Loja(nome,morada);
+	Zona *zonaLoja=procuraZona(zona); //TODO excepção
 
-	lojas.push_back(c);
+	zonaLoja->setLoja(l1);
+
+	//lojas.push_back(c);
 
 }
 
@@ -491,7 +498,7 @@ void LojaElectronica::removeEncomenda(unsigned int codEncomenda)
 
 void LojaElectronica::listaClientes()
 {
-	if(clientes.size()==0 ) throw Excepcao("\n Né‰¶ existem clientes no sistema \n");
+	if(clientes.size()==0 ) throw Excepcao("\n Nao existem clientes no sistema \n");
 
 	for (unsigned int i=0; i < clientes.size(); i++)
 	{
@@ -507,13 +514,13 @@ void LojaElectronica::listaProdutos()
 
 void LojaElectronica::listaLojas()
 {
-
+	/*
 	if(lojas.size()==0 ) throw Excepcao("\n Né‰¶ existem lojas no sistema \n");
 
 	for (unsigned int i=0; i < lojas.size(); i++)
 	{
 		lojas[i]->imprimeLoja();
-	}
+	} */
 }
 
 void LojaElectronica::listaEncomendas()
@@ -562,6 +569,7 @@ void LojaElectronica::saveProdutos(string filename)
 
 void LojaElectronica::loadLojas(string filename)
 {
+	/*
 	ifstream file;
 	string line;
 	unsigned int cod;
@@ -588,10 +596,12 @@ void LojaElectronica::loadLojas(string filename)
 		}
 		file.close();
 	}
+	 */
 }
 
 void LojaElectronica::saveLojas(string filename)
 {
+	/*
 	int i = 0;
 	int tam = lojas.size();
 	ofstream myfile(filename.c_str());
@@ -607,6 +617,7 @@ void LojaElectronica::saveLojas(string filename)
 		}
 		myfile.close();
 	}
+	 */
 }
 
 void LojaElectronica::loadZonas(string filename)
@@ -653,8 +664,8 @@ void LojaElectronica::loadVertices(string filename)
 			{
 				getline(myfile, linha);
 				v=split('|', linha);
-				Zona *z(atoi(v[0].c_str()), v[1].c_str(), atoi(v[2].c_str()));
-				myGraph.addVertex(z);  //info?
+				//Zona *z(atoi(v[0].c_str()), v[1].c_str(), atoi(v[2].c_str())); TODO func p ir bscar *loja
+				//myGraph.addVertex(z);  //info?
 			}
 
 			cout<<endl<<endl<<"Vertices importadas com sucesso!"<<endl<<endl;
@@ -669,7 +680,7 @@ void LojaElectronica::loadVertices(string filename)
 
 void LojaElectronica::saveVertices(string filename)
 {
-	vector<Zona *>::iterator it;
+	vector<Vertex<Zona*> *>::iterator it;
 
 	ofstream myfile (filename.c_str());
 	if(myfile.is_open())
@@ -677,7 +688,7 @@ void LojaElectronica::saveVertices(string filename)
 		myfile<<myGraph.getVertexSet().size()<<endl;
 
 		for(it=myGraph.getVertexSet().begin(); it!=myGraph.getVertexSet().end(); it++)
-			myfile<<(*it)->toString()<<endl;
+			myfile<<(*it)->getInfo()->toString()<<endl;
 
 		myfile.close();
 		cout<<endl<<endl<<"Vertices exportadas com sucesso!"<<endl;
