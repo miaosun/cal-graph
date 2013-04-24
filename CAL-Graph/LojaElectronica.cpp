@@ -748,10 +748,10 @@ void LojaElectronica::saveEdges(string filename)
 	ofstream myfile (filename.c_str());
 	if(myfile.is_open())
 	{
-		vector<Edge<Zona> > vedges = (*it)->getAdj();
-		for(unsigned int i=vedges.begin(); i<vedges.end(); i++)
+		for(it=myGraph.getVertexSet().begin(); it!=myGraph.getVertexSet().end(); it++)
 		{
-			for(it=myGraph.getVertexSet().begin(); it!=myGraph.getVertexSet().end(); it++)
+			vector<Edge<Zona> > vedges = (*it)->getAdj();
+			for(unsigned int i=vedges.begin(); i<vedges.end(); i++)
 			{
 				myfile<<"|"<<(*it)->getInfo()->getCodZona()<<"|"<<vedges[i].getDest()->getInfo().getCodZona()<<"|"<<vedges[i].getDest()->getDist()<<"|";
 			}
