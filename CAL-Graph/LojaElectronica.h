@@ -31,8 +31,6 @@ class LojaElectronica
 	vector <Encomenda *> encomendas;
 	Graph<Zona*> myGraph;
 
-	//vector <Produto *> produtos;  passa para classe Loja
-
 public:
 	//! Construtor que inicializa membros-dado
 	LojaElectronica();

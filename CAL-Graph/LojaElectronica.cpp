@@ -623,36 +623,35 @@ void LojaElectronica::saveEncomendas(string filename)
 ///////////////////// loads e saves para grafo
 void LojaElectronica::loadVertices(string filename)
 {
-		string linha;
-		vector<string> v;
-		stringstream s;
-		ifstream myfile (filename.c_str());
-		if(myfile.is_open())
-		{
-			getline(myfile, linha);
-			Zona::setCount(atoi(linha.c_str()));
-			/*
-			 * falta implementar a excepcao
-			 */
+	string linha;
+	vector<string> v;
+	stringstream s;
+	ifstream myfile (filename.c_str());
+	if(myfile.is_open())
+	{
+		getline(myfile, linha);
+		Zona::setCount(atoi(linha.c_str()));
+		/*
+		 * falta implementar a excepcao
+		 */
 
-			while(!myfile.eof() ){
-				getline(myfile, linha);
-				//if(linha.c_str() == "")
-					//break;
-				v=split('|', linha);
-				//int idLoja = atoi(v[2].c_str());
-				cout<<"test: "<< v[1].c_str()<<endl;
-				Zona *z = new Zona(atoi(v[0].c_str()), v[1].c_str());
-				myGraph.addVertex(z);
-			}
-			cout<<endl<<endl<<"Vertices importadas com sucesso!"<<endl<<endl;
-			myfile.close();
+		while(!myfile.eof() ){
+			getline(myfile, linha);
+			if(linha=="") break;
+			v=split('|', linha);
+			//int idLoja = atoi(v[2].c_str());
+			cout<<"test: "<< v[1].c_str()<<endl;
+			Zona *z = new Zona(atoi(v[0].c_str()), v[1].c_str());
+			myGraph.addVertex(z);
 		}
-		else
-		{
-			cout<<"Nao foi possivel abrir o ficheiro "<<filename<<"!"<<endl<<endl;
-		}
-/*	unsigned int nVertices;
+		cout<<endl<<endl<<"Vertices importadas com sucesso!"<<endl<<endl;
+		myfile.close();
+	}
+	else
+	{
+		cout<<"Nao foi possivel abrir o ficheiro "<<filename<<"!"<<endl<<endl;
+	}
+	/*	unsigned int nVertices;
 	string linha;
 	vector<string> v;
 	stringstream s;
@@ -684,7 +683,7 @@ void LojaElectronica::loadVertices(string filename)
 	{
 		cout<<"Nao foi possivel abrir o ficheiro "<<filename<<"!"<<endl<<endl;
 	}
-*/
+	 */
 }
 
 void LojaElectronica::saveVertices(string filename)
@@ -720,20 +719,19 @@ void LojaElectronica::loadEdges(string filename)
 	{
 		while(!myfile.eof())
 		{
-			for(unsigned int i=0; i<nEdges; i++)
-			{
-				getline(myfile, linha);
-				v=split('|', linha);
+			getline(myfile, linha);
+			if(linha=="") break;
+			v=split('|', linha);
 
-				Zona *z1 = procuraZona(atoi(v[0].c_str()));
-				Zona *z2 = procuraZona(atoi(v[1].c_str()));
-				double peso = atof(v[2].c_str());
+			Zona *z1 = procuraZona(atoi(v[0].c_str()));
+			Zona *z2 = procuraZona(atoi(v[1].c_str()));
+			double peso = atof(v[2].c_str());
 
-				myGraph.addEdge(z1, z2, peso, 0);
-			}
-			cout<<endl<<endl<<"Edges importadas com sucesso!"<<endl<<endl;
+			myGraph.addEdge(z1, z2, peso, 0);
+
 		}
 		myfile.close();
+		cout<<endl<<endl<<"Edges importadas com sucesso!"<<endl<<endl;
 	}
 	else
 	{
@@ -754,6 +752,7 @@ void LojaElectronica::saveEdges(string filename)
 			for(ited=vedges.begin(); ited!=vedges.end(); ited++)
 			{
 				myfile<<"|"<<(*it)->getInfo()->getCodZona()<<"|"<<ited->getDest()->getInfo()->getCodZona()<<"|"<<ited->getWeight()<<"|";
+
 			}
 		}
 
@@ -772,29 +771,29 @@ void LojaElectronica::saveEdges(string filename)
 void LojaElectronica::windows(){
 
 	//configurar uma janela
-		GraphViewer *gv = new GraphViewer(600, 600, true);
-		//gv->setBackground("abc.jpg");
-		gv->createWindow(600, 600);
+	GraphViewer *gv = new GraphViewer(600, 600, true);
+	//gv->setBackground("abc.jpg");
+	gv->createWindow(600, 600);
 
-		//configurar a cor dos n�s
-		gv->defineVertexColor("blue");
+	//configurar a cor dos n�s
+	gv->defineVertexColor("blue");
 
-		//configurar a cor das arestas
-		gv->defineEdgeColor("black");
+	//configurar a cor das arestas
+	gv->defineEdgeColor("black");
 
-		//criar um n� com ID=0
-
-
-		for(unsigned int i=0;i<myGraph.getVertexSet().size();i++){
-
-			gv->addNode(myGraph.getVertexSet()[i]->getInfo()->getCodZona());
-			cout<<myGraph.getVertexSet()[i]->getInfo()->getDesignacao();
-			gv->setVertexLabel(myGraph.getVertexSet()[i]->getInfo()->getCodZona(), myGraph.getVertexSet()[i]->getInfo()->getDesignacao());
-			gv->rearrange();
-		}
+	//criar um n� com ID=0
 
 
-		/*gv->addNode(1);
+	for(unsigned int i=0;i<myGraph.getVertexSet().size();i++){
+
+		gv->addNode(myGraph.getVertexSet()[i]->getInfo()->getCodZona());
+		cout<<myGraph.getVertexSet()[i]->getInfo()->getDesignacao();
+		gv->setVertexLabel(myGraph.getVertexSet()[i]->getInfo()->getCodZona(), myGraph.getVertexSet()[i]->getInfo()->getDesignacao());
+		gv->rearrange();
+	}
+
+
+	/*gv->addNode(1);
 		gv->addNode(2);
 		gv->addNode(3);
 
@@ -817,7 +816,7 @@ void LojaElectronica::windows(){
 		gv->setVertexColor(2,"green");
 		gv->setEdgeColor(2,"yellow");*/
 
-		gv->rearrange();
+	gv->rearrange();
 }
 
 /*
