@@ -59,9 +59,6 @@ public:
 	//! Membro-funcao que permite a remocao de clientes existentes
 	/** dado o nome do cliente que pretende remover */
 	Cliente *ProcuraCliente_nome(string nome);
-	//! Membro-funcao que permite a remocao de clientes existentes
-	/** dado o codigo do cliente que pretende remover */
-	void removeCliente(unsigned int codCliente);
 	//! Membro-funcao que permite a adicao de produtos novos
 	void addProduto();
 	//! Membro-funcao que permite a remocao de produtos novos
