@@ -78,6 +78,9 @@ public:
 	/** \param morada  o contedo da string a ser atribuida ao membro-dado morada. */
 	void setMorada(string morada);
 
+	void Loja::addProduto();
+
+	void Loja::removeProduto(unsigned int codProduto);
 
 	//! Overloading do operador de comparao == para objetos do tipo Loja
 	/**
@@ -100,6 +103,8 @@ public:
 	 * \n Loja nmero: \n nome: \n Morada: \n Zona: \n
 	 */
 	void imprimeLoja() const;
+
+	string toString();
 
 };
 

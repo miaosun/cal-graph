@@ -14,6 +14,7 @@
 
 #include "Cliente.h"
 #include "Loja.h"
+#include "GraphViewer.h"
 #include "Produto.h"
 #include "Encomenda.h"
 #include "Zona.h"
@@ -127,22 +128,21 @@ public:
 	void loadLojas(string filename);
 	//! Membro-funcao que grava as lojas num ficheiro
 	void saveLojas(string filename);
-	//! Membro-funcao que le as zonas a partir dum ficheiro
-	void loadZonas(string filename);
-	//! Membro-funcao que grava os zonas num ficheiro
-	void saveZonas(string filename);
+	//! Membro-funcao que le os zonas (vertices) a partir dum ficheiro
+	void loadVertices(string filename);
+	//! Membro-funcao que grava as zonas (vertices) num ficheiro
+	void saveVertices(string filename);
+	//! Membro-funcao que le as arestas entre zonas a partir dum ficheiro
+	void loadEdges(string filename);
+	//! Membro-funcao que grava as arestas entre zonas num ficheiro
+	void saveEdges(string filename);
 	//! Membro-funcao que le as encomendas a partir dum ficheiro
 	void loadEncomendas(string filename);
 	//! Membro-funcao que grava as encomendas num ficheiro
 	void saveEncomendas(string filename);
 
+	void windows();
 	void startLojaElectronica();
-
-	//para grafo loads e saves
-	void loadVertices(string filename);
-	void saveVertices(string filename);
-	void loadEdges(string filename);
-	void saveEdges(string filename);
 
 };
 
