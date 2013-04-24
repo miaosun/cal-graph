@@ -198,8 +198,7 @@ Cliente *LojaElectronica::ProcuraCliente_nome(string nome)
 		}
 	}
 
-
-	throw Excepcao("\n Né‰¶ existe nenhum cliente com esse nome \n");
+	throw Excepcao("\n Nao existe nenhum cliente com esse nome \n");
 	return NULL;
 }
 
@@ -214,16 +213,29 @@ void LojaElectronica::removeProduto(unsigned int codProduto)
 
 }
 
+
+Zona* LojaElectronica::procuraZona(string designacao) {
+	vector<Zona*>::iterator it = myGraph.getVertexSet().begin();
+
+	for(;it!=myGraph.getVertexSet().end();it++) {
+		if((*it)->getDesignacao()==designacao)
+			return it;
+	}
+	return NULL;
+}
+
 void LojaElectronica::addZona()
 {
 	string designacao;
 
-	cout << "DesignaçŽ¢o da Zona: " << endl;
+	cout << "Designaçao da Zona: " << endl;
 	fflush(stdin);
 	getline(cin,designacao);
 
 	//verifica se já existe alguma zona c mesma designação
-	//procuraZona(designacao); TODO lança excepção caso exista!
+	if(procuraZona(designacao)!=NULL) {
+		//TODO excepção! tratar
+	}
 
 	Zona *zona=new Zona(designacao);
 
@@ -236,20 +248,23 @@ void LojaElectronica::addZonaGrafo(Zona* z1) {
 
 	char resp;
 	do {
-		//TODO print zonas
-		string zona;
+		listaZonas();
+		string desig;
 		int dist;
-		cout << "Insira uma Zona à qual ligar: ";
+		cout << "Insira a designacao de uma Zona à qual ligar: ";
 		fflush(stdin);
-		getline(cin,zona);
+		getline(cin,desig);
 
-		//TODO procura zona, excepção caso n exista
+		Zona *z2 = procuraZona(desig);
+		if(z2==NULL) {
+			//TODO excepção! tratar (voltar a pedir)
+		}
 
 		cout << "Distância: ";
 		fflush(stdin);
 		cin >> dist;
 
-		//addArestaBidireccional(z1,z2,dist);
+		addArestaBidireccional(z1,z2,dist);
 
 		cout << "Deseja inserir mais alguma distância a outra zona? (S/N): ";
 		fflush(stdin);
@@ -285,11 +300,11 @@ void LojaElectronica::removeZona(unsigned int codZona)
 
 void LojaElectronica::listaZonas()
 {
-	if(zonas.size()==0 ) throw Excepcao("\n Né‰¶ existem zonas no sistema \n");
+	if(myGraph.getVertexSet().size()==0 ) throw Excepcao("\n Nao existem zonas no sistema \n");
 
-	for (unsigned int i=0; i < zonas.size(); i++)
+	for (unsigned int i=0; i < myGraph.getVertexSet().size(); i++)
 	{
-		zonas[i]->info();
+		cout << myGraph.getVertexSet()[i]->getInfo() << endl << endl;
 	}
 
 }
@@ -588,7 +603,7 @@ void LojaElectronica::saveLojas(string filename)
 		while (i < tam) {
 			if(lojas[i] != NULL){
 				myfile << lojas[i]->getCodLoja() << endl;
-				myfile << lojas[i]->getDesignacao() << endl;
+				myfile << lojas[i]->getNome() << endl;
 				myfile << lojas[i]->getMorada() << endl;
 			}
 			i++;

@@ -68,16 +68,12 @@ bool Zona::operator== (const Zona& x) const{
 	else return false;
 }
 
-/*
-unsigned int Zona::getCodZona() const
-{
-	return this->codZona;
-}
+ostream & operator << (ostream & o, const Zona & z){
+		o << "Id Zona: "  << z.getCodZona() << " | Designacao: " << z.getDesignacao();
+		o << " | Loja: " << z.getLoja()->getNome();
+		return o;
+	}
 
-void Zona::setCodZona(unsigned int codZona)
-{
-	this->codZona = codZona;
-}*/
 
 string Zona::toString()
 {
