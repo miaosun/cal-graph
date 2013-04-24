@@ -57,6 +57,16 @@ void Loja::setMorada(string m) {
 }
 
 
+void Loja::addProduto()
+{
+	//TODO ?
+}
+
+void Loja::removeProduto(unsigned int codProduto)
+{
+	//TODO ?
+
+}
 
 // IMPRIME
 
@@ -70,6 +80,13 @@ void Loja::imprimeLoja() const {
 		for(unsigned int i=0;i<produtos.size();i++)
 			produtos[i]->info();
 
+}
+
+string Loja::toString()
+{
+	stringstream ss;
+	ss<<"|"<<this->codLoja<<"|"<<this->nome<<"|"<<this->morada<<"|";
+	return ss.str();
 }
 
 // OPERATOR ==

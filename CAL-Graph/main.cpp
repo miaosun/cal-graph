@@ -235,7 +235,8 @@ int main()
 		}else if(choice==5){
 
 			lj.loadVertices("nos.txt");
-
+			lj.loadEdges("arestas.txt");
+			lj.windows();
 
 		}
 

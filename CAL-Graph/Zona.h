@@ -47,17 +47,17 @@ public:
 	 * \return um apontador para a loja da zona. */
 	Loja* getLoja() const;
 	//! Membro-funcao para setar o membro-dado designa��o de um objeto tipo Zona ja instanciado
-	/** \param designa��o o conteudo da string a ser atribuida ao membro-dado designa��o. */
+	/** \param designacao o conteudo da string a ser atribuida ao membro-dado designa��o. */
 	void setDesignacao(string designacao);
-	//! Membro-fun��o estatico para setar o membro-dado estatico countZonas
-	/** \param n e um inteiro com conte�do a ser atribuido ao membro-dado estatico countZonas. */
+	//! Membro-funcao estatico para setar o membro-dado estatico countZonas
+	/** \param n e um inteiro com conteudo a ser atribuido ao membro-dado estatico countZonas. */
 	static void setCount(unsigned int n) {countZonas = n;}
-	//! Membro-fun��o para setar o membro-dado loja de um objeto tipo Zona j� instanciado
-	/** \param lj � um apontador para uma loja a ser atribuida ao membro-dado loja. */
+	//! Membro-funcao para setar o membro-dado loja de um objeto tipo Zona ja instanciado
+	/** \param lj e um apontador para uma loja a ser atribuida ao membro-dado loja. */
 	void setLoja(Loja* lj);
-	//! Membro-fun��o estatico para retornar o valor do membro-dado estatico countZonas
+	//! Membro-funcao estatico para retornar o valor do membro-dado estatico countZonas
 	/**
-	 * \return um inteiro com conte�do do membro-dado estatico countZonas. */
+	 * \return um inteiro com conteudo do membro-dado estatico countZonas. */
 	static unsigned int getCount() {return countZonas;}
 
 
