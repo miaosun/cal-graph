@@ -138,28 +138,26 @@ void LojaElectronica::addCliente()
 	string nome,morada,contacto,email,zona;
 
 	cout << "Nome: " << endl;
-	cin>>nome;
-
+	getline(cin,nome);
 	cout << "Morada: " << endl;
-	cin>>morada;
-
+	getline(cin,morada);
 	cout << "Telefone: "<< endl;
+	fflush(stdin);
 	cin>>contacto;
-
 	cout << "Email: " << endl;
-	cin>>email;
-
+	getline(cin,email);
 	cout << "NIF: " << endl;
+	fflush(stdin);
 	cin>>nif;
 
 	listaZonas();
 
-	cout << "Defina a Zona do Cliente: ";
+	cout << "Defina a designacao da Zona do Cliente: ";
 	fflush(stdin);
 	getline(cin,zona);
 
 	Zona *zonaCliente=procuraZona(zona);
-	//TODO excep��o
+	//TODO excepcao
 
 	Cliente *c=new Cliente(nome,morada,contacto,email,nif,zonaCliente);
 
@@ -181,13 +179,10 @@ void LojaElectronica::removeCliente(string nome)
 			encontrou=true;
 			clientes.erase(clientes.begin() + i);
 			break;
-
 		}
 
 	if(encontrou==false){
-
 		throw Excepcao("\n Nao existe nenhum cliente com esse nome \n");
-
 	} else cout<<"Cliente Eliminado com sucesso";
 }
 
@@ -196,10 +191,7 @@ Cliente *LojaElectronica::ProcuraCliente_nome(string nome)
 	for (unsigned int i=0; i < clientes.size(); i++)
 	{
 		if (nome == clientes.at(i)->getNome())
-		{
 			return clientes.at(i);
-
-		}
 	}
 
 	throw Excepcao("\n Nao existe nenhum cliente com esse nome \n");
@@ -239,7 +231,7 @@ Zona* LojaElectronica::procuraZona(unsigned int id) {
 
 
 Loja* LojaElectronica::procuraLoja(unsigned int id) {
-//TODO necessario?
+	//TODO necessario?
 }
 
 
@@ -254,7 +246,7 @@ void LojaElectronica::addZona()
 
 	//verifica se ja existe alguma zona c mesma designacao
 	if(procuraZona(designacao)!=NULL) {
-		//TODO excep��o! tratar
+		//TODO excepcao! tratar
 	}
 
 	Zona *zona=new Zona(designacao);
@@ -276,10 +268,10 @@ void LojaElectronica::addZonaGrafo(Zona* z1) {
 
 		Zona *z2 = procuraZona(desig);
 		if(z2==NULL) {
-			//TODO excep��o! tratar (voltar a pedir)
+			//TODO excepcao! tratar (voltar a pedir)
 		}
 
-		cout << "Dist�ncia: ";
+		cout << "Distancia: ";
 		fflush(stdin);
 		cin >> dist;
 
