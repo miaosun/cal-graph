@@ -65,3 +65,10 @@ void Produto::info() const {
 	cout << "Quantidade em Stock: " << stock << endl;
 	cout << "Preço: " << preco << endl;
 }
+
+
+string Produto::toString() {
+	stringstream ss;
+	ss<<"|"<<this->getDesignacao()<<"|"<<this->getPreco()<<"|"<<this->getStock()<<"|";
+	return ss.str();
+}

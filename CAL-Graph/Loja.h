@@ -103,7 +103,7 @@ public:
 	 * \n Loja nmero: \n nome: \n Morada: \n Zona: \n
 	 */
 	void imprimeLoja() const;
-
+	friend ostream & operator << (ostream & o, const Loja & l);
 	string toString();
 
 };

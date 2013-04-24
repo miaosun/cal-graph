@@ -70,6 +70,13 @@ void Loja::removeProduto(unsigned int codProduto)
 
 // IMPRIME
 
+ostream & operator << (ostream & o, const Loja & l){
+		o << "Id Loja: "  << l.getCodLoja() << " | Nome: " << l.getNome();
+		o << " | Morada: " << l.getMorada();
+		return o;
+	}
+
+
 void Loja::imprimeLoja() const {
 	cout << "\nLoja numero: " << codLoja << endl ;
 	cout << "Nome: " << nome << endl;

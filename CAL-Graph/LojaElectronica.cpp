@@ -505,18 +505,35 @@ void LojaElectronica::listaClientes()
 
 void LojaElectronica::listaProdutos()
 {
+	vector<string> vp = nomesProdutos();
+	cout << "Produtos existentes:" << endl << endl;
+	for(unsigned int i=0; i< vp.size(); i++)
+		cout << vp[i];
+}
 
+vector<string> LojaElectronica::nomesProdutos(){
+
+	string prod;
+	vector<string> res;
+	for (unsigned int i=0; i < myGraph.getVertexSet().size(); i++)
+	{
+		for(unsigned int j=0;j<myGraph.getVertexSet()[i]->getInfo()->getLoja()->getProdutos().size();j++) {
+			prod=myGraph.getVertexSet()[i]->getInfo()->getLoja()->getProdutos()[j]->getDesignacao();
+			//if(pesquisaSequencial(res,prod)==-1)
+				res.push_back(prod);
+		}
+	}
+	return res;
 }
 
 void LojaElectronica::listaLojas()
 {
-	/*
-	if(lojas.size()==0 ) throw Excepcao("\n N鉶 existem lojas no sistema \n");
+	if(myGraph.getVertexSet().size()==0 ) throw Excepcao("\n Nao existem lojas no sistema \n");
 
-	for (unsigned int i=0; i < lojas.size(); i++)
+	for (unsigned int i=0; i < myGraph.getVertexSet().size(); i++)
 	{
-		lojas[i]->imprimeLoja();
-	} */
+		cout << myGraph.getVertexSet()[i]->getInfo()->getLoja() << endl << endl;
+	}
 }
 
 void LojaElectronica::listaEncomendas()
@@ -587,31 +604,50 @@ void LojaElectronica::saveClientes(string filename)
 
 void LojaElectronica::loadProdutos(string filename)
 {
-	/*
 	ifstream file;
 	string line;
-	const unsigned int cod;
 	string desig;
-	unsigned int stock;
+	vector<string> v;
+	unsigned int stock, idloja;
 	double preco;
 
 	file.open(filename.c_str());
 
 	if (file.is_open()) {
-		getline(file, line);
-		//Produto::setCount(atoi(line.c_str()));
 
 		while(! file.eof() ){
 
 			getline(file, line);
-			cod = atoi(line.c_str());
-			...
+			if(line=="") break;
+			v=split('|', line);
+
+			idloja = atoi(v[0].c_str());
+			desig = v[1];
+			preco= atof(v[2].c_str());
+			stock=atoi(v[3].c_str());
+
+			Produto *p = new Produto(desig,stock,preco);
+			Loja *l1 = procuraLoja(idloja);
+			l1->getProdutos().push_back(p);
 		}
-	} */
+		file.close();
+	}
 }
 void LojaElectronica::saveProdutos(string filename)
 {
+	vector<Vertex<Zona*> *>::iterator it = myGraph.getVertexSet().begin();
 
+	ofstream myfile(filename.c_str());
+	if(myfile.is_open())
+	{
+		for(; it!=myGraph.getVertexSet().end(); it++) {
+			for(unsigned int i=0;i<(*it)->getInfo()->getLoja()->getProdutos().size();i++) {
+				myfile << "|" << (*it)->getInfo()->getLoja()->getCodLoja()<<"|";
+				myfile << (*it)->getInfo()->getLoja()->getProdutos()[i]->toString() << endl;
+			}
+		}
+		myfile.close();
+	}
 }
 
 void LojaElectronica::loadLojas(string filename)
