@@ -146,9 +146,6 @@ private:
 public:
 	Excepcao( string mens ){message=mens;};
 	string getMessage() { return message; };
-
-
-
 };
 
 #endif /* LOJAELECTRONICA_H_ */

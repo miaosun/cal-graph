@@ -456,8 +456,7 @@ void LojaElectronica::addEncomenda()
 
 void LojaElectronica::removeEncomenda(unsigned int codEncomenda)
 {
-
-
+	// TODO
 }
 
 void LojaElectronica::listaClientes()
@@ -505,7 +504,7 @@ void LojaElectronica::listaLojas()
 
 void LojaElectronica::listaEncomendas()
 {
-
+	// TODO
 }
 
 void LojaElectronica::loadClientes(string filename)
@@ -571,7 +570,6 @@ void LojaElectronica::saveClientes(string filename)
 
 void LojaElectronica::loadProdutos(string filename)
 {
-	/*
 	ifstream file;
 	string line;
 	string desig;
@@ -599,11 +597,10 @@ void LojaElectronica::loadProdutos(string filename)
 			l1->getProdutos().push_back(p);
 		}
 		file.close();
-	} */
+	}
 }
 void LojaElectronica::saveProdutos(string filename)
 {
-	/*
 	vector<Vertex<Zona*> *>::iterator it = myGraph.getVertexSet().begin();
 
 	ofstream myfile(filename.c_str());
@@ -616,7 +613,7 @@ void LojaElectronica::saveProdutos(string filename)
 			}
 		}
 		myfile.close();
-	} */
+	}
 }
 
 void LojaElectronica::loadLojas(string filename)
