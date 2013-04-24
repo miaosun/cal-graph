@@ -12,6 +12,22 @@
 
 #include "LojaElectronica.h"
 
+//funcao split utilizado para os loads
+vector<string> split(char delim, string s)
+{
+	size_t cutAt;
+	vector<string> result;
+	while( (cutAt = s.find_first_of(delim)) != s.npos )
+	{
+		if( cutAt > 0 )
+		{
+			result.push_back( s.substr( 0, cutAt ) );
+		}
+		s = s.substr( ++cutAt );
+	}
+	return result;
+}
+
 
 LojaElectronica::LojaElectronica()
 {
@@ -166,7 +182,7 @@ void LojaElectronica::removeCliente(string nome)
 
 	if(encontrou==false){
 
-		throw Excepcao("\n Não existe nenhum cliente com esse nome \n");
+		throw Excepcao("\n Né‰¶ existe nenhum cliente com esse nome \n");
 
 	} else cout<<"Cliente Eliminado com sucesso";
 }
@@ -183,7 +199,7 @@ Cliente *LojaElectronica::ProcuraCliente_nome(string nome)
 	}
 
 
-	throw Excepcao("\n Não existe nenhum cliente com esse nome \n");
+	throw Excepcao("\n Né‰¶ existe nenhum cliente com esse nome \n");
 	return NULL;
 }
 
@@ -202,7 +218,7 @@ void LojaElectronica::addZona()
 {
 	string designacao;
 
-	cout << "Designação da Zona: " << endl;
+	cout << "DesignaçŽ¢o da Zona: " << endl;
 	fflush(stdin);
 	getline(cin,designacao);
 
@@ -261,7 +277,7 @@ void LojaElectronica::removeZona(unsigned int codZona)
 
 	if(encontrou==false){
 
-		throw Excepcao("\n Não existe nenhuma zona com esse ID \n");
+		throw Excepcao("\n Né‰¶ existe nenhuma zona com esse ID \n");
 
 	} else cout<<"Zona Eliminada com sucesso";
 
@@ -269,7 +285,7 @@ void LojaElectronica::removeZona(unsigned int codZona)
 
 void LojaElectronica::listaZonas()
 {
-	if(zonas.size()==0 ) throw Excepcao("\n Não existem zonas no sistema \n");
+	if(zonas.size()==0 ) throw Excepcao("\n Né‰¶ existem zonas no sistema \n");
 
 	for (unsigned int i=0; i < zonas.size(); i++)
 	{
@@ -299,7 +315,7 @@ void LojaElectronica::addLoja()
 
 void LojaElectronica::removeLoja(unsigned int codLoja)
 {
-/*
+	/*
 	bool encontrou=false;
 
 	for(unsigned int i=0;i<lojas.size();codLoja++)
@@ -312,10 +328,10 @@ void LojaElectronica::removeLoja(unsigned int codLoja)
 
 	if(encontrou==false){
 
-		throw Excepcao("\n Não existe nenhuma loja com esse ID \n");
+		throw Excepcao("\n Né‰¶ existe nenhuma loja com esse ID \n");
 
 	} else cout<<"Loja Eliminada com sucesso";
-	*/
+	 */
 }
 
 void LojaElectronica::addEncomenda()
@@ -445,7 +461,7 @@ void LojaElectronica::addEncomenda()
 
 
 
-	//Caminho de No Origem até No menor Custo
+	//Caminho de No Origem atï¿½No menor Custo
 	vector<Zona*> path = myGraph.getPath(noOrigem, noMenor);
 
 	for(int j=0;j<path.size();j++){
@@ -463,7 +479,7 @@ void LojaElectronica::removeEncomenda(unsigned int codEncomenda)
 
 void LojaElectronica::listaClientes()
 {
-	if(clientes.size()==0 ) throw Excepcao("\n Não existem clientes no sistema \n");
+	if(clientes.size()==0 ) throw Excepcao("\n Né‰¶ existem clientes no sistema \n");
 
 	for (unsigned int i=0; i < clientes.size(); i++)
 	{
@@ -480,7 +496,7 @@ void LojaElectronica::listaProdutos()
 void LojaElectronica::listaLojas()
 {
 
-	if(lojas.size()==0 ) throw Excepcao("\n Não existem lojas no sistema \n");
+	if(lojas.size()==0 ) throw Excepcao("\n Né‰¶ existem lojas no sistema \n");
 
 	for (unsigned int i=0; i < lojas.size(); i++)
 	{
@@ -597,6 +613,112 @@ void LojaElectronica::loadEncomendas(string filenmae)
 }
 
 void LojaElectronica::saveEncomendas(string filename)
+{
+
+}
+
+///////////////////// loads e saves para grafo
+void LojaElectronica::loadVertices(string filename)
+{
+	unsigned int nVertices;
+	string linha;
+	vector<string> v;
+	stringstream s;
+	ifstream myfile (filename.c_str());
+	if(myfile.is_open())
+	{
+		getline(myfile, linha);
+		s<<linha;
+		s>>nVertices;
+
+		/*
+		 * falta implementar a excepcao
+		 */
+
+		if(nVertices>0)
+		{
+			for(unsigned int i=0; i<nVertices; i++)
+			{
+				getline(myfile, linha);
+				v=split('|', linha);
+				Zona *z(atoi(v[0].c_str()), v[1].c_str(), atoi(v[2].c_str()));
+				myGraph.addVertex(z);  //info?
+			}
+
+			cout<<endl<<endl<<"Vertices importadas com sucesso!"<<endl<<endl;
+		}
+		myfile.close();
+	}
+	else
+	{
+		cout<<"Nao foi possivel abrir o ficheiro "<<filename<<"!"<<endl<<endl;
+	}
+}
+
+void LojaElectronica::saveVertices(string filename)
+{
+	vector<Zona *>::iterator it;
+
+	ofstream myfile (filename.c_str());
+	if(myfile.is_open())
+	{
+		myfile<<myGraph.getVertexSet().size()<<endl;
+
+		for(it=myGraph.getVertexSet().begin(); it!=myGraph.getVertexSet().end(); it++)
+			myfile<<(*it)->toString()<<endl;
+
+		myfile.close();
+		cout<<endl<<endl<<"Vertices exportadas com sucesso!"<<endl;
+	}
+	else
+	{
+		cout<<"Nao foi possivel abrir o ficheiro!"<<endl<<endl;
+		system("pause");
+	}
+}
+
+void LojaElectronica::loadEdges(string filename)
+{
+	unsigned int nEdges;
+	string linha;
+	vector<string> v;
+	stringstream s;
+	ifstream myfile (filename.c_str());
+	if(myfile.is_open())
+	{
+		getline(myfile, linha);
+		s<<linha;
+		s>>nEdges;
+
+		/*
+		 * falta implementar a excepcao
+		 */
+
+		if(nEdges>0)
+		{
+			for(unsigned int i=0; i<nEdges; i++)
+			{
+				getline(myfile, linha);
+				v=split('|', linha);
+				//do something with the following variables...
+				int idzona1 = atoi(v[0].c_str());
+				int idzona2 = atoi(v[1].c_str());
+				double peso = atof(v[2].c_str());
+
+				//myGraph.addEdge(idzona1, idzona2, peso, 0);
+			}
+
+			cout<<endl<<endl<<"Edges importadas com sucesso!"<<endl<<endl;
+		}
+		myfile.close();
+	}
+	else
+	{
+		cout<<"Nao foi possivel abrir o ficheiro "<<filename<<"!"<<endl<<endl;
+	}
+}
+
+void LojaElectronica::saveEdges(string filename)
 {
 
 }

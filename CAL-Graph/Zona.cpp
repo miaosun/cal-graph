@@ -21,6 +21,12 @@ Zona::Zona(string Localidade):codZona(++countZonas)
 	this->loja=NULL;
 }
 
+Zona::Zona(unsigned int codZona, string designacao, Loja *loja)
+{
+	this->codZona = codZona;
+	this->designacao = designacao;
+	this->loja = loja;
+}
 
 Zona::~Zona(){}
 
@@ -72,3 +78,10 @@ void Zona::setCodZona(unsigned int codZona)
 {
 	this->codZona = codZona;
 }*/
+
+string Zona::toString()
+{
+	stringstream ss;
+	ss<<"|"<<this->codZona<<"|"<<this->designacao<<"|"<<this->loja->getCodLoja()<<"|";
+	return ss.str();
+}

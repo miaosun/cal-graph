@@ -138,6 +138,12 @@ public:
 
 	void startLojaElectronica();
 
+	//para grafo loads e saves
+	void loadVertices(string filename);
+	void saveVertices(string filename);
+	void loadEdges(string filename);
+	void saveEdges(string filename);
+
 };
 
 //Classe Excepcao utilizada para excepções. Retorna uma mensagem para o utilizador com a excepção
