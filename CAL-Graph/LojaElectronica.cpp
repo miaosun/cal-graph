@@ -673,8 +673,9 @@ void LojaElectronica::loadVertices(string filename)
 			{
 				getline(myfile, linha);
 				v=split('|', linha);
-				//Zona *z(atoi(v[0].c_str()), v[1].c_str(), atoi(v[2].c_str())); TODO func p ir bscar *loja
-				//myGraph.addVertex(z);  //info?
+				//int idLoja = atoi(v[2].c_str());
+				Zona *z = new Zona(atoi(v[0].c_str()), v[1].c_str());
+				myGraph.addVertex(z);
 			}
 
 			cout<<endl<<endl<<"Vertices importadas com sucesso!"<<endl<<endl;
@@ -733,14 +734,13 @@ void LojaElectronica::loadEdges(string filename)
 			{
 				getline(myfile, linha);
 				v=split('|', linha);
-				//do something with the following variables...
-				int idzona1 = atoi(v[0].c_str());
-				int idzona2 = atoi(v[1].c_str());
+
+				Zona *z1 = procuraZona(atoi(v[0].c_str()));
+				Zona *z2 = procuraZona(atoi(v[1].c_str()));
 				double peso = atof(v[2].c_str());
 
-				//myGraph.addEdge(idzona1, idzona2, peso, 0);
+				myGraph.addEdge(z1, z2, peso, 0);
 			}
-
 			cout<<endl<<endl<<"Edges importadas com sucesso!"<<endl<<endl;
 		}
 		myfile.close();
