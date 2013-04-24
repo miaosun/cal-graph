@@ -750,10 +750,11 @@ void LojaElectronica::saveEdges(string filename)
 	{
 		for(it=myGraph.getVertexSet().begin(); it!=myGraph.getVertexSet().end(); it++)
 		{
-			vector<Edge<Zona> > vedges = (*it)->getAdj();
-			for(unsigned int i=vedges.begin(); i<vedges.end(); i++)
+			vector<Edge<Zona*> > vedges = (*it)->getAdj();
+			vector<Edge<Zona*> >::iterator ited;
+			for(ited=vedges.begin(); ited!=vedges.end(); ited++)
 			{
-				myfile<<"|"<<(*it)->getInfo()->getCodZona()<<"|"<<vedges[i].getDest()->getInfo().getCodZona()<<"|"<<vedges[i].getWeight()<<"|";
+				myfile<<"|"<<(*it)->getInfo()->getCodZona()<<"|"<<ited->getDest()->getInfo()->getCodZona()<<"|"<<ited->getWeight()<<"|";
 			}
 		}
 
