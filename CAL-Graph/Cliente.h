@@ -37,11 +37,23 @@ public:
 	 * \param contacto é uma string que vai atribuir valor ao membro-dado contacto.
 	 * \param email é uma string que vai atribuir valor ao membro-dado email.
 	 * \param nif é um inteiro que vai atribuir valor ao membro-dado estatico nif.
+	 * \param zona é um apontador de Zona que vai atribuir valor ao membro-dado zona.
 	 */
-	Cliente(string nome, string morada, string contacto, string email, unsigned int nif, Zona *zon);
+	Cliente(string nome, string morada, string contacto, string email, unsigned int nif, Zona *zona);
+	//! Construtor que inicializa todos os membros-dado
+	/**
+	 * \param nome é uma string que vai atribuir valor ao membro-dado nome.
+	 * \param morada é uma string que vai atribuir valor ao membro-dado morada.
+	 * \param contacto é uma string que vai atribuir valor ao membro-dado contacto.
+	 * \param email é uma string que vai atribuir valor ao membro-dado email.
+	 * \param nif é um inteiro que vai atribuir valor ao membro-dado estatico nif.
+	 * \param cod é um inteiro que vai atribuir valor ao membro-dado codCliente.
+	 * \param zona é um apontador de Zona que vai atribuir valor ao membro-dado zona.
+	 */
+	Cliente(string nome, string morada, string contacto, string email, unsigned int nif, unsigned int cod, Zona *zon);
 	//! Membro-função para retornar o valor do membro-dado codCliente
 	/** É um membro-função const para garantir a não modificação de nenhum membro-dado.
-	 * \return um unsgined int com valor do membro-dado codCliente. */
+	 * \return um unsigned int com valor do membro-dado codCliente. */
 	unsigned int getCodCliente() const;
 	//! Membro-função para retornar o valor do membro-dado nome
 	/** É um membro-função const para garantir a não modificação de nenhum membro-dado.
@@ -66,6 +78,10 @@ public:
 	/** É um membro-função const para garantir a não modificação de nenhum membro-dado.
 	 * \return uma string com valor do membro-dado email. */
 	string getEmail() const;
+	//! Membro-função para retornar o valor do membro-dado zona
+	/** É um membro-função const para garantir a não modificação de nenhum membro-dado.
+	 * \return um apontador de Zona com valor do membro-dado zona. */
+	Zona * getZona() const;
 	//! Membro-função para setar o membro-dado nome de um objeto tipo Pessoa já instanciado
 	/** \param nome é o conteúdo da string a ser atribuida ao membro-dado nome. */
 	void setNome(string nome);
