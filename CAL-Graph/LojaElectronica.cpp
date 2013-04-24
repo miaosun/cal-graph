@@ -227,7 +227,7 @@ Zona* LojaElectronica::procuraZona(string designacao) {
 	}
 	return NULL;
 }
-Zona* LojaElectronica::procuraZona(int id) {
+Zona* LojaElectronica::procuraZona(unsigned int id) {
 	vector<Vertex<Zona*> *>::iterator it = myGraph.getVertexSet().begin();
 
 	for(;it != myGraph.getVertexSet().end();it++) {
@@ -237,15 +237,22 @@ Zona* LojaElectronica::procuraZona(int id) {
 	return NULL;
 }
 
+
+Loja* LojaElectronica::procuraLoja(unsigned int id) {
+//TODO necessario?
+}
+
+
+
 void LojaElectronica::addZona()
 {
 	string designacao;
 
-	cout << "Designa�ao da Zona: " << endl;
+	cout << "Designacao da Zona: " << endl;
 	fflush(stdin);
 	getline(cin,designacao);
 
-	//verifica se j� existe alguma zona c mesma designa��o
+	//verifica se ja existe alguma zona c mesma designacao
 	if(procuraZona(designacao)!=NULL) {
 		//TODO excep��o! tratar
 	}
