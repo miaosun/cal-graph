@@ -181,11 +181,11 @@ int main()
 
 				}else if(choice==2){
 					//NAO ESTA A ATUALIZAR O NUMERO DE ZONAS DEPOIS DE ELIMINACAO
-					int idZona;
+					string desig;
 					cout <<" Qual é a zona que quer remover?";
-					cin>>idZona;
+					getline(cin,desig);
 					try {
-						lj.removeZona(idZona);
+						//TODO lj.removeZona(desig);
 					} catch (Excepcao &ex) {
 						cout << ex.getMessage();
 					}

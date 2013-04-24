@@ -27,8 +27,8 @@
 class LojaElectronica
 {
 	vector <Cliente *> clientes;
-	vector <Loja *> lojas; //retirar?
-	vector <Zona *> zonas; //retirar?
+	//vector <Loja *> lojas; //retirar?
+	//vector <Zona *> zonas; //retirar?
 	vector <Encomenda *> encomendas;
 	Graph<Zona*> myGraph;
 
@@ -56,7 +56,7 @@ public:
 	//! Membro-funcao que mostra o menu produto ao utilizador
 	void menuProduto();
 	//! Membro-funcao que com base na morada do utilizador determina a sua zona
-	Zona * determinaZona(string morada);
+	//Zona * determinaZona(string morada);
 	//! Membro-funcao que permite a adicao de clientes novos
 	void addCliente();
 	//! Membro-funcao que permite a remocao de clientes existentes

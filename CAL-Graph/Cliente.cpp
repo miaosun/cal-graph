@@ -82,8 +82,7 @@ void Cliente::imprimeCliente() const {
 	cout << "Morada: " << morada << endl;
 	cout << "Contacto: " << contacto << endl;
 	cout << "Email: " << email<< endl;
-	cout <<"CLIENTE DA ZONA:"<<endl;
-	zona->info();
+	cout <<"CLIENTE DA ZONA: "<< zona->getDesignacao() << endl;
 	cout <<"FIM DA FICHA DO CLIENTE"<<endl;
 }
 

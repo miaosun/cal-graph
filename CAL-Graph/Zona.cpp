@@ -21,9 +21,8 @@ Zona::Zona(string Localidade):codZona(++countZonas)
 	this->loja=NULL;
 }
 
-Zona::Zona(unsigned int codZona, string designacao, Loja *loja)
+Zona::Zona(unsigned int cod, string designacao, Loja *loja): codZona(cod)
 {
-	this->codZona = codZona;
 	this->designacao = designacao;
 	this->loja = loja;
 }
@@ -55,11 +54,6 @@ void Zona::setLoja(Loja* lj)
 }
 // IMPRIME
 
-void Zona::info() const {
-	cout << "\n Zona numero: " << codZona << endl ;
-	cout << "Designação: " << designacao << endl;
-
-}
 
 // OPERATOR ==
 bool Zona::operator== (const Zona& x) const{
