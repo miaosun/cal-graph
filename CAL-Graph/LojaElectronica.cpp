@@ -159,7 +159,7 @@ void LojaElectronica::addCliente()
 	getline(cin,zona);
 
 	Zona *zonaCliente=procuraZona(zona);
-	//TODO excepção
+	//TODO excepï¿½ï¿½o
 
 	Cliente *c=new Cliente(nome,morada,contacto,email,nif,zonaCliente);
 
@@ -232,13 +232,13 @@ void LojaElectronica::addZona()
 {
 	string designacao;
 
-	cout << "Designaçao da Zona: " << endl;
+	cout << "Designaï¿½ao da Zona: " << endl;
 	fflush(stdin);
 	getline(cin,designacao);
 
-	//verifica se já existe alguma zona c mesma designação
+	//verifica se jï¿½ existe alguma zona c mesma designaï¿½ï¿½o
 	if(procuraZona(designacao)!=NULL) {
-		//TODO excepção! tratar
+		//TODO excepï¿½ï¿½o! tratar
 	}
 
 	Zona *zona=new Zona(designacao);
@@ -254,22 +254,22 @@ void LojaElectronica::addZonaGrafo(Zona* z1) {
 		listaZonas();
 		string desig;
 		int dist;
-		cout << "Insira a designacao de uma Zona à qual ligar: ";
+		cout << "Insira a designacao de uma Zona ï¿½ qual ligar: ";
 		fflush(stdin);
 		getline(cin,desig);
 
 		Zona *z2 = procuraZona(desig);
 		if(z2==NULL) {
-			//TODO excepção! tratar (voltar a pedir)
+			//TODO excepï¿½ï¿½o! tratar (voltar a pedir)
 		}
 
-		cout << "Distância: ";
+		cout << "Distï¿½ncia: ";
 		fflush(stdin);
 		cin >> dist;
 
 		addArestaBidireccional(z1,z2,dist);
 
-		cout << "Deseja inserir mais alguma distância a outra zona? (S/N): ";
+		cout << "Deseja inserir mais alguma distï¿½ncia a outra zona? (S/N): ";
 		fflush(stdin);
 		cin >> resp;
 	} while(resp!='n' || resp != 'N');
@@ -324,7 +324,7 @@ void LojaElectronica::addLoja()
 	getline(cin,zona);
 
 	Loja *l1=new Loja(nome,morada);
-	Zona *zonaLoja=procuraZona(zona); //TODO excepção
+	Zona *zonaLoja=procuraZona(zona); //TODO excepï¿½ï¿½o
 
 	zonaLoja->setLoja(l1);
 
@@ -709,15 +709,16 @@ void LojaElectronica::loadEdges(string filename)
 	ifstream myfile (filename.c_str());
 	if(myfile.is_open())
 	{
-		getline(myfile, linha);
-		s<<linha;
-		s>>nEdges;
+		//getline(myfile, linha);
+		//s<<linha;
+		//s>>nEdges;
 
 		/*
 		 * falta implementar a excepcao
 		 */
 
-		if(nEdges>0)
+		//if(nEdges>0)
+		while(!myfile.eof())
 		{
 			for(unsigned int i=0; i<nEdges; i++)
 			{
@@ -743,6 +744,27 @@ void LojaElectronica::loadEdges(string filename)
 
 void LojaElectronica::saveEdges(string filename)
 {
+	vector<Vertex<Zona*> *>::iterator it;
+	ofstream myfile (filename.c_str());
+	if(myfile.is_open())
+	{
+		vector<Edge<Zona> > vedges = (*it)->getAdj();
+		for(unsigned int i=vedges.begin(); i<vedges.end(); i++)
+		{
+			for(it=myGraph.getVertexSet().begin(); it!=myGraph.getVertexSet().end(); it++)
+			{
+				myfile<<"|"<<(*it)->getInfo()->getCodZona()<<"|"<<vedges[i].getDest()->getInfo().getCodZona()<<"|"<<vedges[i].getDest()->getDist()<<"|";
+			}
+		}
+
+		myfile.close();
+		cout<<endl<<endl<<"Edges exportadas com sucesso!"<<endl;
+	}
+	else
+	{
+		cout<<"Nao foi possivel abrir o ficheiro!"<<endl<<endl;
+		system("pause");
+	}
 
 }
 
