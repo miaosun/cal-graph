@@ -13,13 +13,12 @@
 #define LOJAELECTRONICA_H_
 
 #include "Cliente.h"
-#include "Loja.h"
-#include "GraphViewer.h"
-#include "Produto.h"
 #include "Encomenda.h"
 #include "Zona.h"
 #include "Graph.h"
-
+#include "graphviewer.h"
+#include "insertionSort.h"
+#include "sequentialSearch.h"
 #include <stdlib.h>
 #include <vector>
 #include <sstream>
@@ -52,8 +51,6 @@ public:
 	void menuCliente();
 	//! Membro-funcao que mostra o menu produto ao utilizador
 	void menuProduto();
-	//! Membro-funcao que com base na morada do utilizador determina a sua zona
-	//Zona * determinaZona(string morada);
 	//! Membro-funcao que permite a adicao de clientes novos
 	void addCliente();
 	//! Membro-funcao que permite a remocao de clientes existentes
@@ -71,6 +68,7 @@ public:
 	/** dado o codigo do produto que pretende remover */
 	void removeProduto(unsigned int codProduto);
 
+	vector<string> nomesProdutos();
 
 	//! Membro-funcao que permite a adicao de zonas novas
 	void addZona();
