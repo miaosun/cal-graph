@@ -483,7 +483,7 @@ void LojaElectronica::addEncomenda()
 	//Caminho de No Origem at�No menor Custo
 	vector<Zona*> path = myGraph.getPath(noOrigem, noMenor);
 
-	for(int j=0;j<path.size();j++){
+	for(unsigned int j=0;j<path.size();j++){
 		cout<<"Path: "<<path[j]->getDesignacao()<<endl;
 	}
 
