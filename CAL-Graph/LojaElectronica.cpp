@@ -173,9 +173,10 @@ Cliente *LojaElectronica::ProcuraCliente_nome(string nome)
 
 
 Zona* LojaElectronica::procuraZona(string designacao) {
-	vector<Vertex<Zona*> *>::iterator it = myGraph.getVertexSet().begin();
+	vector<Vertex<Zona*> *> vs = myGraph.getVertexSet();
+	vector<Vertex<Zona*> *>::iterator it = vs.begin();
 
-	for(;it != myGraph.getVertexSet().end();it++) {
+	for(;it != vs.end();it++) {
 		if((*it)->getInfo()->getDesignacao()==designacao)
 			return (*it)->getInfo();
 	}
@@ -185,7 +186,7 @@ Zona* LojaElectronica::procuraZona(unsigned int id) {
 	vector<Vertex<Zona*> *> vs = myGraph.getVertexSet();
 	vector<Vertex<Zona*> *>::iterator it = vs.begin();
 
-	for(;it != myGraph.getVertexSet().end();it++) {
+	for(;it != vs.end();it++) {
 		if((*it)->getInfo()->getCodZona()==id)
 			return (*it)->getInfo();
 	}
@@ -197,7 +198,7 @@ Loja* LojaElectronica::procuraLoja(unsigned int id) {
 	vector<Vertex<Zona*> *> vs = myGraph.getVertexSet();
 	vector<Vertex<Zona*> *>::iterator it = vs.begin();
 
-	for(;it != myGraph.getVertexSet().end();it++) {
+	for(;it != vs.end();it++) {
 		if((*it)->getInfo()->getLoja()->getCodLoja()==id)
 			return (*it)->getInfo()->getLoja();
 	}
@@ -307,10 +308,10 @@ void LojaElectronica::addLoja()
 void LojaElectronica::removeLoja(unsigned int codLoja)
 {
 	bool enc=false;
+	vector<Vertex<Zona*> *> vs = myGraph.getVertexSet();
+	vector<Vertex<Zona*> *>::iterator it = vs.begin();
 
-	vector<Vertex<Zona*> *>::iterator it = myGraph.getVertexSet().begin();
-
-	for(;it != myGraph.getVertexSet().end();it++) {
+	for(;it != vs.end();it++) {
 		if((*it)->getInfo()->getLoja()->getCodLoja()==codLoja) {
 			(*it)->getInfo()->setLoja(NULL);
 			enc=true;
@@ -603,12 +604,13 @@ void LojaElectronica::loadProdutos(string filename)
 }
 void LojaElectronica::saveProdutos(string filename)
 {
-	vector<Vertex<Zona*> *>::iterator it = myGraph.getVertexSet().begin();
+	vector<Vertex<Zona*> *> vs = myGraph.getVertexSet();
+	vector<Vertex<Zona*> *>::iterator it = vs.begin();
 
 	ofstream myfile(filename.c_str());
 	if(myfile.is_open())
 	{
-		for(; it!=myGraph.getVertexSet().end(); it++) {
+		for(; it!=vs.end(); it++) {
 			for(unsigned int i=0;i<(*it)->getInfo()->getLoja()->getProdutos().size();i++) {
 				myfile << "|" << (*it)->getInfo()->getLoja()->getCodLoja()<<"|";
 				myfile << (*it)->getInfo()->getLoja()->getProdutos()[i]->toString() << endl;
@@ -653,14 +655,15 @@ void LojaElectronica::loadLojas(string filename)
 }
 
 void LojaElectronica::saveLojas(string filename) {
-	vector<Vertex<Zona*> *>::iterator it = myGraph.getVertexSet().begin();
+	vector<Vertex<Zona*> *> vs = myGraph.getVertexSet();
+	vector<Vertex<Zona*> *>::iterator it = vs.begin();
 
 	ofstream myfile(filename.c_str());
 	if(myfile.is_open())
 	{
 		myfile << Loja::getCount();
 
-		for(; it!=myGraph.getVertexSet().end(); it++)
+		for(; it!=vs.end(); it++)
 			myfile << "|" << (*it)->getInfo()->getCodZona()<<"|"<< (*it)->getInfo()->getLoja()->toString() << endl;
 		myfile.close();
 	}
