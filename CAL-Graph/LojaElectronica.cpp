@@ -746,7 +746,7 @@ void LojaElectronica::addEncomenda()
 	vector<Produto*>::iterator it2;
 	for(;it!=vDist.end();it++) {
 		for(it2==(*it)->getInfo()->getLoja()->getProdutos().begin();it2!=(*it)->getInfo()->getLoja()->getProdutos().end();it2++) {
-			if((*it2)->getDesignacao() == produto) {
+			if(((*it2)->getDesignacao() == produto) && ((*it2)->getStock()>0)) {
 				p=(*it2);
 				l=(*it)->getInfo()->getLoja();
 				(*it2)->decStock();

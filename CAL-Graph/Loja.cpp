@@ -10,6 +10,7 @@
  */
 
 #include "Loja.h"
+#include "funcoes.h"
 #include <cstdio>
 
 unsigned int Loja::countLojas=0;
@@ -59,22 +60,57 @@ void Loja::setMorada(string m) {
 
 void Loja::addProduto()
 {
-	//TODO ?
+	string desig;
+	int stock;
+	double preco;
+	cout << "Inserir Produto" << endl << endl;
+	cout << "Designação: ";
+	getline(cin,desig);
+
+	for(unsigned int i=0; i<produtos.size();i++) {
+		if(produtos[i]->getDesignacao()==desig) {
+			//excepcao todo
+			cout << "Produto já existe!" << endl;
+			return;
+		}
+	}
+
+	cout << "Preco: ";
+	fflush(stdin);
+	cin >> preco;
+	cout << "Stock: ";
+	fflush(stdin);
+	cin >> stock;
+
+	Produto *p = new Produto(desig,stock,preco);
+	produtos.push_back(p);
+	cout << "Produto adicionado com sucesso!"<< endl;
 }
 
 void Loja::removeProduto(unsigned int codProduto)
 {
-	//TODO ?
+	string desig;
+	cout << "Inserir Produto" << endl << endl;
+	cout << "Designação: ";
+	getline(cin,desig);
 
+	for(unsigned int i=0; i<produtos.size();i++) {
+		if(produtos[i]->getDesignacao()==desig) {
+			produtos.erase(produtos.begin()+i);
+			cout << "Produto eliminado com sucesso!" << endl;
+			return;
+		}
+	}
+	cout << "Produto nao existe!" << endl;
 }
 
 // IMPRIME
 
 ostream & operator << (ostream & o, const Loja & l){
-		o << "Id Loja: "  << l.getCodLoja() << " | Nome: " << l.getNome();
-		o << " | Morada: " << l.getMorada();
-		return o;
-	}
+	o << "Id Loja: "  << l.getCodLoja() << " | Nome: " << l.getNome();
+	o << " | Morada: " << l.getMorada();
+	return o;
+}
 
 
 void Loja::imprimeLoja() const {
