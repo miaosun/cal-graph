@@ -18,7 +18,6 @@
 #include "Graph.h"
 #include "graphviewer.h"
 #include "insertionSort.h"
-#include "Data.h"
 //#include "sequentialSearch.h"
 #include <stdlib.h>
 #include <vector>
@@ -83,7 +82,6 @@ public:
 	//! Membro-funcao que lista as zonas existentes no base de dados
 	void listaZonas();
 
-
 	//! Membro-funcao que permite a adicao de lojas novas
 	void addLoja();
 	//! Membro-funcao que permite a remocao de lojas novos
@@ -107,8 +105,6 @@ public:
 	void listaLojas();
 	//! Membro-funcao que lista as encomendas existentes no base de dados
 	void listaEncomendas();
-
-
 
 	//! Membro-funcao que le os clientes a partir dum ficheiro
 	void loadClientes(string filename);
