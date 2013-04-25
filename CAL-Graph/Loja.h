@@ -1,4 +1,4 @@
-/*
+﻿/*
  *     FICHEIRO: Loja.h
  *    PROJECTO: Projecto CAL - Loja de Comercio Electronico (T3)
  *    DESCRICAO: Definicao da classe Loja
@@ -35,18 +35,18 @@ class Loja
 public:
 	//! Construtor que inicializa todos os membros-dado
 	/**
-	 * \param nome �uma string que vai atribuir valor ao membro-dado nome.
-	 * \param morada �uma string que vai atribuir valor ao membro-dado morada.
-	 * \param zona �um apontador para a zona da loja
+	 * \param nome e uma string que vai atribuir valor ao membro-dado nome.
+	 * \param morada e uma string que vai atribuir valor ao membro-dado morada.
+	 * \param zona e um apontador para a zona da loja
 	 */
 	Loja(string nome, string mor);
 
-	//! Construtor que inicializa todos os membros-dado, inclu韓do c骴igo
+	//! Construtor que inicializa todos os membros-dado, incluido codigo
 	/**
-	 * \param nome �uma string que vai atribuir valor ao membro-dado nome.
-	 * \param morada �uma string que vai atribuir valor ao membro-dado morada.
-	 * \param zona �um apontador para a zona da loja
-	 * \param cod �um inteiro que vai atribuir valor ao membro-dado codLoja.
+	 * \param nome e uma string que vai atribuir valor ao membro-dado nome.
+	 * \param morada e uma string que vai atribuir valor ao membro-dado morada.
+	 * \param zona e um apontador para a zona da loja
+	 * \param cod e um inteiro que vai atribuir valor ao membro-dado codLoja.
 	 */
 	Loja(string nome, string mor, unsigned int cod);
 
@@ -70,11 +70,11 @@ public:
 	 * \return um apontador para produtos */
 	vector <Produto *> getProdutos() const;
 
-	//! Membro-funo para setar o membro-dado nome de um objeto tipo Loja j instanciado
+	//! Membro-funo para setar o membro-dado nome de um objeto tipo Loja ja instanciado
 	/** \param nome  o contedo da string a ser atribuida ao membro-dado nome. */
 	void setNome(string nome);
 
-	//! Membro-funo para setar o membro-dado morada de um objeto tipo Loja j instanciado
+	//! Membro-funo para setar o membro-dado morada de um objeto tipo Loja ja instanciado
 	/** \param morada  o contedo da string a ser atribuida ao membro-dado morada. */
 	void setMorada(string morada);
 
@@ -89,24 +89,24 @@ public:
 	/** dado o codigo do produto que pretende remover */
 	void removeProduto(unsigned int codProduto);
 
-	//! Overloading do operador de comparao == para objetos do tipo Loja
+	//! Overloading do operador de comparaco == para objetos do tipo Loja
 	/**
 	 * Uma loja  igual a outra se seus codLojas forem iguais
 	 * \return um booleano que  true se uma loja for igual a outra e false caso contrrio.
 	 */
 	bool operator==(const Loja & x) const;
 
-	//! Membro-funo estatico para setar o membro-dado estatico countLojas
+	//! Membro-funcao estatico para setar o membro-dado estatico countLojas
 	/** \param n e um inteiro com contedo a ser atribuido ao membro-dado estatico countLojas. */
 	static void setCount(unsigned int n) {countLojas = n;}
-	//! Membro-funo estatico para retornar o valor do membro-dado estatico countClientes
+	//! Membro-funcao estatico para retornar o valor do membro-dado estatico countClientes
 	/**
 	 * \return um inteiro com contedo do membro-dado estatico countLojas. */
 	static unsigned int getCount() {return countLojas;}
 
-	//! Membro-funo que imprime no ecr os membros-dado de um objeto tipo Loja
+	//! Membro-funcao que imprime no ecra os membros-dado de um objeto tipo Loja
 	/**
-	 * Membro-funo para imprimir no ecr o contedo dos membros-dado de um objeto tipo Loja no formato,
+	 * Membro-funcao para imprimir no ecra o contedo dos membros-dado de um objeto tipo Loja no formato,
 	 * \n Loja nmero: \n nome: \n Morada: \n Zona: \n
 	 */
 	void imprimeLoja() const;
