@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * 	FICHEIRO: LojaElectronica.h
  *	PROJECTO: Projecto CAL - Loja de Comercio Electronico (T3)
  *	DESCRICAO: Definicao da classe LojaElectronica
@@ -148,7 +148,7 @@ public:
 
 };
 
-//Classe Excepcao utilizada para excepções. Retorna uma mensagem para o utilizador com a excepção
+//Classe Excepcao utilizada para excepcoes. Retorna uma mensagem para o utilizador com a excepcao
 class Excepcao{
 private:
 	string message;
