@@ -116,6 +116,8 @@ public:
 	vector<string> imprimeCliente() const;
 	void resumo() const;
 
+	vector<string> editCliente();
+
 	//TODO falta updates
 };
 
