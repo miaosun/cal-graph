@@ -182,7 +182,8 @@ Zona* LojaElectronica::procuraZona(string designacao) {
 	return NULL;
 }
 Zona* LojaElectronica::procuraZona(unsigned int id) {
-	vector<Vertex<Zona*> *>::iterator it = myGraph.getVertexSet().begin();
+	vector<Vertex<Zona*> *> vs = myGraph.getVertexSet();
+	vector<Vertex<Zona*> *>::iterator it = vs.begin();
 
 	for(;it != myGraph.getVertexSet().end();it++) {
 		if((*it)->getInfo()->getCodZona()==id)
@@ -193,7 +194,8 @@ Zona* LojaElectronica::procuraZona(unsigned int id) {
 
 
 Loja* LojaElectronica::procuraLoja(unsigned int id) {
-	vector<Vertex<Zona*> *>::iterator it = myGraph.getVertexSet().begin();
+	vector<Vertex<Zona*> *> vs = myGraph.getVertexSet();
+	vector<Vertex<Zona*> *>::iterator it = vs.begin();
 
 	for(;it != myGraph.getVertexSet().end();it++) {
 		if((*it)->getInfo()->getLoja()->getCodLoja()==id)
@@ -821,11 +823,9 @@ void LojaElectronica::windows(){
 		cout<<"entre por aqui?\n";
 		//TODO  nao esta a funcionar
 		vector<Edge<Zona*> > vedges = (*it)->getAdj();
-		cout<<"vedges size: "<<vedges.size()<<endl;
 		vector<Edge<Zona*> >::iterator ited;
 		for(ited=vedges.begin(); ited!=vedges.end(); ited++)
 		{
-			cout<<"test: "<<(*it)->getInfo()->getCodZona()<<endl;
 			gv->addEdge(idEdge, (*it)->getInfo()->getCodZona(), ited->getDest()->getInfo()->getCodZona(), EdgeType::UNDIRECTED);
 			idEdge++;
 		}
