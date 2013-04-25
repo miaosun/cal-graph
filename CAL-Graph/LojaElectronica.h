@@ -12,9 +12,9 @@
 #ifndef LOJAELECTRONICA_H_
 #define LOJAELECTRONICA_H_
 
-#include "Cliente.h"
+//#include "Cliente.h"
 #include "Encomenda.h"
-#include "Zona.h"
+//#include "Zona.h"
 #include "Graph.h"
 #include "graphviewer.h"
 #include "insertionSort.h"

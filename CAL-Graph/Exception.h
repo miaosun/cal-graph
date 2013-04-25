@@ -53,7 +53,7 @@ public:
 //	PecaException(string motivoDaExcecao) : Exception(motivoDaExcecao){};
 //};
 
-
+class NotFound {};
 //class BadIterator { };
 //
 //class NoMoreSpace { };
