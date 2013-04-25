@@ -15,6 +15,7 @@
 #include <string>
 #include <iostream>
 #include <sstream>
+#include <stdio.h>
 
 using namespace std;
 
@@ -27,52 +28,52 @@ class Produto {
 public:
 	//! Construtor que inicializa membros-dado
 	/**
-	 * \param stock é um int que vai atribuir valor ao membro-dado stock.
-	 * \param designacao é uma string que vai atribuir valor ao membro-dado designacao.
-	 * \param preco é um double que vai atribuir valor ao membro-dado preco.
+	 * \param stock ï¿½um int que vai atribuir valor ao membro-dado stock.
+	 * \param designacao ï¿½uma string que vai atribuir valor ao membro-dado designacao.
+	 * \param preco ï¿½um double que vai atribuir valor ao membro-dado preco.
 	 */
 	Produto(string desig, int stock, double p);
-	//! Membro-função para retornar o valor do membro-dado codPeca
-	/** É um membro-função const para garantir a não modificação de nenhum membro-dado.
-	 * \return um unsigned int com conteúdo do membro-dado codProduto. */
+	//! Membro-funç¢o para retornar o valor do membro-dado codPeca
+	/** ï¿½um membro-funç¢o const para garantir a né‰¶ modificaç¢o de nenhum membro-dado.
+	 * \return um unsigned int com conteé·‡o do membro-dado codProduto. */
 	unsigned int getCodProduto() const;
-	//! Membro-função para retornar o valor do membro-dado preco
-	/** É um membro-função const para garantir a não modificação de nenhum membro-dado.
-	 * \return um double com conteúdo do membro-dado preco. */
+	//! Membro-funç¢o para retornar o valor do membro-dado preco
+	/** ï¿½um membro-funç¢o const para garantir a né‰¶ modificaç¢o de nenhum membro-dado.
+	 * \return um double com conteé·‡o do membro-dado preco. */
 	double getPreco() const;
-	//! Membro-função para retornar o valor do membro-dado stock
-	/** É um membro-função const para garantir a não modificação de nenhum membro-dado.
-	 * \return um unsigned int com conteúdo do membro-dado stock. */
+	//! Membro-funç¢o para retornar o valor do membro-dado stock
+	/** ï¿½um membro-funç¢o const para garantir a né‰¶ modificaç¢o de nenhum membro-dado.
+	 * \return um unsigned int com conteé·‡o do membro-dado stock. */
 	unsigned int getStock() const;
-	//! Membro-função para retornar o valor do membro-dado designacao
-	/** É um membro-função const para garantir a não modificação de nenhum membro-dado.
-	 * \return uma string com conteúdo do membro-dado designacao. */
+	//! Membro-funç¢o para retornar o valor do membro-dado designacao
+	/** ï¿½um membro-funç¢o const para garantir a né‰¶ modificaç¢o de nenhum membro-dado.
+	 * \return uma string com conteé·‡o do membro-dado designacao. */
 	string getDesignacao() const;
-	//! Membro-função para setar o membro-dado stock de um objeto tipo Produto já instanciado
-	/** \param stock é um unsigned int com conteúdo a ser atribuido ao membro-dado stock. */
+	//! Membro-funç¢o para setar o membro-dado stock de um objeto tipo Produto jï¿½instanciado
+	/** \param stock ï¿½um unsigned int com conteé·‡o a ser atribuido ao membro-dado stock. */
 	void setStock(unsigned int stock);
-	//! Membro-função para setar o membro-dado preco de um objeto tipo Produto já instanciado
-	/** \param preco é um double com conteúdo a ser atribuido ao membro-dado preco. */
+	//! Membro-funç¢o para setar o membro-dado preco de um objeto tipo Produto jï¿½instanciado
+	/** \param preco ï¿½um double com conteé·‡o a ser atribuido ao membro-dado preco. */
 	void setPreco(double preco);
-	//! Membro-função para setar o membro-dado designacao de um objeto tipo Produto já instanciado
-	/** \param designacao é uma string com conteúdo a ser atribuido ao membro-dado designacao. */
+	//! Membro-funç¢o para setar o membro-dado designacao de um objeto tipo Produto jï¿½instanciado
+	/** \param designacao ï¿½uma string com conteé·‡o a ser atribuido ao membro-dado designacao. */
 	void setDesignacao(string designacao);
-	//! Overloading do operador de comparação == para objetos do tipo Peca
+	//! Overloading do operador de comparaç¢o == para objetos do tipo Peca
 	/**
-	 * Um produto é igual a outro se seus codigos são iguais ou se sua designacao sao iguais.
-	 * \return um booleano que é true se um produto for igual a outro e false caso contrário.
+	 * Um produto ï¿½igual a outro se seus codigos sé‰¶ iguais ou se sua designacao sao iguais.
+	 * \return um booleano que ï¿½true se um produto for igual a outro e false caso contré†¨io.
 	 */
 	bool operator == (const Produto &p1) const;
-	//! Membro-função para decrementar o valor do membro-dado stock de um objeto tipo Peca já instanciado
+	//! Membro-funç¢o para decrementar o valor do membro-dado stock de um objeto tipo Peca jï¿½instanciado
 	void decStock();
-	//! Membro-função que imprime no ecrã os membros-dado de um objeto tipo Produto
+	//! Membro-funç¢o que imprime no ecrï¿½os membros-dado de um objeto tipo Produto
 	/**
-	 * Membro-função para imprimir no ecrã o conteúdo dos membros-dado de um objeto tipo Produto no formato,
-	 * \n Produto número: \n Designacao: \n Quantidade em stock: \n Preco: \n
+	 * Membro-funç¢o para imprimir no ecrï¿½o conteé·‡o dos membros-dado de um objeto tipo Produto no formato,
+	 * \n Produto né·ero: \n Designacao: \n Quantidade em stock: \n Preco: \n
 	 */
 	void info() const;
-	//! Membro-função estatico para setar o membro-dado estatico countProdutos
-	/** \param n e um inteiro com conteúdo a ser atribuido ao membro-dado estatico countProdutos. */
+	//! Membro-funç¢o estatico para setar o membro-dado estatico countProdutos
+	/** \param n e um inteiro com conteé·‡o a ser atribuido ao membro-dado estatico countProdutos. */
 	static void setCount(unsigned int n)  {countProdutos = n;}
 
 	string toString();
