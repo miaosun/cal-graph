@@ -9,7 +9,6 @@
  *  - Vitor Castro
  */
 
-#include "funcoes.h"
 #include "LojaElectronica.h"
 
 int algoritmoPesado=1;
@@ -319,7 +318,7 @@ void LojaElectronica::menuEncomenda()
 
 void LojaElectronica::menuCliente()
 {
-	int op, id;
+	int op, cod;
 	Cliente *c;
 	vector<string> opcoes;
 	string filename;
@@ -328,7 +327,7 @@ void LojaElectronica::menuCliente()
 	opcoes.push_back("1 - Adicionar Cliente");//opcao 1
 	if(clientes.size()>0)
 	{
-		opcoes.push_back("2 - Listar Clientes");//opcao 2
+		opcoes.push_back("2 - Ver detalho dum Cliente");//opcao 2
 		opcoes.push_back("3 - Editar um Cliente");//opcao 3
 		opcoes.push_back("4 - Remover um Cliente");//opcao 4
 		opcoes.push_back("5 - Importar Clientes dum ficheiro");//opcao 5
@@ -337,7 +336,7 @@ void LojaElectronica::menuCliente()
 	else
 		opcoes.push_back("2 - Importar Clientes dum ficheiro");
 	opcoes.push_back("");
-	opcoes.push_back("0 - Voltar atras");//opcao 7
+	opcoes.push_back("0 - Voltar atras");
 
 	showMenu("Gestao de Clientes", opcoes);
 	cout<<"    Opcao: ";
@@ -355,13 +354,23 @@ void LojaElectronica::menuCliente()
 			break;
 		case 2:
 			listaClientes();
+			cout<<endl<<"Introduza o Codigo do Cliente que pretende ver os detalhes: ";
+			cod=intinput();
+			try
+			{
+				//showMenu("Detalhes do Cliente", find(&clientes, cod)->imprimeCliente());
+			}
+			catch (NotFound)
+			{
+				cout<<endl<<"Pessoa nao encontrada!"<<endl;
+			}
 			system("pause");
 			menuCliente();//volta ao menu Cliente
 			break;
 		case 3://editar Cliente
 			listaClientes();
 			cout<<endl<<"Introduza o ID da Pessoa que pretende editar: ";
-			id=intinput();
+			cod=intinput();
 			/*	try           TODO
 			{
 				c=find(&clientes, id);
@@ -377,7 +386,7 @@ void LojaElectronica::menuCliente()
 		case 4://apagar Cliente
 			listaClientes();
 			cout<<endl<<"Introduza o ID da Pessoa que pretende apagar: ";
-			id=intinput();
+			cod=intinput();
 			/*          TODO
 			try
 			{
@@ -779,7 +788,7 @@ void LojaElectronica::removeEncomenda(unsigned int codEncomenda)
 			return;
 		}
 	}
-	cout << "Encomenda não encontrada!"<< endl;
+	cout << "Encomenda nï¿½o encontrada!"<< endl;
 }
 
 Encomenda * LojaElectronica::procuraEncomenda(unsigned int id) {
@@ -797,7 +806,7 @@ void LojaElectronica::listaClientes()
 
 	for (unsigned int i=0; i < clientes.size(); i++)
 	{
-		clientes[i]->imprimeCliente();
+		clientes[i]->resumo();
 	}
 
 }
@@ -1197,7 +1206,7 @@ void LojaElectronica::windows(){
 	//gv->setBackground("abc.jpg");
 	gv->createWindow(600, 600);
 
-	//configurar a cor dos nï¿½s
+	//configurar a cor dos nos
 	gv->defineVertexColor("blue");
 
 	//configurar a cor das arestas

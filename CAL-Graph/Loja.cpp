@@ -10,7 +10,6 @@
  */
 
 #include "Loja.h"
-#include "funcoes.h"
 #include <cstdio>
 
 unsigned int Loja::countLojas=0;
@@ -64,13 +63,13 @@ void Loja::addProduto()
 	int stock;
 	double preco;
 	cout << "Inserir Produto" << endl << endl;
-	cout << "Designação: ";
+	cout << "DesignaçŽ¢o: ";
 	getline(cin,desig);
 
 	for(unsigned int i=0; i<produtos.size();i++) {
 		if(produtos[i]->getDesignacao()==desig) {
 			//excepcao todo
-			cout << "Produto já existe!" << endl;
+			cout << "Produto jï¿½existe!" << endl;
 			return;
 		}
 	}
@@ -97,7 +96,7 @@ void Loja::removeProduto(unsigned int codProduto)
 
 	string desig;
 	cout << "Remover Produto" << endl << endl;
-	cout << "Designação: ";
+	cout << "DesignaçŽ¢o: ";
 	getline(cin,desig);
 
 	for(unsigned int i=0; i<produtos.size();i++) {

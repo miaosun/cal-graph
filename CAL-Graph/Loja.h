@@ -15,7 +15,7 @@
 #include <iostream>
 #include <string>
 #include "Produto.h"
-
+#include "funcoes.h"
 #include <stdlib.h>
 #include <vector>
 #include <sstream>
