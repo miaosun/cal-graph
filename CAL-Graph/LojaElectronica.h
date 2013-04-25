@@ -76,8 +76,9 @@ public:
 
 	void addAresta(Zona *z);
 	void removeAresta(Zona *z);
-	void editAresta(Zona *z);
-
+	void editPesoAresta(Zona *z);
+	Vertex<Zona*> * devolveVertex(Zona *z);
+	void listaArestasDesde(Zona *z);
 	void addArestaBidireccional(Zona* z1, Zona* z2, int dist);
 	void removeArestaBidireccional(Zona* z1, Zona *z2);
 	void editArestaBidireccional(Zona* z1, Zona *z2);
