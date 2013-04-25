@@ -715,12 +715,6 @@ void LojaElectronica::addZona()
 	addZonaGrafo(zona);
 }
 
-void LojaElectronica::editZona(Zona *z)
-{
-	//TODO
-	//e preciso? nao faz muito sentido de alterar os atribuitos de zoan...
-}
-
 void LojaElectronica::addZonaGrafo(Zona* z1) {
 	myGraph.addVertex(z1);
 
@@ -878,11 +872,6 @@ void LojaElectronica::addEncomenda()
 	}
 }
 
-void LojaElectronica::editEncomenda(Encomenda *e)
-{
-	//TODO
-	//tambem deixamos editar encomendas?
-}
 
 void LojaElectronica::removeEncomenda(unsigned int codEncomenda)
 {

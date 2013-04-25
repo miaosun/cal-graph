@@ -131,11 +131,7 @@ public:
 	//! Membro-funcao que grava as encomendas num ficheiro
 	void saveEncomendas(string filename);
 
-
 	void editCliente(Cliente *c);
-	void editZona(Zona *z);
-	void editEncomenda(Encomenda *e);
-
 
 	void windows();
 	void startLojaElectronica();
