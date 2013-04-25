@@ -883,7 +883,6 @@ void LojaElectronica::addZona()
 	cout << "Designacao da Zona: " << endl;
 	fflush(stdin);
 	getline(cin,designacao);
-
 	//verifica se ja existe alguma zona c mesma designacao
 	if(procuraZona(designacao)!=NULL) {
 		//TODO excepcao! tratar
@@ -909,24 +908,62 @@ void LojaElectronica::addZonaGrafo(Zona* z1) {
 		Zona *z2 = procuraZona(desig);
 		if(z2==NULL) {
 			//TODO excepcao! tratar (voltar a pedir)
+			cout << "Zona nao existente!" << endl;
 		}
+		else
+		{
+			cout << "Distancia: ";
+			fflush(stdin);
+			cin >> dist;
 
+			addArestaBidireccional(z1,z2,dist);
+
+			cout << "Deseja inserir mais alguma distancia a outra zona? (S/N): ";
+			fflush(stdin);
+			cin >> resp;
+		}
+	} while(resp!='n' || resp != 'N');
+}
+
+void LojaElectronica::addAresta(Zona *z) {
+	listaZonas();
+	string desig;
+	int dist;
+	cout << "Insira a designacao de uma Zona a qual ligar: ";
+	fflush(stdin);
+	getline(cin,desig);
+
+	Zona *z2 = procuraZona(desig);
+	if(z2==NULL) {
+		cout << "Zona não existente!" << endl;
+		//TODO excepcao! tratar (voltar a pedir)
+	}
+	else
+	{
 		cout << "Distancia: ";
 		fflush(stdin);
 		cin >> dist;
+		addArestaBidireccional(z,z2,dist);
+	}
+}
 
-		addArestaBidireccional(z1,z2,dist);
+void LojaElectronica::removeAresta(Zona *z){
 
-		cout << "Deseja inserir mais alguma distancia a outra zona? (S/N): ";
-		fflush(stdin);
-		cin >> resp;
-	} while(resp!='n' || resp != 'N');
+}
+void LojaElectronica::editAresta(Zona *z) {
+
 }
 
 void LojaElectronica::addArestaBidireccional(Zona* z1, Zona* z2, int dist) {
 	myGraph.addEdge(z1,z2,dist);
 	myGraph.addEdge(z2,z1,dist);
+	cout << "Aresta adicionada!" << endl<< endl;
 }
+
+void LojaElectronica::removeArestaBidireccional(Zona* z1, Zona* z2) {
+
+}
+
 
 void LojaElectronica::removeZona(string desig)
 {
@@ -1125,7 +1162,8 @@ void LojaElectronica::listaLojas()
 	if(myGraph.getVertexSet().size()==0 ) throw Excepcao("\n Nao existem lojas no sistema \n");
 
 	for (unsigned int i=0; i < myGraph.getVertexSet().size(); i++)
-		cout << myGraph.getVertexSet()[i]->getInfo()->getLoja()->toString() << endl;
+		if(myGraph.getVertexSet()[i]->getInfo()->getLoja() != NULL)
+			cout << myGraph.getVertexSet()[i]->getInfo()->getLoja()->toString() << endl;
 }
 
 void LojaElectronica::listaEncomendas()

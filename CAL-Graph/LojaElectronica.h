@@ -74,7 +74,13 @@ public:
 	//! Membro-funcao que permite a adicao de zonas novas ao grafo
 	void addZonaGrafo(Zona* z);
 
+	void addAresta(Zona *z);
+	void removeAresta(Zona *z);
+	void editAresta(Zona *z);
+
 	void addArestaBidireccional(Zona* z1, Zona* z2, int dist);
+	void removeArestaBidireccional(Zona* z1, Zona *z2);
+	void editArestaBidireccional(Zona* z1, Zona *z2);
 
 	Zona* procuraZona(string designacao);
 	Zona* procuraZona(unsigned int id);
