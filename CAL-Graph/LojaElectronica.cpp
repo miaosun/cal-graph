@@ -617,7 +617,8 @@ void LojaElectronica::menuLoja()
 		{
 			cout<<endl<<"Loja nao encontrada!"<<endl;
 		}
-		//l->listaProdutos();
+		menuProduto(l);
+		//l->listaProduto();
 		//TODO
 		menuLoja();
 		break;
@@ -627,6 +628,118 @@ void LojaElectronica::menuLoja()
 		cout<<"Opcao invalida! Insira uma das opcoes disponiveis"<<endl;
 		system("pause");
 		menuZona();
+	}
+}
+
+void LojaElectronica::menuProduto(Loja *l)
+{
+	int op, cod;
+	string filename;
+	vector<string> opcoes;
+	opcoes.push_back("Escolha uma das seguintes opcoes:");
+	opcoes.push_back("");
+	opcoes.push_back("1 - Adicionar um Produto");
+	if(l->getProdutos().size()>0)
+	{
+		opcoes.push_back("2 - Editar um Protudo");
+		opcoes.push_back("3 - Remover um Produto");
+		opcoes.push_back("4 - Importar Produtos dum ficheiro");
+		opcoes.push_back("5 - Exportar Produtos para um ficheiro");
+	}
+	else
+		opcoes.push_back("2 - Importar Produtos dum ficheiro");
+	opcoes.push_back("");
+	opcoes.push_back("0 - Voltar atras");
+
+	showMenu("Menu Produto", opcoes);
+	cout<<"    Opcao: ";
+	op=intinput();
+	system("cls");
+
+	if(l->getProdutos().size()>0)
+	{
+		switch(op)
+		{
+		case 1:
+			l->addProduto();
+			menuProduto(l);
+			break;
+		case 2:
+			l->editProduto();
+			menuProduto(l);
+			break;
+		case 3:
+			l->listaProduto();
+			cout<<endl<<"Introduza o Codigo do Produto que pretende apagar: ";
+			cod=intinput();
+			try
+			{
+				for(unsigned int i=0; i<l->getProdutos().size(); i++)
+				{
+					if(cod == l->getProdutos()[i]->getCodProduto())
+					{
+						l->removeProduto(cod);
+						break;
+					}
+				}
+			}
+			catch (NotFound)
+			{
+				cout<<endl<<"Produto nao encontrada!"<<endl;
+			}
+			system("pause");
+			menuProduto(l);
+			break;
+		case 4://importar Produto
+			system("cls");
+			cout<<"   --Importar Cliente--"<<endl<<endl;
+			cout<<"Nome do ficheiro: ";
+			getline(cin, filename);
+			loadProdutos(filename);
+			system("pause");
+			menuProduto(l);
+			break;
+		case 5://exportar Produto
+			system("cls");
+			cout<<"   --Exportar Pessoas--"<<endl<<endl;
+			cout<<"Nome do ficheiro para onde vai exportar: ";
+			getline(cin, filename);
+			saveProdutos(filename);
+			system("pause");
+			menuProduto(l);
+			break;
+		case 0:
+			break;
+		default:
+			cout<<"Opcao invalida! Insira uma das opcoes disponiveis"<<endl;
+			system("pause");
+			menuProduto(l);
+		}
+	}
+	else
+	{
+		switch(op)
+		{
+		case 1:
+			l->addProduto();
+			menuProduto(l);
+			break;
+		case 2://importar Produto
+			system("cls");
+			cout<<"   --Importar Cliente--"<<endl<<endl;
+			cout<<"Nome do ficheiro: ";
+			getline(cin, filename);
+			loadProdutos(filename);
+			system("pause");
+			menuProduto(l);
+			break;
+		case 0:
+			break;
+		default:
+			cout<<"Opcao invalida! Insira uma das opcoes disponiveis"<<endl;
+			system("pause");
+			menuProduto(l);
+		}
 	}
 }
 
@@ -1359,12 +1472,12 @@ bool LojaElectronica::exists(vector<int>arestas, int a, int b){
 
 	for(unsigned int i=0; i<arestas.size()-1; i=i+2)
 		if(arestas[i]==b && arestas[i+1]==a){
-		//	cout<<"Entrou no if"<<endl;
+			//	cout<<"Entrou no if"<<endl;
 			ok=true;
 		}
 
 
-//cout<<"ok"<<ok<<endl;
+	//cout<<"ok"<<ok<<endl;
 	return ok;
 }
 
@@ -1460,4 +1573,5 @@ void LojaElectronica::startLojaElectronica()
 	loadClientes("clientes.txt");
 	welcome();
 	menuPrincipal();
+	saveEncomendas("encomendas.txt");
 }
