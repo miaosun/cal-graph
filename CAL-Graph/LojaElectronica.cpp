@@ -9,24 +9,9 @@
  *  - Vitor Castro
  */
 
+#include "funcoes.h"
 
 #include "LojaElectronica.h"
-
-//funcao split utilizado para os loads
-vector<string> split(char delim, string s)
-{
-	size_t cutAt;
-	vector<string> result;
-	while( (cutAt = s.find_first_of(delim)) != s.npos )
-	{
-		if( cutAt > 0 )
-		{
-			result.push_back( s.substr( 0, cutAt ) );
-		}
-		s = s.substr( ++cutAt );
-	}
-	return result;
-}
 
 int pesquisaSequencial(vector<string> v, string s){
 	for(unsigned int i=0; i < v.size(); i++) {
@@ -90,27 +75,429 @@ void LojaElectronica::welcome()
 
 void LojaElectronica::showMenu(string titulo, vector<string> opcoes)
 {
-
+	//clear();
+	unsigned int aux;
+	for(unsigned int i=0; i<79; i++)
+		cout<<"*";
+	cout<<endl<<"*****";
+	for(unsigned int i=0; i<69; i++)
+		cout<<" ";
+	cout<<"*****"<<endl<<"*****";
+	for(unsigned int i=0; i<26; i++)
+		cout<<" ";
+	cout<<"-Clinic Manager- ";
+	for(unsigned int i=0; i<26; i++)
+		cout<<" ";
+	cout<<"*****"<<endl<<"*****";
+	for(unsigned int i=0; i<69; i++)
+		cout<<" ";
+	cout<<"*****"<<endl<<"*****";
+	aux=69-titulo.length();
+	if(aux%2==0)
+	{
+		for(unsigned int i=0; i<aux/2; i++)
+			cout<<" ";
+		cout<<titulo;
+		for(unsigned int i=0; i<aux/2; i++)
+			cout<<" ";
+		cout<<"*****"<<endl;
+	}
+	else
+	{
+		aux=68-titulo.length();
+		for(unsigned int i=0; i<aux/2; i++)
+			cout<<" ";
+		cout<<titulo;
+		for(unsigned int i=0; i<aux/2+1; i++)
+			cout<<" ";
+		cout<<"*****"<<endl;
+	}
+	cout<<"*****";
+	for(unsigned int i=0; i<69; i++)
+		cout<<" ";
+	cout<<"*****"<<endl;
+	for(unsigned int i=0; i<79; i++)
+		cout<<"*";
+	cout<<endl<<"*";
+	for(unsigned int i=0; i<77; i++)
+		cout<<" ";
+	cout<<"*"<<endl;
+	for(unsigned int i=1; i<=opcoes.size(); i++)
+	{
+		cout<<"*   "<<opcoes.at(i-1);
+		aux=74-opcoes.at(i-1).length();
+		for (unsigned int j=0; j<aux; j++)
+			cout<<" ";
+		cout<<"*"<<endl;
+	}
+	aux=14-opcoes.size();
+	for (unsigned int i=0; i<aux; i++)
+	{
+		cout<<"*";
+		for(unsigned int j=0; j<77; j++)
+			cout<<" ";
+		cout<<"*"<<endl;
+	}
+	for(unsigned int i=0; i<79; i++)
+		cout<<"*";
+	cout<<endl<<endl;
 }
 
 void LojaElectronica::menuPrincipal()
 {
+	int op;
+	vector<string> opcoes;
+	opcoes.push_back("Escolha uma das seguintes opcoes:");
+	opcoes.push_back("");
 
+	opcoes.push_back("1 - Gestao de Clientes");
+	opcoes.push_back("2 - Gestao de Encomendas");
+	opcoes.push_back("3 - Gestao de Zonas");
+	opcoes.push_back("4 - Gestao de Grafo");
+	//opcoes.push_back("5 - Importar Ficheiro");
+	opcoes.push_back("5 - GraphViewer");
+	opcoes.push_back("");
+	opcoes.push_back("0 - Gravar e sair");
+
+	showMenu("Menu Principal", opcoes);
+	cout<<"    Opcao: ";
+	op=intinput();
+
+	switch(op)
+	{
+	case 1:
+		menuCliente(); //vai para menu cliente
+		menuPrincipal(); //volta ao menu principal
+		break;
+	case 2:
+		menuEncomenda(); //vai para menu encomenda
+		menuPrincipal(); //volta ao menu principal
+		break;
+	case 3:
+		//menuZonas();  TODO
+		menuPrincipal();
+	case 4:
+		//menuGrafo(); //vai para menu encomenda
+		menuPrincipal(); //volta ao menu principal
+		break;
+	//case 5:
+		//importar ficheiro  TODO
+	case 5:
+		windows();
+		menuPrincipal();
+		break;
+	case 0:
+		//sair e gravar nos ficheiros; TODO
+		break;
+	default:
+		cout<<"Opcao invalida! Insira uma das opcoes disponiveis"<<endl;
+		//menuPrincipal();
+	}
 }
 
 void LojaElectronica::menuEncomenda()
 {
+	int op, id;
+	Encomenda *e;
+	vector<string> opcoes;
+	string filename;
+	opcoes.push_back("Escolha uma das seguintes opcoes:");
+	opcoes.push_back("");
+	opcoes.push_back("1 - Adicionar Encomenda");//opcao 1
+	if(clientes.size()>0)
+	{
+		opcoes.push_back("2 - Listar Encomenda");//opcao 2
+		opcoes.push_back("3 - Editar uma Encomenda");//opcao 3
+		opcoes.push_back("4 - Remover uma Encomenda");//opcao 4
+		opcoes.push_back("5 - Importar Encomendas dum ficheiro");//opcao 5
+		opcoes.push_back("6 - Exportar Encomendas para ficheiro");//opcao 6
+	}
+	else
+		opcoes.push_back("2 - Importar Encomendas dum ficheiro");
+	opcoes.push_back("");
+	opcoes.push_back("0 - Voltar atras");//opcao 7
 
+	showMenu("Gestao de Encomendas", opcoes);
+	cout<<"    Opcao: ";
+	op=intinput();
+	system("cls");
+
+
+	if(encomendas.size()>0)
+	{
+		switch(op)
+		{
+		case 1:
+			addEncomenda();
+			menuEncomenda();
+			break;
+		case 2:
+			listaEncomendas();
+			system("pause");
+			menuEncomenda();//volta ao menu Encomenda
+			break;
+		case 3://editar Encomenda
+			listaEncomendas();
+			cout<<endl<<"Introduza o ID da Encomenda que pretende editar: ";
+			id=intinput();
+			/*	try           TODO
+				{
+					e=find(&encomendas, id);
+					//editEncomenda(e);  TODO
+				}
+				catch (NotFound)
+				{
+					cout<<endl<<"Encomenda nao encontrado!"<<endl;
+					system("pause");
+				}*/
+			menuEncomenda();
+			break;
+		case 4://apagar Encomenda
+			listaEncomendas();
+			cout<<endl<<"Introduza o ID da Encomenda que pretende apagar: ";
+			id=intinput();
+			/*          TODO
+				try
+				{
+					e=find(&encomendas, id);
+					showMenu("Detalhes da Encomenda", c->imprime());
+					removeEncomenda(id);
+				}
+				catch (NotFound)
+				{
+					cout<<endl<<"Encomenda nao encontrado!"<<endl;
+					system("pause");
+				}*/
+			menuEncomenda();
+			break;
+		case 5://importar Encomenda
+			system("cls");
+			cout<<"   --Importar Encomenda--"<<endl<<endl;
+			cout<<"Nome do ficheiro: ";
+			getline(cin, filename);
+			loadEncomendas(filename);
+			system("pause");
+			menuEncomenda();
+			break;
+		case 6://exportar Cliente
+			system("cls");
+			cout<<"   --Exportar Encomenda--"<<endl<<endl;
+			cout<<"Nome do ficheiro para onde vai exportar: ";
+			getline(cin, filename);
+			saveEncomendas(filename);
+			system("pause");
+			menuEncomenda();
+			break;
+		case 0:
+			break;
+		default:
+			cout<<"Opcao invalida! Insira uma das opcoes disponiveis"<<endl;
+			system("pause");
+			menuEncomenda();
+		}
+	}
+	else
+	{
+		switch(op)
+		{
+		case 1://criar Encomenda
+			addEncomenda();
+			menuEncomenda();
+			break;
+		case 2://importar Encomenda
+			system("cls");
+			cout<<"   --Importar Pessoas--"<<endl<<endl;
+			cout<<"Nome do ficheiro: ";
+			getline(cin, filename);
+			loadEncomendas(filename);
+			system("pause");
+			menuEncomenda();
+			break;
+		case 0://voltar ao menu anterior
+			break;
+		default:
+			cout<<"Opcao invalida! Insira uma das opcoes disponiveis"<<endl;
+			system("pause");
+			menuEncomenda();
+		}
+	}
 }
 
 void LojaElectronica::menuCliente()
 {
+	int op, id;
+	Cliente *c;
+	vector<string> opcoes;
+	string filename;
+	opcoes.push_back("Escolha uma das seguintes opcoes:");
+	opcoes.push_back("");
+	opcoes.push_back("1 - Adicionar Cliente");//opcao 1
+	if(clientes.size()>0)
+	{
+		opcoes.push_back("2 - Listar Clientes");//opcao 2
+		opcoes.push_back("3 - Editar um Cliente");//opcao 3
+		opcoes.push_back("4 - Remover um Cliente");//opcao 4
+		opcoes.push_back("5 - Importar Clientes dum ficheiro");//opcao 5
+		opcoes.push_back("6 - Exportar Clientes para ficheiro");//opcao 6
+	}
+	else
+		opcoes.push_back("2 - Importar Clientes dum ficheiro");
+	opcoes.push_back("");
+	opcoes.push_back("0 - Voltar atras");//opcao 7
 
+	showMenu("Gestao de Clientes", opcoes);
+	cout<<"    Opcao: ";
+	op=intinput();
+	system("cls");
+
+
+	if(clientes.size()>0)
+	{
+		switch(op)
+		{
+		case 1:
+			addCliente();
+			menuCliente();
+			break;
+		case 2:
+			listaClientes();
+			system("pause");
+			menuCliente();//volta ao menu Cliente
+			break;
+		case 3://editar Cliente
+			listaClientes();
+			cout<<endl<<"Introduza o ID da Pessoa que pretende editar: ";
+			id=intinput();
+			/*	try           TODO
+			{
+				c=find(&clientes, id);
+				//editCliente(c);  TODO
+			}
+			catch (NotFound)
+			{
+				cout<<endl<<"Cliente nao encontrado!"<<endl;
+				system("pause");
+			}*/
+			menuCliente();
+			break;
+		case 4://apagar Cliente
+			listaClientes();
+			cout<<endl<<"Introduza o ID da Pessoa que pretende apagar: ";
+			id=intinput();
+			/*          TODO
+			try
+			{
+				c=find(&clientes, id);
+				showMenu("Detalhes da Pessoa", c->imprime());
+				removeCliente(id);
+			}
+			catch (NotFound)
+			{
+				cout<<endl<<"Cliente nao encontrado!"<<endl;
+				system("pause");
+			}*/
+			menuCliente();
+			break;
+		case 5://importar Cliente
+			system("cls");
+			cout<<"   --Importar Cliente--"<<endl<<endl;
+			cout<<"Nome do ficheiro: ";
+			getline(cin, filename);
+			loadClientes(filename);
+			system("pause");
+			menuCliente();
+			break;
+		case 6://exportar Cliente
+			system("cls");
+			cout<<"   --Exportar Pessoas--"<<endl<<endl;
+			cout<<"Nome do ficheiro para onde vai exportar: ";
+			getline(cin, filename);
+			saveClientes(filename);
+			system("pause");
+			menuCliente();
+			break;
+		case 0:
+			break;
+		default:
+			cout<<"Opcao invalida! Insira uma das opcoes disponiveis"<<endl;
+			system("pause");
+			menuCliente();
+		}
+	}
+	else
+	{
+		switch(op)
+		{
+		case 1://criar Cliente
+			addCliente();
+			menuCliente();
+			break;
+		case 2://importar Cliente
+			system("cls");
+			cout<<"   --Importar Pessoas--"<<endl<<endl;
+			cout<<"Nome do ficheiro: ";
+			getline(cin, filename);
+			loadClientes(filename);
+			system("pause");
+			menuCliente();
+			break;
+		case 0://voltar ao menu anterior
+			break;
+		default:
+			cout<<"Opcao invalida! Insira uma das opcoes disponiveis"<<endl;
+			system("pause");
+			menuCliente();
+		}
+	}
 }
 
 void LojaElectronica::menuProduto()
 {
 
+}
+
+void LojaElectronica::menuZona()
+{
+	int op;
+	vector<string> opcoes;
+	opcoes.push_back("Escolha uma das seguintes opcoes:");
+	opcoes.push_back("");
+
+	opcoes.push_back("1 - Adicionar uma Zona");
+	opcoes.push_back("2 - Editar uma Zona");
+	opcoes.push_back("3 - Remover uma Zona");
+	opcoes.push_back("4 - Remover Ligacao entre Zonas");
+	opcoes.push_back("");
+	opcoes.push_back("0 - Voltar atras");
+
+	showMenu("Menu Zona", opcoes);
+	cout<<"    Opcao: ";
+	op=intinput();
+
+	switch(op)
+	{
+	case 1:
+		addZona();
+		menuZona();
+		break;
+	case 2:
+		//editZona(); //TODO
+		menuZona();
+		break;
+	case 3:
+		//removeZonas();  TODO
+		menuZona();
+	case 4:
+		//removerLigacao(); TODO
+		menuZona();
+		break;
+	case 0:
+		break;
+	default:
+		cout<<"Opcao invalida! Insira uma das opcoes disponiveis"<<endl;
+		system("pause");
+		menuZona();
+	}
 }
 
 void LojaElectronica::addCliente()
@@ -853,6 +1240,8 @@ void LojaElectronica::windows(){
  */
 void LojaElectronica::startLojaElectronica()
 {
-	cout<<"Hello, Loja Electronica!"<<endl;
+	loadVertices("nos.txt");
+	loadEdges("arestas.txt");
 	welcome();
+	menuPrincipal();
 }
