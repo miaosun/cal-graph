@@ -16,44 +16,36 @@
 unsigned int Encomenda::countEncomendas=0;
 
 
-Encomenda::Encomenda(string desc, int quant, string date, string hor, Cliente * clie, Produto * prod): codEncomenda(++countEncomendas) {
-	descricao=desc;
-	quantidade=quant;
+Encomenda::Encomenda(string date, Loja *loj, Cliente * clie, Produto * prod): codEncomenda(++countEncomendas) {
 	data=date;
-	hora=hor;
 	cliente=clie;
 	produto=prod;
+	loja=loj;
+}
 
+Encomenda::Encomenda(string date, Loja *loj, Cliente * clie, Produto * prod, unsigned int cod): codEncomenda(cod) {
+	data=date;
+	cliente=clie;
+	produto=prod;
+	loja=loj;
 }
 
 // GETS Encomendas
 
-string Encomenda::getDescricao() const {
-	return descricao;
-}
-
-unsigned int Encomenda::getQuantidade() const {
-	return quantidade;
-}
-
 string Encomenda::getData() const {
 	return data;
-}
-
-string Encomenda::getHora() const {
-	return hora;
 }
 
 Cliente* Encomenda::getCliente() const {
 	return cliente;
 }
 
-Produto* Encomenda::getProduto() const {
-	return produto;
+Loja* Encomenda::getLoja() const {
+	return loja;
 }
 
-int Encomenda::getNumEncomendas() {
-	return countEncomendas;
+Produto* Encomenda::getProduto() const {
+	return produto;
 }
 
 unsigned int Encomenda::getcodEncomenda()const{
@@ -62,18 +54,6 @@ unsigned int Encomenda::getcodEncomenda()const{
 }
 
 // SETS
-
-void Encomenda::setDescricao(string desc) {
-	descricao=desc;
-}
-
-void Encomenda::setQuantidade(int quant) {
-	quantidade=quant;
-}
-
-void Encomenda::setHora(string hor) {
-	hora=hor;
-}
 
 void Encomenda::setData(string date) {
 	data=date;
@@ -87,18 +67,22 @@ void Encomenda::setProduto(Produto *prod) {
 	produto=prod;
 }
 
+
 // IMPRIME
 
 void Encomenda::imprimeEncomendas() const {
 	cout << "\nEncomenda numero: " << codEncomenda << endl ;
-	cout << "Descrição: " << descricao << endl;
-	cout << "Quantidade: " << quantidade << endl;
 	cout << "Data: " << data << endl;
-	cout << "Hora: " << hora << endl;
 	cout << "\nDados do Cliente: ";
-	//cout << "Cliente: " << cliente->imprimeCliente() << endl;
-	/*cout << "\nDados do Produto: ";
-	cout << "Cliente: " << produto->.info() << endl;*/
+	cout << "Cliente: " << endl;
+	cliente->imprimeCliente();
+	cout << "\nDados do Produto: ";
+	cout << "Produto: " << endl;
+	produto->info();
+}
+
+void Encomenda::resumo() const {
+	cout << "Encomenda "<<codEncomenda<<" | "<< cliente->getNome()<<" | "<<"Produto: "<<produto->getDesignacao()<<" | "<<"Loja: "<< loja->getNome()<<endl;
 }
 
 

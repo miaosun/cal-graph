@@ -89,8 +89,7 @@ void Loja::imprimeLoja() const {
 
 }
 
-string Loja::toString()
-{
+string Loja::toString() {
 	stringstream ss;
 	ss<<"|"<<this->codLoja<<"|"<<this->nome<<"|"<<this->morada<<"|";
 	return ss.str();

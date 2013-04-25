@@ -78,8 +78,10 @@ public:
 	/** \param morada  o contedo da string a ser atribuida ao membro-dado morada. */
 	void setMorada(string morada);
 
+	//! Membro-funcao que permite a adicao de produtos novos
 	void addProduto();
-
+	//! Membro-funcao que permite a remocao de produtos novos
+	/** dado o codigo do produto que pretende remover */
 	void removeProduto(unsigned int codProduto);
 
 	//! Overloading do operador de comparao == para objetos do tipo Loja

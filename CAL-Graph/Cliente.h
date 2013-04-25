@@ -113,6 +113,7 @@ public:
 	 * \n Cliente número: \n Nome: \n Morada: \n Contacto: \n Email: \n NIF: \n
 	 */
 	void imprimeCliente() const;
+	void resumo() const;
 
 	//TODO falta updates
 };

@@ -15,6 +15,8 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <ctime>
+#include <sstream>
 
 using namespace std;
 //! Classe Data
@@ -77,5 +79,32 @@ public:
 	bool operator<(const Data& x) const;
 
 };
+
+
+
+//
+//class TimeDate {
+//	time_t systime;
+//public:
+//	TimeDate(time_t t); // constructor
+//	string extractDate();
+//};
+//
+//TimeDate::TimeDate(time_t t)
+//{
+//	systime = t;
+//}
+//
+//string TimeDate::extractDate()
+//{
+//	stringstream ss;
+//	ss << ctime(&systime);
+//	return ss.str();
+//}
+//
+//
+
+string dataActual();
+
 
 #endif /* DATA_H_ */

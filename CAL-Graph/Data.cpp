@@ -114,3 +114,10 @@ bool Data::operator< (const Data& x) const{
 		return true;
 	else return false;
 }
+
+string dataActual() {
+	time_t x;
+	x = time(NULL);
+	//TimeDate ob(x);
+	return ctime(&x);
+}
