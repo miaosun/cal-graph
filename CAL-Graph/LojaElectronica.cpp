@@ -926,6 +926,7 @@ void LojaElectronica::addZonaGrafo(Zona* z1) {
 }
 
 void LojaElectronica::addAresta(Zona *z) {
+	cout << "Adicionar Ligacao" << endl << endl;
 	listaZonas();
 	string desig;
 	int dist;
@@ -947,11 +948,59 @@ void LojaElectronica::addAresta(Zona *z) {
 	}
 }
 
-void LojaElectronica::removeAresta(Zona *z){
-
+void LojaElectronica::listaArestasDesde(Zona *z) {
+	Vertex<Zona*>* v = devolveVertex(z);
+	if(v->getAdj().size()==0)
+		cout << "Nao existem ligacoes a partir desta Zona!" << endl;
+	for(unsigned int i=0; i<v->getAdj().size();i++) {
+		cout << v->getAdj()[i].getDest()->getInfo()->getDesignacao() << " | Distância: " << v->getAdj()[i].getWeight()<<endl;
+	}
 }
-void LojaElectronica::editAresta(Zona *z) {
 
+void LojaElectronica::removeAresta(Zona *z) {
+	cout << "Remover Ligacao" << endl << endl;
+	listaArestasDesde(z);
+	string desig;
+	int dist;
+	cout << "Insira a designacao da Zona destino da ligacao a remover: ";
+	fflush(stdin);
+	getline(cin,desig);
+
+	Zona *z2 = procuraZona(desig);
+	if(z2==NULL) {
+		cout << "Zona não existente!" << endl;
+		//TODO excepcao! tratar (voltar a pedir)
+	}
+	else
+	{
+		removeArestaBidireccional(z,z2);
+		cout << "Ligacao Eliminada!"<< endl;
+	}
+}
+
+void LojaElectronica::editPesoAresta(Zona *z) {
+	cout << "Editar Distancia de Ligacao entre Zonas" << endl << endl;
+	listaArestasDesde(z);
+	string desig;
+	int dist;
+	cout << "Insira a designacao da Zona destino da ligacao a editar: ";
+	fflush(stdin);
+	getline(cin,desig);
+
+	Zona *z2 = procuraZona(desig);
+	if(z2==NULL) {
+		cout << "Zona não existente!" << endl;
+		//TODO excepcao! tratar (voltar a pedir)
+	}
+	else
+	{
+		cout << "Insira o nova distancia: ";
+		fflush(stdin);
+		cin >> dist;
+		removeArestaBidireccional(z,z2);
+		addArestaBidireccional(z,z2,dist);
+		cout << "Aresta Editada!"<< endl;
+	}
 }
 
 void LojaElectronica::addArestaBidireccional(Zona* z1, Zona* z2, int dist) {
@@ -961,10 +1010,21 @@ void LojaElectronica::addArestaBidireccional(Zona* z1, Zona* z2, int dist) {
 }
 
 void LojaElectronica::removeArestaBidireccional(Zona* z1, Zona* z2) {
-
+	Vertex<Zona*>* v1 = devolveVertex(z1);
+	Vertex<Zona*>* v2 = devolveVertex(z2);
+	v1->removeEdgeTo(v2);
+	v2->removeEdgeTo(v1);
 }
 
+Vertex<Zona*>* LojaElectronica::devolveVertex(Zona* z) {
 
+	for(unsigned int i=0;i<myGraph.getVertexSet().size();i++) {
+		if(myGraph.getVertexSet()[i]->getInfo()==z) {
+			return myGraph.getVertexSet()[i];
+		}
+	}
+	return NULL;
+}
 void LojaElectronica::removeZona(string desig)
 {
 	bool encontrou=false;
