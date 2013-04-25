@@ -96,7 +96,7 @@ void Cliente::imprimeCliente() const {
 		cout <<"CLIENTE DA ZONA: "<< zona->getDesignacao() << endl;
 		cout <<"FIM DA FICHA DO CLIENTE"<<endl;
 }
-*/
+ */
 vector<string> Cliente::imprimeCliente() const {
 	vector<string> v;
 	stringstream ss;
@@ -126,6 +126,26 @@ vector<string> Cliente::imprimeCliente() const {
 	ss.str("");
 
 	return v;
+}
+
+vector<string> Cliente::editCliente()
+{
+	vector<string> opcoes;
+	stringstream ss;
+	opcoes.push_back("Escolha o que editar:");
+	opcoes.push_back("");
+	ss<<"1 - Editar Morada: "<<this->morada;
+	opcoes.push_back(ss.str());
+	ss.str("");
+	ss<<"2 - Editar Contacto: "<<this->contacto;
+	opcoes.push_back(ss.str());
+	ss.str("");
+	ss<<"3 - Editar Email: "<<this->email;
+	opcoes.push_back(ss.str());
+	ss.str("");
+
+	//edit zona TODO
+	return opcoes;
 }
 
 void Cliente::resumo() const {

@@ -167,7 +167,7 @@ void LojaElectronica::menuPrincipal()
 		menuPrincipal(); //volta ao menu principal
 		break;
 	case 3:
-		//menuZonas();  TODO
+		menuZona();
 		menuPrincipal();
 	case 4:
 		//menuGrafo(); //vai para menu encomenda
@@ -403,7 +403,7 @@ void LojaElectronica::menuCliente()
 						break;
 					}
 				}
-				//editCliente(c);  TODO
+				editCliente(c);
 			}
 			catch (NotFound)
 			{
@@ -592,6 +592,48 @@ void LojaElectronica::addCliente()
 	clientes.push_back(c);
 }
 
+void LojaElectronica::editCliente(Cliente *c)
+{
+	//nao e permetido de alterar nome e NIF
+	string morada, contacto, email;
+	//Zona *zona;   editar zona do cliente
+	// TODO
+	int op;
+
+	vector<string> opcoes;
+	opcoes = c->editCliente();
+	opcoes.push_back("");
+	opcoes.push_back("0 - Voltar atras");
+
+	showMenu("Editar Cliente", opcoes);
+	cout<<"    Opcao: ";
+	op=intinput();
+	system("cls");
+
+	switch(op)
+	{
+	case 1: //editar morada
+		cout<<"Nova morada do Cliente: ";
+		getline(cin, morada);
+		c->setMorada(morada);
+		break;
+	case 2: //editar contacto
+		cout<<"Novo contacto do Cliente: ";
+		getline(cin, contacto);
+		c->setContacto(contacto);
+		break;
+	case 3: //editar email
+		cout<<"Novo email do Cliente: ";
+		getline(cin, email);
+		c->setEmail(email);
+		break;
+	case 0: //voltar atras
+		return;
+		break;
+	default:
+		editCliente(c);
+	}
+}
 
 void LojaElectronica::removeCliente(string nome)
 {
@@ -671,6 +713,12 @@ void LojaElectronica::addZona()
 	Zona *zona=new Zona(designacao);
 
 	addZonaGrafo(zona);
+}
+
+void LojaElectronica::editZona(Zona *z)
+{
+	//TODO
+	//e preciso? nao faz muito sentido de alterar os atribuitos de zoan...
 }
 
 void LojaElectronica::addZonaGrafo(Zona* z1) {
@@ -828,6 +876,12 @@ void LojaElectronica::addEncomenda()
 	else {
 		cout << "O produto pretendido nao se encontra disponivel em nenhuma loja." << endl<<endl;
 	}
+}
+
+void LojaElectronica::editEncomenda(Encomenda *e)
+{
+	//TODO
+	//tambem deixamos editar encomendas?
 }
 
 void LojaElectronica::removeEncomenda(unsigned int codEncomenda)
