@@ -817,11 +817,16 @@ void LojaElectronica::windows(){
 	vector<Vertex<Zona*> *>::iterator it;
 	for(it=vs.begin(); it!=vs.end(); it++)
 	{
+		cout<<"entre por aqui?\n";
 		//TODO  nao esta a funcionar
 		vector<Edge<Zona*> > vedges = (*it)->getAdj();
 		vector<Edge<Zona*> >::iterator ited;
 		for(ited=vedges.begin(); ited!=vedges.end(); ited++)
+		{
+			cout<<"test: "<<(*it)->getInfo()->getCodZona()<<endl;
 			gv->addEdge(idEdge, (*it)->getInfo()->getCodZona(), ited->getDest()->getInfo()->getCodZona(), EdgeType::UNDIRECTED);
+			idEdge++;
+		}
 	}
 
 
