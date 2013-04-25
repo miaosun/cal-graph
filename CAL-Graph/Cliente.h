@@ -1,4 +1,4 @@
-﻿/*
+/*
  * 	FICHEIRO: Cliente.h
  *	PROJECTO: Projecto CAL - Loja de Comercio Electronico (T3)
  *	DESCRICAO: Definicao da classe Cliente
