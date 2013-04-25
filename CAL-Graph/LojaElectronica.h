@@ -52,6 +52,9 @@ public:
 	//! Membro-funcao que mostra o menu produto ao utilizador
 	void menuProduto();
 	//! Membro-funcao que permite a adicao de clientes novos
+
+	void menuZona();
+
 	void addCliente();
 	//! Membro-funcao que permite a remocao de clientes existentes
 	/** dado o nome do cliente que pretende remover */
