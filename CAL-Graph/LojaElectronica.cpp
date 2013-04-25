@@ -198,13 +198,12 @@ void LojaElectronica::menuEncomenda()
 	opcoes.push_back("Escolha uma das seguintes opcoes:");
 	opcoes.push_back("");
 	opcoes.push_back("1 - Adicionar Encomenda");//opcao 1
-	if(clientes.size()>0)
+	if(encomendas.size()>0)
 	{
 		opcoes.push_back("2 - Listar Encomenda");//opcao 2
-		opcoes.push_back("3 - Editar uma Encomenda");//opcao 3
-		opcoes.push_back("4 - Remover uma Encomenda");//opcao 4
-		opcoes.push_back("5 - Importar Encomendas dum ficheiro");//opcao 5
-		opcoes.push_back("6 - Exportar Encomendas para ficheiro");//opcao 6
+		opcoes.push_back("3 - Remover uma Encomenda");//opcao 4
+		opcoes.push_back("4 - Importar Encomendas dum ficheiro");//opcao 5
+		opcoes.push_back("5 - Exportar Encomendas para ficheiro");//opcao 6
 	}
 	else
 		opcoes.push_back("2 - Importar Encomendas dum ficheiro");
@@ -230,34 +229,10 @@ void LojaElectronica::menuEncomenda()
 			system("pause");
 			menuEncomenda();//volta ao menu Encomenda
 			break;
-		case 3://editar Encomenda
-			listaEncomendas();
-			cout<<endl<<"Introduza o Codigo da Encomenda que pretende editar: ";
-			cod=intinput();
-			try
-			{
-				for(unsigned int i=0; i<encomendas.size(); i++)
-				{
-					if(cod == encomendas[i]->getcodEncomenda())
-					{
-						e = encomendas[i];
-						break;
-					}
-				}
-				//editEncomenda(e);  TODO
-			}
-			catch (NotFound)
-			{
-				cout<<endl<<"Encomenda nao encontrado!"<<endl;
-			}
-			system("pause");
-			menuEncomenda();
-			break;
-		case 4://apagar Encomenda
+		case 3://apagar Encomenda
 			listaEncomendas();
 			cout<<endl<<"Introduza o ID da Encomenda que pretende apagar: ";
 			cod=intinput();
-
 			try
 			{
 				for(unsigned int i=0; i<encomendas.size(); i++)
@@ -269,7 +244,7 @@ void LojaElectronica::menuEncomenda()
 					}
 				}
 				//showMenu("Detalhes da Encomenda", e->resumo());
-				removeEncomenda(cod);
+				removeEncomenda(e->getcodEncomenda());
 			}
 			catch (NotFound)
 			{
