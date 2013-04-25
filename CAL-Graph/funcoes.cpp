@@ -41,10 +41,12 @@ int intinput()
 	string s;
 	int i=0;
 	getline(cin, s);
+	//fflush(stdin);
 	while(!isDigit(s))
 	{
 		cout<<"A opcao nao e valida, tenta novamente: ";
 		getline(cin, s);
+		//fflush(stdin);
 	};
 
 	i = atoi(s.c_str());

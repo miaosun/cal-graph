@@ -169,6 +169,7 @@ void LojaElectronica::menuPrincipal()
 	case 3:
 		menuZona();
 		menuPrincipal();
+		break;
 	case 4:
 		//menuGrafo(); //vai para menu encomenda
 		menuPrincipal(); //volta ao menu principal
@@ -547,6 +548,7 @@ void LojaElectronica::menuZona()
 		}
 		system("pause");
 		menuZona();
+		break;
 	case 4:
 		//removerLigacao(); TODO
 		menuZona();
@@ -1195,7 +1197,6 @@ void LojaElectronica::loadVertices(string filename)
 
 			Zona *z = new Zona(atoi(v[0].c_str()), v[1].c_str());
 			myGraph.addVertex(z);
-			cout << z->getCodZona() << endl;
 		}
 		cout<<endl<<endl<<"Vertices importadas com sucesso!"<<endl<<endl;
 		myfile.close();
@@ -1243,10 +1244,8 @@ void LojaElectronica::loadEdges(string filename)
 			if(linha=="") break;
 			v=split('|', linha);
 
-			cout << "id z1: " << atoi(v[0].c_str()) << endl;
 			Zona *z1 = procuraZona(atoi(v[0].c_str()));
 			if(z1==NULL) cout << "Z1 NULL!" << endl;
-			cout << "id z2: " << atoi(v[1].c_str()) << endl;
 			Zona *z2 = procuraZona(atoi(v[1].c_str()));
 			if(z1==NULL) cout << "Z2 NULL!" << endl;
 			double peso = atof(v[2].c_str());
@@ -1324,7 +1323,6 @@ void LojaElectronica::windows(){
 	int idEdge=0;
 	vector<Vertex<Zona*> *> vs = myGraph.getVertexSet();
 	vector<Vertex<Zona*> *>::iterator it;
-	cout<<"hello: "<<vs.size()<<endl;
 	for(it=vs.begin(); it!=vs.end(); it++)
 	{
 		vector<Edge<Zona*> > vedges = (*it)->getAdj();
