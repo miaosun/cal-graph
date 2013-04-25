@@ -410,6 +410,7 @@ void LojaElectronica::menuCliente()
 			{
 				cout<<endl<<"Cliente nao encontrado!"<<endl;
 			}
+			cout<<"\nAlteracao com sucesso!\n";
 			system("pause");
 			menuCliente();
 			break;
@@ -1072,34 +1073,32 @@ void LojaElectronica::loadClientes(string filename)
 			Cliente *c1 = new Cliente(nome,morada,contacto,email,NIF, codCliente, z);
 			clientes.push_back(c1);
 		}
+		file.close();
+		cout<<endl<<endl<<"Edges importadas com sucesso!"<<endl<<endl;
 	}
 	else
 	{
 		cout<<"Nao foi possivel abrir o ficheiro "<<filename<<"!"<<endl<<endl;
 	}
-	file.close();
 }
 
 void LojaElectronica::saveClientes(string filename)
 {
-	int i = 0;
-	int tam = clientes.size();
 	ofstream myfile(filename.c_str());
 	if (myfile.is_open()) {
 		myfile << Cliente::getCount() << endl;
-		while (i < tam) {
-			if(clientes[i] != NULL){
-				myfile << clientes[i]->getNome() << endl;
-				myfile << clientes[i]->getMorada() << endl;
-				myfile << clientes[i]->getContacto() << endl;
-				myfile << clientes[i]->getEmail() << endl;
-				myfile << clientes[i]->getNIF() << endl;
-				myfile << clientes[i]->getCodCliente() << endl;
-				myfile << clientes[i]->getZona()->getCodZona() << endl;
-			}
-			i++;
+		for(unsigned int i=0; i<clientes.size(); i++)
+		{
+			myfile<<"|"<<clientes[i]->getCodCliente()<<"|"<<clientes[i]->getNome()<<"|"<<clientes[i]->getNIF()<<"|"<<clientes[i]->getMorada()<<"|"<<clientes[i]->getContacto()<<"|"<<clientes[i]->getEmail()<<"|"<<clientes[i]->getZona()->getCodZona()<<"|"<<endl;
 		}
 		myfile.close();
+		cout<<endl<<endl<<"Clientes exportadas com sucesso!"<<endl;
+	}
+
+	else
+	{
+		cout<<"Nao foi possivel abrir o ficheiro!"<<endl<<endl;
+		system("pause");
 	}
 }
 
@@ -1305,7 +1304,7 @@ void LojaElectronica::saveVertices(string filename)
 	ofstream myfile (filename.c_str());
 	if(myfile.is_open())
 	{
-		myfile << Zona::getCount();
+		myfile << Zona::getCount()<<endl;
 
 		for(it=vs.begin(); it!=vs.end(); it++)
 			myfile<<(*it)->getInfo()->toString()<<endl;
@@ -1363,7 +1362,7 @@ void LojaElectronica::saveEdges(string filename)
 			vector<Edge<Zona*> > vedges = (*it)->getAdj();
 			vector<Edge<Zona*> >::iterator ited;
 			for(ited=vedges.begin(); ited!=vedges.end(); ited++)
-				myfile<<"|"<<(*it)->getInfo()->getCodZona()<<"|"<<ited->getDest()->getInfo()->getCodZona()<<"|"<<ited->getWeight()<<"|";
+				myfile<<"|"<<(*it)->getInfo()->getCodZona()<<"|"<<ited->getDest()->getInfo()->getCodZona()<<"|"<<ited->getWeight()<<"|"<<endl;
 		}
 		myfile.close();
 		cout<<endl<<endl<<"Edges exportadas com sucesso!"<<endl;
