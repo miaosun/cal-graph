@@ -100,7 +100,7 @@ void Cliente::imprimeCliente() const {
 vector<string> Cliente::imprimeCliente() const {
 	vector<string> v;
 	stringstream ss;
-	ss << "\nCliente numero: " << this->codCliente;
+	ss << "Cliente numero: " << this->codCliente;
 	v.push_back(ss.str());
 	ss.str("");
 	ss << "Nome: " << this->nome;
@@ -119,9 +119,6 @@ vector<string> Cliente::imprimeCliente() const {
 	v.push_back(ss.str());
 	ss.str("");
 	ss <<"CLIENTE DA ZONA: "<< this->zona->getDesignacao();
-	v.push_back(ss.str());
-	ss.str("");
-	ss <<"FIM DA FICHA DO CLIENTE";
 	v.push_back(ss.str());
 	ss.str("");
 
