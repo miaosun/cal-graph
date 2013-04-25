@@ -74,3 +74,4 @@ string Zona::toString()
 	ss<<"|"<<this->codZona<<"|"<<this->designacao<<"|";
 	return ss.str();
 }
+
