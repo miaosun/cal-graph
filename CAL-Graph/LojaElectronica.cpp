@@ -507,7 +507,8 @@ void LojaElectronica::menuZona()
 	opcoes.push_back("1 - Adicionar uma Zona");
 	opcoes.push_back("2 - Editar uma Zona");
 	opcoes.push_back("3 - Remover uma Zona");
-	opcoes.push_back("4 - Remover Ligacao entre Zonas");
+	opcoes.push_back("4 - Addicionar Ligacao entre Zonas");
+	opcoes.push_back("5 - Remover Ligacao entre Zonas");
 	opcoes.push_back("");
 	opcoes.push_back("0 - Voltar atras");
 
@@ -550,7 +551,11 @@ void LojaElectronica::menuZona()
 		menuZona();
 		break;
 	case 4:
-		//removerLigacao(); TODO
+		//addLigacao(); TODO
+		menuZona();
+		break;
+	case 5:
+		//removeLigacao(); TODO
 		menuZona();
 		break;
 	case 0:
@@ -654,19 +659,20 @@ void LojaElectronica::addCliente()
 	int nif;
 	string nome,morada,contacto,email,zona;
 
-	cout << "Nome: " << endl;
+	cout << "Nome: ";
 	getline(cin,nome);
-	cout << "Morada: " << endl;
+	cout << "Morada: ";
 	getline(cin,morada);
-	cout << "Telefone: "<< endl;
-	fflush(stdin);
-	cin>>contacto;
-	cout << "Email: " << endl;
+	cout << "Telefone: ";
+	getline(cin, contacto);
+	cout << "Email: ";
 	getline(cin,email);
-	cout << "NIF: " << endl;
-	fflush(stdin);
-	cin>>nif;
+	do{
+		cout << "NIF: ";
+		nif = intinput();
+	}while(nif<100000000 || nif>999999999);
 
+	cout<<endl<<"Lista das Zonas:"<<endl<<endl;
 	listaZonas();
 
 	cout << "Defina a designacao da Zona do Cliente: ";
@@ -986,6 +992,7 @@ Encomenda * LojaElectronica::procuraEncomenda(unsigned int id) {
 
 void LojaElectronica::listaClientes()
 {
+	cout<<"test: "<<clientes.size()<<endl;
 	if(clientes.size()==0 ) throw Excepcao("\n Nao existem clientes no sistema \n");
 
 	for (unsigned int i=0; i < clientes.size(); i++)
@@ -1037,39 +1044,41 @@ void LojaElectronica::listaEncomendas()
 
 void LojaElectronica::loadClientes(string filename)
 {
+	// |Cod|Nome|NIF|Morada|Contacto|Email|CodZona|  fica este formato
 	ifstream file;
 	string line;
 	string nome,morada,contacto,email,NIB;
-	unsigned int NIF, cod, codzona;
+	unsigned int NIF, codCliente, codZona;
+	vector<string> v;
 
 	file.open(filename.c_str());
 
-	if (file.is_open()) {
-
+	if (file.is_open())
+	{
 		getline(file, line);
 		Cliente::setCount(atoi(line.c_str()));
 		while(!file.eof() ){
-
 			getline(file, line);
 			if(line == "") break;
-			nome = line;
+			v = split('|', line);
+			codCliente = atoi(v[0].c_str());
+			nome = v[1].c_str();
+			NIF = atoi(v[2].c_str());
+			morada = v[3].c_str();
+			contacto = v[4].c_str();
+			email = v[5].c_str();
+			codZona = atoi(v[6].c_str());
 
-			getline(file, morada);
-			getline(file, contacto);
-			getline(file, email);
-			getline(file, line);
-			NIF = atoi(line.c_str());
-			getline(file, line);
-			cod = atoi(line.c_str());
-			getline(file, line);
-			codzona = atoi(line.c_str());
-
-			Zona *z = procuraZona(codzona);
-			Cliente *c1 = new Cliente(nome,morada,contacto,email,NIF, cod, z);
+			Zona *z = procuraZona(codZona);
+			Cliente *c1 = new Cliente(nome,morada,contacto,email,NIF, codCliente, z);
 			clientes.push_back(c1);
 		}
-		file.close();
 	}
+	else
+	{
+		cout<<"Nao foi possivel abrir o ficheiro "<<filename<<"!"<<endl<<endl;
+	}
+	file.close();
 }
 
 void LojaElectronica::saveClientes(string filename)
@@ -1431,6 +1440,7 @@ void LojaElectronica::startLojaElectronica()
 {
 	loadVertices("nos.txt");
 	loadEdges("arestas.txt");
+	loadClientes("clientes.txt");
 	welcome();
 	menuPrincipal();
 }

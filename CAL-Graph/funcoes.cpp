@@ -44,7 +44,7 @@ int intinput()
 	//fflush(stdin);
 	while(!isDigit(s))
 	{
-		cout<<"A opcao nao e valida, tenta novamente: ";
+		cout<<"Invalido, tenta novamente: ";
 		getline(cin, s);
 		//fflush(stdin);
 	};
