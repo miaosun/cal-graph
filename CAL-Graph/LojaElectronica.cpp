@@ -83,10 +83,10 @@ void LojaElectronica::showMenu(string titulo, vector<string> opcoes)
 	for(unsigned int i=0; i<69; i++)
 		cout<<" ";
 	cout<<"*****"<<endl<<"*****";
-	for(unsigned int i=0; i<26; i++)
+	for(unsigned int i=0; i<25; i++)
 		cout<<" ";
-	cout<<"-Clinic Manager- ";
-	for(unsigned int i=0; i<26; i++)
+	cout<<"-Loja Electronica- ";
+	for(unsigned int i=0; i<25; i++)
 		cout<<" ";
 	cout<<"*****"<<endl<<"*****";
 	for(unsigned int i=0; i<69; i++)
@@ -1195,23 +1195,13 @@ void LojaElectronica::windows(){
 		gv->rearrange();
 	}
 
-	//Nota: para criar uma aresta deve utilizar o seguinte comando:
-	// para arestas bidireccionais
 
-	/*gv->addEdge(0,0,1,EdgeType::UNDIRECTED);
-		gv->addEdge(1,0,2,EdgeType::UNDIRECTED);
-		gv->addEdge(2,1,3,EdgeType::UNDIRECTED);
-		gv->addEdge(3,2,3,EdgeType::UNDIRECTED);*/
-	// para arestas direccionais
-	//vector<Vertex<Zona*> *>::iterator it;
 	int idEdge=0;
 	vector<Vertex<Zona*> *> vs = myGraph.getVertexSet();
 	vector<Vertex<Zona*> *>::iterator it;
 	cout<<"hello: "<<vs.size()<<endl;
 	for(it=vs.begin(); it!=vs.end(); it++)
 	{
-		cout<<"entre por aqui?\n";
-		//TODO  nao esta a funcionar
 		vector<Edge<Zona*> > vedges = (*it)->getAdj();
 		vector<Edge<Zona*> >::iterator ited;
 		for(ited=vedges.begin(); ited!=vedges.end(); ited++)
