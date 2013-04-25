@@ -89,8 +89,14 @@ void Loja::addProduto()
 
 void Loja::removeProduto(unsigned int codProduto)
 {
+	cout << "Produtos Disponiveis na Loja:" << endl;
+	for(unsigned int i=0; i<produtos.size();i++) {
+		produtos[i]->resumo();
+	}
+	cout << endl;
+
 	string desig;
-	cout << "Inserir Produto" << endl << endl;
+	cout << "Remover Produto" << endl << endl;
 	cout << "Designação: ";
 	getline(cin,desig);
 

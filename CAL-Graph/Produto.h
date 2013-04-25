@@ -76,6 +76,7 @@ public:
 	static void setCount(unsigned int n)  {countProdutos = n;}
 
 	string toString();
+	void resumo();
 
 	//TODO falta updates
 };

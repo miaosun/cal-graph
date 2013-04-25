@@ -66,6 +66,10 @@ void Produto::info() const {
 	cout << "Preço: " << preco << endl;
 }
 
+void Produto::resumo() {
+	cout << "Produto " << codProduto << " | " << designacao << " | "<< "Preco: " << preco << " | "<< "Stock: " << stock << endl;
+}
+
 
 string Produto::toString() {
 	stringstream ss;
