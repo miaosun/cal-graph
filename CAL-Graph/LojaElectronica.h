@@ -18,11 +18,13 @@
 #include "Graph.h"
 #include "graphviewer.h"
 #include "insertionSort.h"
+#include "Data.h"
 //#include "sequentialSearch.h"
 #include <stdlib.h>
 #include <vector>
 #include <sstream>
 #include <fstream>
+
 
 class LojaElectronica
 {
@@ -62,11 +64,6 @@ public:
 	//! Membro-funcao que permite a remocao de clientes existentes
 	/** dado o nome do cliente que pretende remover */
 	Cliente *ProcuraCliente_nome(string nome);
-	//! Membro-funcao que permite a adicao de produtos novos
-	void addProduto();
-	//! Membro-funcao que permite a remocao de produtos novos
-	/** dado o codigo do produto que pretende remover */
-	void removeProduto(unsigned int codProduto);
 
 	vector<string> nomesProdutos();
 
@@ -100,6 +97,7 @@ public:
 	/** dado o codigo da encomenda que pretende remover */
 	void removeEncomenda(unsigned int codEncomenda);
 
+	Encomenda * procuraEncomenda(unsigned int id);
 
 	//! Membro-funcao que lista os clientes existentes no base de dados
 	void listaClientes();

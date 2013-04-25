@@ -19,7 +19,7 @@
 using namespace std;
 
 vector<string> split(char delim, string s)
-{
+		{
 	size_t cutAt;
 	vector<string> result;
 	while( (cutAt = s.find_first_of(delim)) != s.npos )
@@ -31,13 +31,13 @@ vector<string> split(char delim, string s)
 		s = s.substr( ++cutAt );
 	}
 	return result;
-}
+		}
 
 bool isDouble(const string& s)
 {
-  istringstream i(s);
-  double temp;
-  return ( (i >> temp) ? true : false );
+	istringstream i(s);
+	double temp;
+	return ( (i >> temp) ? true : false );
 }
 
 bool isDigit(const string& s)
@@ -62,6 +62,13 @@ int intinput()
 	return i;
 }
 
+int pesquisaSequencial(vector<string> v, string s){
+	for(unsigned int i=0; i < v.size(); i++) {
+		if(v[i] == s)
+			return 1;
+	}
+	return -1;
+}
 
 
 #endif /* FUNCOES_H_ */

@@ -10,16 +10,10 @@
  */
 
 #include "funcoes.h"
-
 #include "LojaElectronica.h"
 
-int pesquisaSequencial(vector<string> v, string s){
-	for(unsigned int i=0; i < v.size(); i++) {
-		if(v[i] == s)
-			return 1;
-	}
-	return -1;
-}
+int algoritmoPesado=1;
+
 
 LojaElectronica::LojaElectronica()
 {
@@ -180,7 +174,7 @@ void LojaElectronica::menuPrincipal()
 		//menuGrafo(); //vai para menu encomenda
 		menuPrincipal(); //volta ao menu principal
 		break;
-	//case 5:
+		//case 5:
 		//importar ficheiro  TODO
 	case 5:
 		windows();
@@ -594,6 +588,7 @@ Loja* LojaElectronica::procuraLoja(unsigned int id) {
 
 
 
+
 void LojaElectronica::addZona()
 {
 	string designacao;
@@ -712,141 +707,88 @@ void LojaElectronica::removeLoja(unsigned int codLoja)
 
 void LojaElectronica::addEncomenda()
 {
+	system("cls");
+	string nome, produto;
+	Produto *p;
+	Loja *l;
+	string data = dataActual();
+	bool enc=false;
 
-	/*ifstream inFile;
-		Graph<Zona> myGraph1;
+	cout << "	ENCOMENDA" << endl << endl;
 
-		//Ler o ficheiro nos.txt
-			inFile.open("nos.txt");
+	listaClientes();
+	cout << "Insira o nome do cliente: ";
+	fflush(stdin);
+	getline(cin,nome);
+	Cliente *c = ProcuraCliente_nome(nome); //TODO excepcao
+	Zona *noOrigem = c->getZona();
 
-			if (!inFile) {
-			    cerr << "Unable to open file datafile.txt";
-			    exit(1);   // call system to stop
-			}
+	cout << "	Seleccionar Produto" << endl;
+	listaProdutos();
 
-			std::string   line;
+	cout << "Nome do produto desejado: ";
+	fflush(stdin);
+	getline(cin,produto);
 
-
-
-			string nome, morada,  contacto,  email, zona,zonaCliente;
-			unsigned int nif;
-
-			string designacao, moradaLoja;
-
-
-
-			while(std::getline(inFile, line))
-				{
-				    std::stringstream linestream(line);
-				    std::string         data;
-
-				    linestream >> zona;
-
-				    //Zona *idNo=new Zona(zona);
-
-				    Zona a("Lisbon");
-
-				    std::getline(linestream, data, ';');  // read up-to the first ; (discard ;).
-				    linestream >> nome;
-				    std::getline(linestream, data, ';');  // read up-to the first ; (discard ;).
-				    linestream >> morada;
-				    std::getline(linestream, data, ';');  // read up-to the first ; (discard ;).
-				    linestream >> contacto;
-				    std::getline(linestream, data, ';');  // read up-to the first ; (discard ;).
-				    linestream >> email;
-				    std::getline(linestream, data, ';');  // read up-to the first ; (discard ;).
-				    linestream >> zonaCliente;
-
-				    Zona *ZonaX=new Zona(zonaCliente);
-
-				    Cliente *cliente=new Cliente(nome,morada,contacto,email,2345678,ZonaX);
-
-				    std::getline(linestream, data, ';');  // read up-to the first ; (discard ;).
-					linestream >> designacao;
-				    std::getline(linestream, data, ';');  // read up-to the first ; (discard ;).
-					linestream >> moradaLoja;
-
-					Zona *zon=new Zona(moradaLoja);
-
-					Loja *loja=new Loja(designacao,moradaLoja,zon);
-
-					std::getline(linestream, data, ';');
-
-
-
-					myGraph1.addVertex(a);
-
-
-				}
-
-				inFile.close();*/
-
-
-	Graph<Zona*> myGraph;
-	Zona *a=new Zona("Lisbon");
-	Zona *b=new Zona("Porto");
-	Zona *c=new Zona("Coimbra");
-	Zona *d=new Zona("Algarve");
-
-
-	myGraph.addVertex(a);
-	myGraph.addVertex(b);
-	myGraph.addVertex(c);
-	myGraph.addVertex(d);
-
-	myGraph.addEdge(a, b, 3);
-	myGraph.addEdge(b, a, 3);
-
-	myGraph.addEdge(a, c, 1);
-	myGraph.addEdge(c, a, 1);
-
-	myGraph.addEdge(b, d, 7);
-	myGraph.addEdge(d, a, 7);
-
-	myGraph.addEdge(c, d, 10);
-	myGraph.addEdge(d, c, 10);
-
-
-	Zona *noOrigem =a;
-
-	//Caminhos mais curtos a partir de noOrigem --> Grafos Pesados - Djikstra
-	myGraph.dijkstraShortestPath(noOrigem);
-
-	//Caminhos mais curtos a partir de noOrigem --> Grafos Nao Pesados
-	//myGraph1.unweightedShortestPath(noOrigem);
-
-	vector<Vertex<Zona*>* > vs = myGraph.getVertexSet();
-
-
-	int menor=2000000000;
-	Zona *noMenor=vs[0]->getInfo();
-
-
-	//Ver qual o caminho mais curto de todos e guardar o menor
-
-	for(unsigned int i=0;i<vs.size();i++){
-		if(vs[i]->getInfo()!=noOrigem && vs[i]->getDist()<=menor){
-			cout<<"Dijkstra: Distancia de: "<< a->getDesignacao() << " a "<<vs[i]->getInfo()->getDesignacao()<<":  "<<vs[i]->getDist()<<endl;
-			menor=vs[i]->getDist();
-			noMenor=vs[i]->getInfo();
-		}
+	if(algoritmoPesado==1) {
+		//Caminhos mais curtos a partir de noOrigem --> Grafos Pesados - Djikstra
+		myGraph.dijkstraShortestPath(noOrigem);
+	}
+	else {
+		//Caminhos mais curtos a partir de noOrigem --> Grafos Nao Pesados
+		myGraph.unweightedShortestPath(noOrigem);
 	}
 
-	cout<<"Menor Custo: "<<menor<<endl;
-	cout<<"No de Menor custo: "<<noMenor->getDesignacao()<<endl;
+	vector<Vertex<Zona*>* > vDist = myGraph.getVertexSet();
+	insertionSort(vDist);
 
-
-	//Caminho de No Origem ate ao menor Custo
-	vector<Zona*> path = myGraph.getPath(noOrigem, noMenor);
-
-	for(unsigned int j=0;j<path.size();j++){
-		cout<<"Path: "<<path[j]->getDesignacao()<<endl;
+	vector<Vertex<Zona*>* >::iterator it = vDist.begin();
+	vector<Produto*>::iterator it2;
+	for(;it!=vDist.end();it++) {
+		for(it2==(*it)->getInfo()->getLoja()->getProdutos().begin();it2!=(*it)->getInfo()->getLoja()->getProdutos().end();it2++) {
+			if((*it2)->getDesignacao() == produto) {
+				p=(*it2);
+				l=(*it)->getInfo()->getLoja();
+				(*it2)->decStock();
+				enc=true;
+				break;
+			}
+		}
+	}
+	if(enc==true) {
+		Encomenda *e = new Encomenda(data,l,c,p);
+		encomendas.push_back(e);
+	}
+	else {
+		cout << "O produto pretendido nao se encontra disponivel em nenhuma loja." << endl<<endl;
 	}
 }
 
 void LojaElectronica::removeEncomenda(unsigned int codEncomenda)
 {
-	// TODO
+	unsigned int idenc;
+	listaEncomendas();
+	cout << "Id da encomenda a eliminar: ";
+	fflush(stdin);
+	cin >> idenc;
+
+	for(unsigned int i=0; i<encomendas.size();i++) {
+		if(encomendas[i]->getcodEncomenda()==idenc) {
+			encomendas.erase(encomendas.begin()+i);
+			cout << "Encomenda removida com sucesso!"<< endl;
+			return;
+		}
+	}
+	cout << "Encomenda não encontrada!"<< endl;
+}
+
+Encomenda * LojaElectronica::procuraEncomenda(unsigned int id) {
+	for(unsigned int i=0; i<encomendas.size();i++) {
+		if(encomendas[i]->getcodEncomenda()==id) {
+			return encomendas[i];
+		}
+	}
+	return NULL;
 }
 
 void LojaElectronica::listaClientes()
@@ -894,14 +836,16 @@ void LojaElectronica::listaLojas()
 
 void LojaElectronica::listaEncomendas()
 {
-	// TODO
+	for(unsigned int i=0;i<encomendas.size();i++) {
+		encomendas[i]->resumo();
+	}
+	cout<< endl;
 }
 
 void LojaElectronica::loadClientes(string filename)
 {
 	ifstream file;
 	string line;
-	vector<Cliente> vec_cliente;
 	string nome,morada,contacto,email,NIB;
 	unsigned int NIF, cod, codzona;
 
@@ -1058,12 +1002,66 @@ void LojaElectronica::saveLojas(string filename) {
 
 void LojaElectronica::loadEncomendas(string filename)
 {
-	// TODO
+	ifstream file;
+	string line;
+
+	string data, clnome;
+	unsigned int idenc, idloja, idprod;
+
+	file.open(filename.c_str());
+
+	if (file.is_open()) {
+
+		getline(file, line);
+		Cliente::setCount(atoi(line.c_str()));
+		while(!file.eof() ){
+
+			getline(file, line);
+			if(line == "") break;
+			idenc = atoi(line.c_str());
+
+			getline(file, data);
+			getline(file, clnome);
+			getline(file, line);
+			idloja = atoi(line.c_str());
+			getline(file, line);
+			idprod = atoi(line.c_str());
+
+			Produto *p = NULL;
+			Cliente *c = ProcuraCliente_nome(clnome);
+			Loja *l = procuraLoja(idloja);
+			for(unsigned int i=0;i<l->getProdutos().size();i++){
+				if(l->getProdutos()[i]->getCodProduto()==idprod) {
+					p = l->getProdutos()[i];
+					break;
+				}
+			}
+			Encomenda *e = new Encomenda(data,l,c,p,idenc);
+			encomendas.push_back(e);
+		}
+		file.close();
+	}
 }
 
 void LojaElectronica::saveEncomendas(string filename)
 {
-	// TODO
+	int i = 0;
+	int tam = encomendas.size();
+	ofstream myfile(filename.c_str());
+	if (myfile.is_open()) {
+		myfile << Encomenda::getCount() << endl;
+		while (i < tam) {
+			if(encomendas[i] != NULL){
+				myfile << encomendas[i]->getcodEncomenda() << endl;
+				myfile << encomendas[i]->getData() << endl;
+				myfile << encomendas[i]->getCliente()->getNome() << endl;
+				myfile << encomendas[i]->getLoja()->getCodLoja() << endl;
+				myfile << encomendas[i]->getProduto()->getCodProduto() << endl;
+			}
+			i++;
+		}
+		myfile.close();
+	}
 }
 
 ///////////////////// loads e saves para grafo
@@ -1085,8 +1083,10 @@ void LojaElectronica::loadVertices(string filename)
 			getline(myfile, linha);
 			if(linha=="") break;
 			v=split('|', linha);
+
 			Zona *z = new Zona(atoi(v[0].c_str()), v[1].c_str());
 			myGraph.addVertex(z);
+			cout << z->getCodZona() << endl;
 		}
 		cout<<endl<<endl<<"Vertices importadas com sucesso!"<<endl<<endl;
 		myfile.close();
@@ -1134,8 +1134,12 @@ void LojaElectronica::loadEdges(string filename)
 			if(linha=="") break;
 			v=split('|', linha);
 
+			cout << "id z1: " << atoi(v[0].c_str()) << endl;
 			Zona *z1 = procuraZona(atoi(v[0].c_str()));
+			if(z1==NULL) cout << "Z1 NULL!" << endl;
+			cout << "id z2: " << atoi(v[1].c_str()) << endl;
 			Zona *z2 = procuraZona(atoi(v[1].c_str()));
+			if(z1==NULL) cout << "Z2 NULL!" << endl;
 			double peso = atof(v[2].c_str());
 
 			myGraph.addEdge(z1, z2, peso, 0);
@@ -1175,6 +1179,18 @@ void LojaElectronica::saveEdges(string filename)
 
 
 void LojaElectronica::windows(){
+	//	vector<Vertex<Zona*> *> vs = myGraph.getVertexSet();
+	//	vector<Vertex<Zona*> *>::iterator it=vs.begin();
+	//	for(;it!=vs.end();it++) {
+	//		cout << (*it)->getInfo()->getCodZona()<< endl;
+	//	}
+	//
+	//	cout << myGraph.getVertexSet()[0]->getInfo()->getCodZona()<< endl;
+	//	cout << myGraph.getVertexSet()[1]->getInfo()->getCodZona()<< endl;
+	//	cout << myGraph.getVertexSet()[2]->getInfo()->getCodZona()<< endl;
+	//	cout << myGraph.getVertexSet()[3]->getInfo()->getCodZona()<< endl;
+	//	cout << myGraph.getVertexSet()[4]->getInfo()->getCodZona()<< endl;
+
 
 	//configurar uma janela
 	GraphViewer *gv = new GraphViewer(600, 600, true);
@@ -1204,8 +1220,7 @@ void LojaElectronica::windows(){
 	{
 		vector<Edge<Zona*> > vedges = (*it)->getAdj();
 		vector<Edge<Zona*> >::iterator ited;
-		for(ited=vedges.begin(); ited!=vedges.end(); ited++)
-		{
+		for(ited=vedges.begin(); ited!=vedges.end(); ited++) {
 			gv->addEdge(idEdge, (*it)->getInfo()->getCodZona(), ited->getDest()->getInfo()->getCodZona(), EdgeType::UNDIRECTED);
 			idEdge++;
 		}
@@ -1219,6 +1234,8 @@ void LojaElectronica::windows(){
 		gv->setEdgeColor(2,"yellow");
 		gv->rearrange();
 	 */
+
+
 
 }
 

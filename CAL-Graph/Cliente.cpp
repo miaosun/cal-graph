@@ -97,6 +97,10 @@ void Cliente::imprimeCliente() const {
 	cout <<"FIM DA FICHA DO CLIENTE"<<endl;
 }
 
+void Cliente::resumo() const {
+	cout << "Cliente "<<codCliente<< " | "<<nome<< " | "<<"Zona: "<< zona->getDesignacao() << endl;
+}
+
 
 // OPERATOR ==
 bool Cliente::operator== (const Cliente& x) const{
