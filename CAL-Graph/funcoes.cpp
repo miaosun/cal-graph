@@ -68,5 +68,3 @@ string dataActual()
 	//TimeDate ob(x);
 	return ctime(&x);
 }
-
-

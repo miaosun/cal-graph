@@ -85,16 +85,47 @@ void Cliente::setEmail(string e) {
 
 
 // IMPRIME
-
+/*
 void Cliente::imprimeCliente() const {
-	cout << "\nCliente numero: " << codCliente << endl ;
-	cout << "Nome: " << nome << endl;
-	cout << "NIF: " << NIF << endl;
-	cout << "Morada: " << morada << endl;
-	cout << "Contacto: " << contacto << endl;
-	cout << "Email: " << email<< endl;
-	cout <<"CLIENTE DA ZONA: "<< zona->getDesignacao() << endl;
-	cout <<"FIM DA FICHA DO CLIENTE"<<endl;
+		cout << "\nCliente numero: " << codCliente << endl ;
+		cout << "Nome: " << nome << endl;
+		cout << "NIF: " << NIF << endl;
+		cout << "Morada: " << morada << endl;
+		cout << "Contacto: " << contacto << endl;
+		cout << "Email: " << email<< endl;
+		cout <<"CLIENTE DA ZONA: "<< zona->getDesignacao() << endl;
+		cout <<"FIM DA FICHA DO CLIENTE"<<endl;
+}
+*/
+vector<string> Cliente::imprimeCliente() const {
+	vector<string> v;
+	stringstream ss;
+	ss << "\nCliente numero: " << this->codCliente;
+	v.push_back(ss.str());
+	ss.str("");
+	ss << "Nome: " << this->nome;
+	v.push_back(ss.str());
+	ss.str("");
+	ss << "NIF: " << this->NIF;
+	v.push_back(ss.str());
+	ss.str("");
+	ss << "Morada: " << this->morada;
+	v.push_back(ss.str());
+	ss.str("");
+	ss << "Contacto: " << this->contacto;
+	v.push_back(ss.str());
+	ss.str("");
+	ss << "Email: " << this->email;
+	v.push_back(ss.str());
+	ss.str("");
+	ss <<"CLIENTE DA ZONA: "<< this->zona->getDesignacao();
+	v.push_back(ss.str());
+	ss.str("");
+	ss <<"FIM DA FICHA DO CLIENTE";
+	v.push_back(ss.str());
+	ss.str("");
+
+	return v;
 }
 
 void Cliente::resumo() const {

@@ -32,87 +32,88 @@ class Cliente {
 public:
 	//! Construtor que inicializa todos os membros-dado
 	/**
-	 * \param nome é uma string que vai atribuir valor ao membro-dado nome.
-	 * \param morada é uma string que vai atribuir valor ao membro-dado morada.
-	 * \param contacto é uma string que vai atribuir valor ao membro-dado contacto.
-	 * \param email é uma string que vai atribuir valor ao membro-dado email.
-	 * \param nif é um inteiro que vai atribuir valor ao membro-dado estatico nif.
-	 * \param zona é um apontador de Zona que vai atribuir valor ao membro-dado zona.
+	 * \param nome ï¿½uma string que vai atribuir valor ao membro-dado nome.
+	 * \param morada ï¿½uma string que vai atribuir valor ao membro-dado morada.
+	 * \param contacto ï¿½uma string que vai atribuir valor ao membro-dado contacto.
+	 * \param email ï¿½uma string que vai atribuir valor ao membro-dado email.
+	 * \param nif ï¿½um inteiro que vai atribuir valor ao membro-dado estatico nif.
+	 * \param zona ï¿½um apontador de Zona que vai atribuir valor ao membro-dado zona.
 	 */
 	Cliente(string nome, string morada, string contacto, string email, unsigned int nif, Zona *zona);
 	//! Construtor que inicializa todos os membros-dado
 	/**
-	 * \param nome é uma string que vai atribuir valor ao membro-dado nome.
-	 * \param morada é uma string que vai atribuir valor ao membro-dado morada.
-	 * \param contacto é uma string que vai atribuir valor ao membro-dado contacto.
-	 * \param email é uma string que vai atribuir valor ao membro-dado email.
-	 * \param nif é um inteiro que vai atribuir valor ao membro-dado estatico nif.
-	 * \param cod é um inteiro que vai atribuir valor ao membro-dado codCliente.
-	 * \param zona é um apontador de Zona que vai atribuir valor ao membro-dado zona.
+	 * \param nome ï¿½uma string que vai atribuir valor ao membro-dado nome.
+	 * \param morada ï¿½uma string que vai atribuir valor ao membro-dado morada.
+	 * \param contacto ï¿½uma string que vai atribuir valor ao membro-dado contacto.
+	 * \param email ï¿½uma string que vai atribuir valor ao membro-dado email.
+	 * \param nif ï¿½um inteiro que vai atribuir valor ao membro-dado estatico nif.
+	 * \param cod ï¿½um inteiro que vai atribuir valor ao membro-dado codCliente.
+	 * \param zona ï¿½um apontador de Zona que vai atribuir valor ao membro-dado zona.
 	 */
 	Cliente(string nome, string morada, string contacto, string email, unsigned int nif, unsigned int cod, Zona *zon);
-	//! Membro-função para retornar o valor do membro-dado codCliente
-	/** É um membro-função const para garantir a não modificação de nenhum membro-dado.
+	//! Membro-funç¢o para retornar o valor do membro-dado codCliente
+	/** ï¿½um membro-funç¢o const para garantir a né‰¶ modificaç¢o de nenhum membro-dado.
 	 * \return um unsigned int com valor do membro-dado codCliente. */
 	unsigned int getCodCliente() const;
-	//! Membro-função para retornar o valor do membro-dado nome
-	/** É um membro-função const para garantir a não modificação de nenhum membro-dado.
+	//! Membro-funç¢o para retornar o valor do membro-dado nome
+	/** ï¿½um membro-funç¢o const para garantir a né‰¶ modificaç¢o de nenhum membro-dado.
 	 * \return uma string com valor do membro-dado nome. */
 	string getNome() const;
-	//! Membro-função para retornar o valor do membro-dado NIF
-	/** É um membro-função const para garantir a não modificação de nenhum membro-dado.
+	//! Membro-funç¢o para retornar o valor do membro-dado NIF
+	/** ï¿½um membro-funç¢o const para garantir a né‰¶ modificaç¢o de nenhum membro-dado.
 	 * \return um unsgined int com valor do membro-dado NIF. */
 	unsigned int getNIF() const;
-	//! Membro-função para retornar o número de clientes já cadastrados
-	/** \return um int com a quantidade de clientes já cadastrados. */
+	//! Membro-funç¢o para retornar o né·ero de clientes jï¿½cadastrados
+	/** \return um int com a quantidade de clientes jï¿½cadastrados. */
 	static int getNumClientes();
-	//! Membro-função para retornar o valor do membro-dado morada
-	/** É um membro-função const para garantir a não modificação de nenhum membro-dado.
+	//! Membro-funç¢o para retornar o valor do membro-dado morada
+	/** ï¿½um membro-funç¢o const para garantir a né‰¶ modificaç¢o de nenhum membro-dado.
 	 * \return uma string com valor do membro-dado morada. */
 	string getMorada() const;
-	//! Membro-função para retornar o valor do membro-dado contacto
-	/** É um membro-função const para garantir a não modificação de nenhum membro-dado.
+	//! Membro-funç¢o para retornar o valor do membro-dado contacto
+	/** ï¿½um membro-funç¢o const para garantir a né‰¶ modificaç¢o de nenhum membro-dado.
 	 * \return uma string com valor do membro-dado contacto. */
 	string getContacto() const;
-	//! Membro-função para retornar o valor do membro-dado email
-	/** É um membro-função const para garantir a não modificação de nenhum membro-dado.
+	//! Membro-funç¢o para retornar o valor do membro-dado email
+	/** ï¿½um membro-funç¢o const para garantir a né‰¶ modificaç¢o de nenhum membro-dado.
 	 * \return uma string com valor do membro-dado email. */
 	string getEmail() const;
-	//! Membro-função para retornar o valor do membro-dado zona
-	/** É um membro-função const para garantir a não modificação de nenhum membro-dado.
+	//! Membro-funç¢o para retornar o valor do membro-dado zona
+	/** ï¿½um membro-funç¢o const para garantir a né‰¶ modificaç¢o de nenhum membro-dado.
 	 * \return um apontador de Zona com valor do membro-dado zona. */
 	Zona * getZona() const;
-	//! Membro-função para setar o membro-dado nome de um objeto tipo Pessoa já instanciado
-	/** \param nome é o conteúdo da string a ser atribuida ao membro-dado nome. */
+	//! Membro-funç¢o para setar o membro-dado nome de um objeto tipo Pessoa jï¿½instanciado
+	/** \param nome ï¿½o conteé·‡o da string a ser atribuida ao membro-dado nome. */
 	void setNome(string nome);
-	//! Membro-função para setar o membro-dado morada de um objeto tipo Pessoa já instanciado
-	/** \param morada é o conteúdo da string a ser atribuida ao membro-dado morada. */
+	//! Membro-funç¢o para setar o membro-dado morada de um objeto tipo Pessoa jï¿½instanciado
+	/** \param morada ï¿½o conteé·‡o da string a ser atribuida ao membro-dado morada. */
 	void setMorada(string morada);
-	//! Membro-função para setar o membro-dado contacto de um objeto tipo Pessoa já instanciado
-	/** \param contacto é o conteúdo da string a ser atribuida ao membro-dado contacto. */
+	//! Membro-funç¢o para setar o membro-dado contacto de um objeto tipo Pessoa jï¿½instanciado
+	/** \param contacto ï¿½o conteé·‡o da string a ser atribuida ao membro-dado contacto. */
 	void setContacto(string contacto);
-	//! Membro-função para setar o membro-dado email de um objeto tipo Pessoa já instanciado
-	/** \param email é o conteúdo da string a ser atribuida ao membro-dado email. */
+	//! Membro-funç¢o para setar o membro-dado email de um objeto tipo Pessoa jï¿½instanciado
+	/** \param email ï¿½o conteé·‡o da string a ser atribuida ao membro-dado email. */
 	void setEmail(string email);
-	//! Overloading do operador de comparação == para objetos do tipo Cliente
+	//! Overloading do operador de comparaç¢o == para objetos do tipo Cliente
 	/**
-	 * Um cliente é igual a outro se seus nomes são iguais ou se seus NIF's são iguais.
-	 * \return um booleano que é true se um cliente for igual a outro e false caso contrário.
+	 * Um cliente ï¿½igual a outro se seus nomes sé‰¶ iguais ou se seus NIF's sé‰¶ iguais.
+	 * \return um booleano que ï¿½true se um cliente for igual a outro e false caso contré†¨io.
 	 */
 	bool operator==(const Cliente & x) const;
-	//! Membro-função estatico para setar o membro-dado estatico countClientes
-	/** \param n e um inteiro com conteúdo a ser atribuido ao membro-dado estatico countClientes. */
+	//! Membro-funç¢o estatico para setar o membro-dado estatico countClientes
+	/** \param n e um inteiro com conteé·‡o a ser atribuido ao membro-dado estatico countClientes. */
 	static void setCount(unsigned int n) {countClientes = n;}
-	//! Membro-função estatico para retornar o valor do membro-dado estatico countClientes
+	//! Membro-funç¢o estatico para retornar o valor do membro-dado estatico countClientes
 	/**
-	 * \return um inteiro com conteúdo do membro-dado estatico countClientes. */
+	 * \return um inteiro com conteé·‡o do membro-dado estatico countClientes. */
 	static unsigned int getCount() {return countClientes;}
-	//! Membro-função que imprime no ecrã os membros-dado de um objeto tipo Cliente
+	//! Membro-funç¢o que imprime no ecrï¿½os membros-dado de um objeto tipo Cliente
 	/**
-	 * Membro-função para imprimir no ecrã o conteúdo dos membros-dado de um objeto tipo Cliente no formato,
-	 * \n Cliente número: \n Nome: \n Morada: \n Contacto: \n Email: \n NIF: \n
+	 * Membro-funç¢o para imprimir no ecrï¿½o conteé·‡o dos membros-dado de um objeto tipo Cliente no formato,
+	 * \n Cliente né·ero: \n Nome: \n Morada: \n Contacto: \n Email: \n NIF: \n
 	 */
-	void imprimeCliente() const;
+	//void imprimeCliente() const;
+	vector<string> imprimeCliente() const;
 	void resumo() const;
 
 	//TODO falta updates
