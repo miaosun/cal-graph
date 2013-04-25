@@ -55,6 +55,7 @@ public:
 	//! Membro-funcao que permite a adicao de clientes novos
 
 	void menuZona();
+	void menuLoja();
 
 	void addCliente();
 	//! Membro-funcao que permite a remocao de clientes existentes

@@ -146,7 +146,7 @@ void LojaElectronica::menuPrincipal()
 	opcoes.push_back("1 - Gestao de Clientes");
 	opcoes.push_back("2 - Gestao de Encomendas");
 	opcoes.push_back("3 - Gestao de Zonas");
-	opcoes.push_back("4 - Gestao de Grafo");
+	opcoes.push_back("4 - Gestao de Lojas");
 	//opcoes.push_back("5 - Importar Ficheiro");
 	opcoes.push_back("5 - GraphViewer");
 	opcoes.push_back("");
@@ -171,8 +171,8 @@ void LojaElectronica::menuPrincipal()
 		menuPrincipal();
 		break;
 	case 4:
-		//menuGrafo(); //vai para menu encomenda
-		menuPrincipal(); //volta ao menu principal
+		menuLoja();
+		menuPrincipal();
 		break;
 		//case 5:
 		//importar ficheiro  TODO
@@ -562,6 +562,93 @@ void LojaElectronica::menuZona()
 	}
 }
 
+void LojaElectronica::menuLoja()
+{
+	//TODO
+	int op, cod;
+	Loja *l;
+	vector<string> opcoes;
+	opcoes.push_back("Escolha uma das seguintes opcoes:");
+	opcoes.push_back("");
+
+	opcoes.push_back("1 - Adicionar uma Loja");
+	opcoes.push_back("2 - Editar uma Loja");
+	opcoes.push_back("3 - Remover uma Loja");
+	opcoes.push_back("4 - Gerir Produtos duma Loja");
+	opcoes.push_back("");
+	opcoes.push_back("0 - Voltar atras");
+
+	showMenu("Menu Loja", opcoes);
+	cout<<"    Opcao: ";
+	op=intinput();
+
+	switch(op)
+	{
+	case 1:
+		addLoja();
+		menuLoja();
+		break;
+	case 2:
+		//editLoja(); //TODO
+		menuLoja();
+		break;
+	case 3:
+		listaLojas();
+		cout<<endl<<"Introduza o Codigo da Loja que pretende apagar: ";
+		cod=intinput();
+		try
+		{
+			for(unsigned int i=0; i<myGraph.getVertexSet().size(); i++)
+			{
+				if(cod == myGraph.getVertexSet()[i]->getInfo()->getLoja()->getCodLoja())
+				{
+					l = myGraph.getVertexSet()[i]->getInfo()->getLoja();
+					break;
+				}
+			}
+			//showMenu("Detalhes do Lojas", l->imprimeLoja());
+			removeLoja(l->getCodLoja());
+		}
+		catch (NotFound)
+		{
+			cout<<endl<<"Loja nao encontrada!"<<endl;
+		}
+		system("pause");
+		menuLoja();
+		break;
+	case 4:
+		listaLojas();
+		cout<<endl<<"Introduza o Codigo da Loja que pretende gerir os Produtos: ";
+		cod=intinput();
+		try
+		{
+			for(unsigned int i=0; i<myGraph.getVertexSet().size(); i++)
+			{
+				if(cod == myGraph.getVertexSet()[i]->getInfo()->getLoja()->getCodLoja())
+				{
+					l = myGraph.getVertexSet()[i]->getInfo()->getLoja();
+					break;
+				}
+			}
+			//showMenu("Detalhes do Lojas", l->imprimeLoja());
+		}
+		catch (NotFound)
+		{
+			cout<<endl<<"Loja nao encontrada!"<<endl;
+		}
+		//l->listaProdutos();
+		//TODO
+		menuLoja();
+		break;
+	case 0:
+		break;
+	default:
+		cout<<"Opcao invalida! Insira uma das opcoes disponiveis"<<endl;
+		system("pause");
+		menuZona();
+	}
+}
+
 void LojaElectronica::addCliente()
 {
 	int nif;
@@ -662,7 +749,6 @@ Cliente *LojaElectronica::ProcuraCliente_nome(string nome)
 	return NULL;
 }
 
-
 Zona* LojaElectronica::procuraZona(string designacao) {
 	vector<Vertex<Zona*> *> vs = myGraph.getVertexSet();
 	vector<Vertex<Zona*> *>::iterator it = vs.begin();
@@ -684,7 +770,6 @@ Zona* LojaElectronica::procuraZona(unsigned int id) {
 	return NULL;
 }
 
-
 Loja* LojaElectronica::procuraLoja(unsigned int id) {
 	vector<Vertex<Zona*> *> vs = myGraph.getVertexSet();
 	vector<Vertex<Zona*> *>::iterator it = vs.begin();
@@ -695,9 +780,6 @@ Loja* LojaElectronica::procuraLoja(unsigned int id) {
 	}
 	return NULL;
 }
-
-
-
 
 void LojaElectronica::addZona()
 {
@@ -942,7 +1024,7 @@ void LojaElectronica::listaLojas()
 	if(myGraph.getVertexSet().size()==0 ) throw Excepcao("\n Nao existem lojas no sistema \n");
 
 	for (unsigned int i=0; i < myGraph.getVertexSet().size(); i++)
-		cout << myGraph.getVertexSet()[i]->getInfo()->getLoja() << endl << endl;
+		cout << myGraph.getVertexSet()[i]->getInfo()->getLoja()->toString() << endl;
 }
 
 void LojaElectronica::listaEncomendas()
