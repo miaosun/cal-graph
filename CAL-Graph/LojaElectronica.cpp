@@ -815,11 +815,13 @@ void LojaElectronica::windows(){
 	int idEdge=0;
 	vector<Vertex<Zona*> *> vs = myGraph.getVertexSet();
 	vector<Vertex<Zona*> *>::iterator it;
+	cout<<"hello: "<<vs.size()<<endl;
 	for(it=vs.begin(); it!=vs.end(); it++)
 	{
 		cout<<"entre por aqui?\n";
 		//TODO  nao esta a funcionar
 		vector<Edge<Zona*> > vedges = (*it)->getAdj();
+		cout<<"vedges size: "<<vedges.size()<<endl;
 		vector<Edge<Zona*> >::iterator ited;
 		for(ited=vedges.begin(); ited!=vedges.end(); ited++)
 		{
