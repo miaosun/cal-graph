@@ -358,47 +358,69 @@ void LojaElectronica::menuCliente()
 			cod=intinput();
 			try
 			{
-				//showMenu("Detalhes do Cliente", find(&clientes, cod)->imprimeCliente());
+				for(unsigned int i=0; i<clientes.size(); i++)
+				{
+					if(cod == clientes[i]->getCodCliente())
+					{
+						c = clientes[i];
+						break;
+					}
+				}
+				showMenu("Detalhes do Cliente", c->imprimeCliente());
 			}
 			catch (NotFound)
 			{
-				cout<<endl<<"Pessoa nao encontrada!"<<endl;
+				cout<<endl<<"Cliente nao encontrado!"<<endl;
 			}
 			system("pause");
 			menuCliente();//volta ao menu Cliente
 			break;
 		case 3://editar Cliente
 			listaClientes();
-			cout<<endl<<"Introduza o ID da Pessoa que pretende editar: ";
+			cout<<endl<<"Introduza o Codigo do Cliente que pretende editar: ";
 			cod=intinput();
-			/*	try           TODO
+			try
 			{
-				c=find(&clientes, id);
+				for(unsigned int i=0; i<clientes.size(); i++)
+				{
+					if(cod == clientes[i]->getCodCliente())
+					{
+						c = clientes[i];
+						break;
+					}
+				}
 				//editCliente(c);  TODO
 			}
 			catch (NotFound)
 			{
 				cout<<endl<<"Cliente nao encontrado!"<<endl;
-				system("pause");
-			}*/
+			}
+			system("pause");
 			menuCliente();
 			break;
 		case 4://apagar Cliente
 			listaClientes();
-			cout<<endl<<"Introduza o ID da Pessoa que pretende apagar: ";
+			cout<<endl<<"Introduza o Codigo do Cliente que pretende apagar: ";
 			cod=intinput();
-			/*          TODO
+
 			try
 			{
-				c=find(&clientes, id);
-				showMenu("Detalhes da Pessoa", c->imprime());
-				removeCliente(id);
+				for(unsigned int i=0; i<clientes.size(); i++)
+				{
+					if(cod == clientes[i]->getCodCliente())
+					{
+						c = clientes[i];
+						break;
+					}
+				}
+				showMenu("Detalhes do Cliente", c->imprimeCliente());
+				removeCliente(c->getNome());
 			}
 			catch (NotFound)
 			{
 				cout<<endl<<"Cliente nao encontrado!"<<endl;
 				system("pause");
-			}*/
+			}
 			menuCliente();
 			break;
 		case 5://importar Cliente
@@ -461,7 +483,8 @@ void LojaElectronica::menuProduto()
 
 void LojaElectronica::menuZona()
 {
-	int op;
+	int op, cod;
+	Zona *z;
 	vector<string> opcoes;
 	opcoes.push_back("Escolha uma das seguintes opcoes:");
 	opcoes.push_back("");
@@ -488,7 +511,27 @@ void LojaElectronica::menuZona()
 		menuZona();
 		break;
 	case 3:
-		//removeZonas();  TODO
+		listaZonas();
+		cout<<endl<<"Introduza o Codigo da Zona que pretende apagar: ";
+		cod=intinput();
+		try
+		{
+			for(unsigned int i=0; i<myGraph.getVertexSet().size(); i++)
+			{
+				if(cod == myGraph.getVertexSet()[i]->getInfo()->getCodZona())
+				{
+					z = myGraph.getVertexSet()[i]->getInfo();
+					break;
+				}
+			}
+			//showMenu("Detalhes do Cliente", z->imprimeZona());
+			removeZona(z->getDesignacao());
+		}
+		catch (NotFound)
+		{
+			cout<<endl<<"Zona nao encontrada!"<<endl;
+		}
+		system("pause");
 		menuZona();
 	case 4:
 		//removerLigacao(); TODO
@@ -673,7 +716,7 @@ void LojaElectronica::listaZonas()
 
 	for (unsigned int i=0; i < myGraph.getVertexSet().size(); i++)
 	{
-		cout << myGraph.getVertexSet()[i]->getInfo() << endl << endl;
+		cout << myGraph.getVertexSet()[i]->getInfo()->toString() << endl << endl;
 	}
 }
 
@@ -1235,23 +1278,16 @@ void LojaElectronica::windows(){
 		}
 	}
 
-
 	gv->rearrange();
-
 	/*
 		gv->setVertexColor(2,"green");
 		gv->setEdgeColor(2,"yellow");
 		gv->rearrange();
 	 */
-
-
-
 }
 
 /*
- *
  *    fica para depois
- *
  *
  */
 void LojaElectronica::startLojaElectronica()

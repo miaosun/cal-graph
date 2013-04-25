@@ -22,6 +22,7 @@ int main()
 {
 	LojaElectronica lj;
 	lj.startLojaElectronica();
+
 //
 //	using namespace std;
 //
