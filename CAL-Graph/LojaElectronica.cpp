@@ -992,7 +992,6 @@ Encomenda * LojaElectronica::procuraEncomenda(unsigned int id) {
 
 void LojaElectronica::listaClientes()
 {
-	cout<<"test: "<<clientes.size()<<endl;
 	if(clientes.size()==0 ) throw Excepcao("\n Nao existem clientes no sistema \n");
 
 	for (unsigned int i=0; i < clientes.size(); i++)
