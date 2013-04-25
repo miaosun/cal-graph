@@ -190,7 +190,7 @@ void LojaElectronica::menuPrincipal()
 
 void LojaElectronica::menuEncomenda()
 {
-	int op, id;
+	int op, cod;
 	Encomenda *e;
 	vector<string> opcoes;
 	string filename;
@@ -231,36 +231,50 @@ void LojaElectronica::menuEncomenda()
 			break;
 		case 3://editar Encomenda
 			listaEncomendas();
-			cout<<endl<<"Introduza o ID da Encomenda que pretende editar: ";
-			id=intinput();
-			/*	try           TODO
+			cout<<endl<<"Introduza o Codigo da Encomenda que pretende editar: ";
+			cod=intinput();
+			try
+			{
+				for(unsigned int i=0; i<encomendas.size(); i++)
 				{
-					e=find(&encomendas, id);
-					//editEncomenda(e);  TODO
+					if(cod == encomendas[i]->getcodEncomenda())
+					{
+						e = encomendas[i];
+						break;
+					}
 				}
-				catch (NotFound)
-				{
-					cout<<endl<<"Encomenda nao encontrado!"<<endl;
-					system("pause");
-				}*/
+				//editEncomenda(e);  TODO
+			}
+			catch (NotFound)
+			{
+				cout<<endl<<"Encomenda nao encontrado!"<<endl;
+			}
+			system("pause");
 			menuEncomenda();
 			break;
 		case 4://apagar Encomenda
 			listaEncomendas();
 			cout<<endl<<"Introduza o ID da Encomenda que pretende apagar: ";
-			id=intinput();
-			/*          TODO
-				try
+			cod=intinput();
+
+			try
+			{
+				for(unsigned int i=0; i<encomendas.size(); i++)
 				{
-					e=find(&encomendas, id);
-					showMenu("Detalhes da Encomenda", c->imprime());
-					removeEncomenda(id);
+					if(cod == encomendas[i]->getcodEncomenda())
+					{
+						e = encomendas[i];
+						break;
+					}
 				}
-				catch (NotFound)
-				{
-					cout<<endl<<"Encomenda nao encontrado!"<<endl;
-					system("pause");
-				}*/
+				//showMenu("Detalhes da Encomenda", e->resumo());
+				removeEncomenda(cod);
+			}
+			catch (NotFound)
+			{
+				cout<<endl<<"Encomenda nao encontrado!"<<endl;
+				system("pause");
+			}
 			menuEncomenda();
 			break;
 		case 5://importar Encomenda
