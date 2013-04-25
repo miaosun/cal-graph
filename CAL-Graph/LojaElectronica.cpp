@@ -970,8 +970,13 @@ void LojaElectronica::addLoja()
 
 	Loja *l1=new Loja(nome,morada);
 	Zona *zonaLoja=procuraZona(zona); //TODO excepcao
-
-	zonaLoja->setLoja(l1);
+	if(zonaLoja==NULL) {
+		cout << "Loja inserida não existe!" << endl;
+	}
+	else {
+		cout << "Loja adicionada com sucesso!" << endl;
+		zonaLoja->setLoja(l1);
+	}
 }
 
 void LojaElectronica::removeLoja(unsigned int codLoja)

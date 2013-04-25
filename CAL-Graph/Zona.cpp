@@ -16,7 +16,6 @@ unsigned int Zona::countZonas=0;
 
 Zona::Zona(string Localidade):codZona(++countZonas)
 {
-
 	this->designacao = Localidade;
 	this->loja=NULL;
 }
@@ -62,10 +61,10 @@ bool Zona::operator== (const Zona& x) const{
 }
 
 ostream & operator << (ostream & o, const Zona & z){
-		o << "Id Zona: "  << z.getCodZona() << " | Designacao: " << z.getDesignacao();
-		o << " | Loja: " << z.getLoja()->getNome();
-		return o;
-	}
+	o << "Id Zona: "  << z.getCodZona() << " | Designacao: " << z.getDesignacao();
+	o << " | Loja: " << z.getLoja()->getNome();
+	return o;
+}
 
 
 string Zona::toString()
