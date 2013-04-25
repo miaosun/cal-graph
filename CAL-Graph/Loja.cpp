@@ -63,13 +63,13 @@ void Loja::addProduto()
 	int stock;
 	double preco;
 	cout << "Inserir Produto" << endl << endl;
-	cout << "Designa玢o: ";
+	cout << "Designacao: ";
 	getline(cin,desig);
 
 	for(unsigned int i=0; i<produtos.size();i++) {
 		if(produtos[i]->getDesignacao()==desig) {
 			//excepcao todo
-			cout << "Produto j�existe!" << endl;
+			cout << "Produto ja existe!" << endl;
 			return;
 		}
 	}
@@ -86,27 +86,58 @@ void Loja::addProduto()
 	cout << "Produto adicionado com sucesso!"<< endl;
 }
 
-void Loja::removeProduto(unsigned int codProduto)
-{
+void Loja::editProduto() {
 	cout << "Produtos Disponiveis na Loja:" << endl;
+	listaProduto();
+
+	string desig;
+	cout << "Editar Produto" << endl << endl;
+	cout << "Designacao: ";
+	getline(cin,desig);
+
+	int ind = procuraProduto(desig);
+	if(ind==-1)
+		cout << "Produto nao existe!" << endl;
+	else
+	{
+		produtos[ind]->update();
+	}
+}
+
+void Loja::listaProduto() {
 	for(unsigned int i=0; i<produtos.size();i++) {
 		produtos[i]->resumo();
 	}
 	cout << endl;
+}
+
+int Loja::procuraProduto(string desig) {
+	for(unsigned int i=0; i<produtos.size();i++) {
+		if(produtos[i]->getDesignacao()==desig) {
+			return i;
+		}
+	}
+	return -1;
+}
+
+void Loja::removeProduto(unsigned int codProduto)
+{
+	cout << "Produtos Disponiveis na Loja:" << endl;
+	listaProduto();
 
 	string desig;
 	cout << "Remover Produto" << endl << endl;
-	cout << "Designa玢o: ";
+	cout << "Designacao: ";
 	getline(cin,desig);
 
-	for(unsigned int i=0; i<produtos.size();i++) {
-		if(produtos[i]->getDesignacao()==desig) {
-			produtos.erase(produtos.begin()+i);
-			cout << "Produto eliminado com sucesso!" << endl;
-			return;
-		}
+	int ind = procuraProduto(desig);
+	if(ind==-1)
+		cout << "Produto nao existe!" << endl;
+	else
+	{
+		produtos.erase(produtos.begin()+ind);
+		cout << "Produto removido com sucesso!" << endl;
 	}
-	cout << "Produto nao existe!" << endl;
 }
 
 // IMPRIME

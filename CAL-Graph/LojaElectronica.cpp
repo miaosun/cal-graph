@@ -990,10 +990,11 @@ vector<string> LojaElectronica::nomesProdutos(){
 
 	string prod;
 	vector<string> res;
-	for (unsigned int i=0; i < myGraph.getVertexSet().size(); i++)
+	vector<Vertex<Zona*> *> vec = myGraph.getVertexSet();
+	for (unsigned int i=0; i < vec.size(); i++)
 	{
-		for(unsigned int j=0;j<myGraph.getVertexSet()[i]->getInfo()->getLoja()->getProdutos().size();j++) {
-			prod=myGraph.getVertexSet()[i]->getInfo()->getLoja()->getProdutos()[j]->getDesignacao();
+		for(unsigned int j=0;j<vec[i]->getInfo()->getLoja()->getProdutos().size();j++) {
+			prod=vec[i]->getInfo()->getLoja()->getProdutos()[j]->getDesignacao();
 			if(pesquisaSequencial(res,prod)==-1)
 				res.push_back(prod);
 		}
@@ -1350,6 +1351,27 @@ void LojaElectronica::saveEdges(string filename)
 }
 
 
+bool LojaElectronica::exists(vector<int>arestas, int a, int b){
+
+	//cout<<"Aresta"<<a<<"-"<<b<<endl;
+
+	bool ok=false;
+
+	for(unsigned int i=0; i<arestas.size()-1; i=i+2)
+		if(arestas[i]==b && arestas[i+1]==a){
+		//	cout<<"Entrou no if"<<endl;
+			ok=true;
+		}
+
+
+//cout<<"ok"<<ok<<endl;
+	return ok;
+}
+
+
+
+
+
 void LojaElectronica::windows(){
 	//	vector<Vertex<Zona*> *> vs = myGraph.getVertexSet();
 	//	vector<Vertex<Zona*> *>::iterator it=vs.begin();
@@ -1385,17 +1407,39 @@ void LojaElectronica::windows(){
 
 
 	int idEdge=0;
+
 	vector<Vertex<Zona*> *> vs = myGraph.getVertexSet();
 	vector<Vertex<Zona*> *>::iterator it;
+	//cout<<"hello: "<<vs.size()<<endl; //Numero de Vertices
+
+	vector<int> arestas;
+
+
 	for(it=vs.begin(); it!=vs.end(); it++)
 	{
-		vector<Edge<Zona*> > vedges = (*it)->getAdj();
+		vector<Edge<Zona*> > vedges = (*it)->getAdj();  //Arestas de cada no
 		vector<Edge<Zona*> >::iterator ited;
+
 		for(ited=vedges.begin(); ited!=vedges.end(); ited++) {
-			gv->addEdge(idEdge, (*it)->getInfo()->getCodZona(), ited->getDest()->getInfo()->getCodZona(), EdgeType::UNDIRECTED);
-			idEdge++;
+
+			int a=(*it)->getInfo()->getCodZona();
+			int b=ited->getDest()->getInfo()->getCodZona();
+
+			arestas.push_back(a);
+			arestas.push_back(b);
+
+			if(exists(arestas,a,b)==false){
+
+				//cout<<"aaa"<<(*it)->getInfo()->getDesignacao()<<endl;
+				//cout<<"bbb"<<(*it)->getInfo()->getCodZona()<<"-"<<ited->getDest()->getInfo()->getCodZona()<<endl;
+				gv->addEdge(idEdge, (*it)->getInfo()->getCodZona(), ited->getDest()->getInfo()->getCodZona(), EdgeType::UNDIRECTED);
+				idEdge++;
+
+			}//else cout<<"Aresta Repetida"<<endl;
+
 		}
 	}
+
 
 	gv->rearrange();
 	/*

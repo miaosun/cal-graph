@@ -80,6 +80,11 @@ public:
 
 	//! Membro-funcao que permite a adicao de produtos novos
 	void addProduto();
+
+	void editProduto();
+	int procuraProduto(string desig);
+	void listaProduto();
+
 	//! Membro-funcao que permite a remocao de produtos novos
 	/** dado o codigo do produto que pretende remover */
 	void removeProduto(unsigned int codProduto);

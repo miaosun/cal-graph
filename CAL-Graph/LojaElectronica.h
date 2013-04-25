@@ -18,6 +18,7 @@
 #include "Graph.h"
 #include "graphviewer.h"
 #include "insertionSort.h"
+#include "funcoes.h"
 //#include "sequentialSearch.h"
 #include <stdlib.h>
 #include <vector>
@@ -134,6 +135,7 @@ public:
 
 	void editCliente(Cliente *c);
 
+	bool exists(vector<int>arestas, int a, int b);
 	void windows();
 	void startLojaElectronica();
 

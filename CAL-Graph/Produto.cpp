@@ -76,3 +76,53 @@ string Produto::toString() {
 	ss<<"|"<<this->getDesignacao()<<"|"<<this->getPreco()<<"|"<<this->getStock()<<"|";
 	return ss.str();
 }
+
+void Produto::update() {
+	string temp;
+	int temp2;
+	int escolha=-1;
+
+	cout << "Informacao a alterar: " << endl;
+	cout << "1-Designacao\n2-Stock\n3-Preco\n(0-Voltar)" << endl;
+	while(escolha!=0 && escolha!=1 && escolha!=2 && escolha!=3) {
+		cout << "Escolha: ";
+		fflush(stdin);
+		cin >> escolha;
+	}
+
+	switch(escolha){
+	case 0: break;
+	case 1:
+	{
+		cout << "Nova Designacao: ";
+		fflush(stdin);
+		getline(cin,temp);
+		setDesignacao(temp);
+		cout << "Designacao editada!" << endl;
+		break;
+	}
+	case 2:
+	{
+		cout << "Novo Stock: ";
+		fflush(stdin);
+		cin >> temp2;
+		setStock(temp2);
+		cout << "Stock editado!" << endl;
+		break;
+	}
+	case 3:
+	{
+		cout << "Novo Preco: ";
+		fflush(stdin);
+		cin >> temp2;
+		setPreco(temp2);
+		cout << "Preco editado!" << endl;
+		break;
+	}
+	default :
+	{
+		cout << "Numero errado! Tente novamente.." << endl;
+		break;
+	}
+	}
+}
