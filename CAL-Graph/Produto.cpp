@@ -56,7 +56,6 @@ void Produto::decStock() {
 	stock--;
 }
 
-
 // IMPRIME
 
 void Produto::info() const {
@@ -69,7 +68,6 @@ void Produto::info() const {
 void Produto::resumo() {
 	cout << "Produto " << codProduto << " | " << designacao << " | "<< "Preco: " << preco << " | "<< "Stock: " << stock << endl;
 }
-
 
 string Produto::toString() {
 	stringstream ss;

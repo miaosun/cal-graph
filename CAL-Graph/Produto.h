@@ -79,8 +79,6 @@ public:
 	string toString();
 	void resumo();
 	void update();
-
-	//TODO falta updates
 };
 
 #endif /* PRODUTO_H_ */

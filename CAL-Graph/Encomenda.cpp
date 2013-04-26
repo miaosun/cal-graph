@@ -15,7 +15,6 @@
 //inicializacao de variavel estatica
 unsigned int Encomenda::countEncomendas=0;
 
-
 Encomenda::Encomenda(string date, Loja *loj, Cliente * clie, Produto * prod): codEncomenda(++countEncomendas) {
 	data=date;
 	cliente=clie;

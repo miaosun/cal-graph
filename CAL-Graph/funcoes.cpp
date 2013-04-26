@@ -1,8 +1,12 @@
 /*
- * funcoes.cpp
- *
- *  Created on: 25 de Abr de 2013
- *      Author: Reis
+ * 	FICHEIRO: funcoes.cpp
+ *	PROJECTO: Projecto CAL - Loja de Comercio Electronico (T3)
+ *	DESCRICAO: Implementacao das funcoes auxiliares
+ *  TURMA / GRUPO: Turma 2MIEIC2 / Grupo D
+ *  AUTORES:
+ *  - Jorge Miguel Reis
+ *  - Miao Sun
+ *  - Vitor Castro
  */
 
 #include "funcoes.h"

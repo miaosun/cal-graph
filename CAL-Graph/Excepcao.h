@@ -1,8 +1,12 @@
 /*
- * Excepcao.h
- *
- *  Created on: 26 de Abr de 2013
- *      Author: Reis
+ * 	FICHEIRO: Excepcao.h
+ *	PROJECTO: Projecto CAL - Loja de Comercio Electronico (T3)
+ *	DESCRICAO: Implementacao da classe Excepcao
+ *  TURMA / GRUPO: Turma 2MIEIC2 / Grupo D
+ *  AUTORES:
+ *  - Jorge Miguel Reis
+ *  - Miao Sun
+ *  - Vitor Castro
  */
 
 #ifndef EXCEPCAO_H_
