@@ -70,6 +70,7 @@ void Loja::addProduto()
 		if(produtos[i]->getDesignacao()==desig) {
 			//excepcao todo
 			cout << "Produto ja existe!" << endl;
+			system("PAUSE");
 			return;
 		}
 	}
@@ -84,6 +85,10 @@ void Loja::addProduto()
 	Produto *p = new Produto(desig,stock,preco);
 	produtos.push_back(p);
 	cout << "Produto adicionado com sucesso!"<< endl;
+}
+
+void Loja::insertProd(Produto *p) {
+	produtos.push_back(p);
 }
 
 void Loja::editProduto() {

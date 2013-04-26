@@ -40,6 +40,7 @@ int intinput()
 {
 	string s;
 	int i=0;
+	fflush(stdin);
 	getline(cin, s);
 	fflush(stdin);
 	while(!isDigit(s))
@@ -67,6 +68,5 @@ string dataActual()
 {
 	time_t x;
 	x = time(NULL);
-	//TimeDate ob(x);
 	return ctime(&x);
 }

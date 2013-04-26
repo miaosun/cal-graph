@@ -1,0 +1,6 @@
+5
+|1|1|Loja1|Morada1|
+|2|2|Loja2|Morada2|
+|3|3|Loja3|Morada3|
+|4|4|Loja4|Morada4|
+|5|5|Loja5|Morada5|
