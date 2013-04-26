@@ -17,6 +17,7 @@
 #include "Graph.h"
 #include "graphviewer.h"
 
+
 class LojaElectronica
 {
 	vector <Cliente *> clientes;
