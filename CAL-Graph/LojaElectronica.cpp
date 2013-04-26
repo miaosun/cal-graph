@@ -489,8 +489,8 @@ void LojaElectronica::menuZona()
 	opcoes.push_back("1 - Adicionar uma Zona");
 	opcoes.push_back("2 - Editar uma Zona");
 	opcoes.push_back("3 - Remover uma Zona");
-	opcoes.push_back("4 - Adicionar Ligacao entre Zonas");
-	opcoes.push_back("5 - Remover Ligacao entre Zonas");
+//	opcoes.push_back("4 - Adicionar Ligacao entre Zonas");
+//	opcoes.push_back("5 - Remover Ligacao entre Zonas");
 	opcoes.push_back("");
 	opcoes.push_back("0 - Voltar atras");
 
@@ -514,6 +514,7 @@ void LojaElectronica::menuZona()
 		cod=intinput();
 		try
 		{
+			z=NULL;
 			for(unsigned int i=0; i<myGraph.getVertexSet().size(); i++)
 			{
 				if(cod == myGraph.getVertexSet()[i]->getInfo()->getCodZona())
@@ -522,11 +523,13 @@ void LojaElectronica::menuZona()
 					break;
 				}
 			}
+			if(z==NULL) {
+				throw Excepcao("");
+			}
 			//showMenu("Detalhes do Cliente", z->imprimeZona());
 			removeZona(z->getDesignacao());
 		}
-		catch (NotFound &)
-		{
+		catch(Excepcao &ex) {
 			cout<<endl<<"Zona nao encontrada!"<<endl;
 		}
 		system("pause");
@@ -534,7 +537,7 @@ void LojaElectronica::menuZona()
 		//menuZona();
 		break;
 	case 4:
-		//addLigacao(); TODO
+		addAresta(z);
 		menuZona();
 		break;
 	case 5:
@@ -1141,15 +1144,18 @@ void LojaElectronica::removeZona(string desig)
 	bool encontrou=false;
 
 	for(unsigned int i=0;i<myGraph.getVertexSet().size();i++) {
+		cout << "for" << endl;
 		if(myGraph.getVertexSet()[i]->getInfo()->getDesignacao()==desig) {
 			encontrou=true;
 			Zona *z = myGraph.getVertexSet()[i]->getInfo();
-			myGraph.removeVertex(z);
 			for(unsigned int i=0; i<myGraph.getVertexSet()[i]->getAdj().size();i++) {
 				removeArestaBidireccional(z,myGraph.getVertexSet()[i]->getAdj()[i].getDest()->getInfo());
 			}
+			cout << "arestas removidas" << endl;
+			myGraph.removeVertex(z);
+			cout << "vertice removido" << endl;
+			break;
 		}
-		break;
 	}
 	if(encontrou==false)
 		throw Excepcao("\n Nao existe nenhuma zona com esse ID \n");
