@@ -63,6 +63,12 @@ int pesquisaSequencial(vector<string> v, string s)
 	return -1;
 }
 
+string doubleToString(double d) {
+	ostringstream strs;
+	strs << d;
+	return strs.str();
+}
+
 
 string dataActual()
 {

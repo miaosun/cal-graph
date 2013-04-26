@@ -17,6 +17,7 @@
 #include <ctype.h>
 #include <time.h>
 #include "Exception.h"
+
 using namespace std;
 
 vector<string> split(char delim, string s);
@@ -29,7 +30,8 @@ int intinput();
 
 int pesquisaSequencial(vector<string> v, string s);
 
+
 string dataActual();
 
-
+string doubleToString(double d);
 #endif /* FUNCOES_H_ */

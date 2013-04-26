@@ -261,6 +261,7 @@ public:
 	//vector<Vertex<T>*> calculateFordFulkerson(T source);
 	//float calculateFordFulkerson(Vertex<T>* current, Vertex<T>* parent, float min, Graph<T>* gf, Graph<T>* gr, vector<Vertex<T>*> visited);
 
+	void insertionSort(vector<Vertex<T> *> &v);
 };
 
 
@@ -884,6 +885,18 @@ Graph<T> Graph<T>::clone()
 
 
 
+template <class T>
+void Graph<T>::insertionSort(vector<Vertex<T> *> &v)
+{
+	for (unsigned int p = 1; p < v.size(); p++)
+	{
+		Vertex<T>* tmp = v[p];
+		int j;
+		for (j = p; j > 0 && tmp->getDist() < v[j-1]->getDist(); j--)
+			v[j] = v[j-1];
+		v[j] = tmp;
+	}
+}
 
 
 #endif /* GRAPH_H_ */
