@@ -143,6 +143,7 @@ public:
 	void editLoja(Loja *l);
 
 	bool exists(vector<int>arestas, int a, int b);
+	int SearchIdAresta(vector<int> v, int a, int b);
 	void Mapa();
 	void Caminho(vector<Zona*> vPath, vector<int> vZonasComProduto);
 	void startLojaElectronica();
