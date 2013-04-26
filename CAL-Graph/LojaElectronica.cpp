@@ -13,17 +13,6 @@
 
 int algoritmoPesado=1;
 
-void insertionSort(vector<Vertex<Zona*> *> &v)
-{
-	for (unsigned int p = 1; p < v.size(); p++)
-	{
-		Vertex<Zona*>* tmp = v[p];
-		int j;
-		for (j = p; j > 0 && tmp->getDist() < v[j-1]->getDist(); j--)
-			v[j] = v[j-1];
-		v[j] = tmp;
-	}
-}
 
 LojaElectronica::LojaElectronica()
 {
@@ -188,7 +177,7 @@ void LojaElectronica::menuPrincipal()
 		//case 5:
 		//importar ficheiro  TODO
 	case 5:
-		windows();
+		Mapa();
 		menuPrincipal();
 		break;
 	case 0:
@@ -598,7 +587,8 @@ void LojaElectronica::editLoja(Loja *l)
 
 void LojaElectronica::menuLoja()
 {
-	int op, cod;
+	unsigned int cod;
+	int op;
 	string filename;
 	Loja *l;
 	vector<string> opcoes;
@@ -756,7 +746,8 @@ void LojaElectronica::menuLoja()
 
 void LojaElectronica::menuProduto(Loja *l)
 {
-	int op, cod;
+	int op;
+	unsigned int cod;
 	string filename;
 	vector<string> opcoes;
 	opcoes.push_back("Escolha uma das seguintes opcoes:");
@@ -1243,6 +1234,7 @@ void LojaElectronica::addEncomenda()
 		throw Excepcao("Cliente nao existente");
 
 	Zona *noOrigem = c->getZona();
+	Zona *noDest;
 
 	cout << "	Seleccionar Produto" << endl;
 	listaProdutos();
@@ -1261,46 +1253,49 @@ void LojaElectronica::addEncomenda()
 	}
 
 	vector<Vertex<Zona*>* > vDist = myGraph.getVertexSet();
-	insertionSort(vDist);
-	for(int i=0; i<vDist.size();i++) {
+	myGraph.insertionSort(vDist);
+	for(unsigned int i=0; i<vDist.size();i++) {
 		cout << vDist[i]->getDist() << " -   "<< vDist[i]->getInfo()->getCodZona() << endl;
 	}
 
+	//Procurar Produtos nas Lojas TOdas
+	vector<int> codigoZonascomProduto;
 	vector<Vertex<Zona*>* >::iterator it = vDist.begin();
-	vector<Produto*>::iterator it2;
 	for(;it!=vDist.end();it++) {
 		for(unsigned int i=0; i< (*it)->getInfo()->getLoja()->getProdutos().size();i++) {
-			if((*it)->getInfo()->getLoja()->getProdutos()[i]->getDesignacao()==produto /* && (*it)->getInfo()->getLoja()->getProdutos()[i]->getStock()>0 */) {
+			if((*it)->getInfo()->getLoja()->getProdutos()[i]->getDesignacao()==produto  && (*it)->getInfo()->getLoja()->getProdutos()[i]->getStock()>0 ) {
+				codigoZonascomProduto.push_back((*it)->getInfo()->getCodZona());
+			}
+		}
+	}
+
+	it = vDist.begin();
+	for(;it!=vDist.end();it++) {
+		for(unsigned int i=0; i< (*it)->getInfo()->getLoja()->getProdutos().size();i++) {
+			if((*it)->getInfo()->getLoja()->getProdutos()[i]->getDesignacao()==produto  && (*it)->getInfo()->getLoja()->getProdutos()[i]->getStock()>0 ) {
 				cout << "entrou if" << endl;
 				cout << (*it)->getInfo()->getDesignacao()<< endl;
 				p=(*it)->getInfo()->getLoja()->getProdutos()[i];
 				l=(*it)->getInfo()->getLoja();
 				(*it)->getInfo()->getLoja()->getProdutos()[i]->decStock();
+				noDest=(*it)->getInfo();
 				enc=true;
 				break;
 			}
 		}
 		if(enc==true) break;
-		//		for(it2==(*it)->getInfo()->getLoja()->getProdutos().begin();it2!=(*it)->getInfo()->getLoja()->getProdutos().end();it2++) {
-		//			cout << "for" << endl;
-		//			Produto *p=(*it2);
-		//			if((p->getDesignacao() == produto) && (p->getStock()>0)) {
-		//				cout << "encontrou" << endl;
-		//				p=(*it2);
-		//				l=(*it)->getInfo()->getLoja();
-		//				(*it2)->decStock();
-		//				enc=true;
-		//				break;
-		//			}
-		//		}
 	}
 	if(enc==true) {
 		Encomenda *e = new Encomenda(data,l,c,p);
 		encomendas.push_back(e);
+		vector<Zona*> vPath = myGraph.getPath(noOrigem,noDest);
+		Caminho(vPath, codigoZonascomProduto);
 	}
 	else {
 		cout << "O produto pretendido nao se encontra disponivel em nenhuma loja." << endl<<endl;
 	}
+
+
 }
 
 
@@ -1772,11 +1767,13 @@ bool LojaElectronica::exists(vector<int>arestas, int a, int b){
 	return ok;
 }
 
+//void LojaElectronica::Caminho(Vertex<T>* cam, ) {
+//
+//}
 
 
 
-
-void LojaElectronica::windows(){
+void LojaElectronica::Mapa(){
 	//	vector<Vertex<Zona*> *> vs = myGraph.getVertexSet();
 	//	vector<Vertex<Zona*> *>::iterator it=vs.begin();
 	//	for(;it!=vs.end();it++) {
@@ -1789,23 +1786,22 @@ void LojaElectronica::windows(){
 	//	cout << myGraph.getVertexSet()[3]->getInfo()->getCodZona()<< endl;
 	//	cout << myGraph.getVertexSet()[4]->getInfo()->getCodZona()<< endl;
 
-
 	//configurar uma janela
 	GraphViewer *gv = new GraphViewer(600, 600, true);
 	//gv->setBackground("abc.jpg");
 	gv->createWindow(600, 600);
 
 	//configurar a cor dos nos
-	gv->defineVertexColor("blue");
+	gv->defineVertexColor("black");
 
 	//configurar a cor das arestas
 	gv->defineEdgeColor("black");
 
 	//criar os nos partir do vector vertexSet
-	for(unsigned int i=0;i<myGraph.getVertexSet().size();i++){
+	for(unsigned int i=0;i<myGraph.getVertexSet().size();i++) {
 
 		gv->addNode(myGraph.getVertexSet()[i]->getInfo()->getCodZona());
-		gv->setVertexLabel(myGraph.getVertexSet()[i]->getInfo()->getCodZona(), myGraph.getVertexSet()[i]->getInfo()->getDesignacao());
+		gv->setVertexLabel(myGraph.getVertexSet()[i]->getInfo()->getCodZona(), myGraph.getVertexSet()[i]->getInfo()->getDesignacao()+"--Loja: "+myGraph.getVertexSet()[i]->getInfo()->getLoja()->getNome());
 		gv->rearrange();
 	}
 
@@ -1837,22 +1833,99 @@ void LojaElectronica::windows(){
 				//cout<<"aaa"<<(*it)->getInfo()->getDesignacao()<<endl;
 				//cout<<"bbb"<<(*it)->getInfo()->getCodZona()<<"-"<<ited->getDest()->getInfo()->getCodZona()<<endl;
 				gv->addEdge(idEdge, (*it)->getInfo()->getCodZona(), ited->getDest()->getInfo()->getCodZona(), EdgeType::UNDIRECTED);
+				string s = doubleToString((*ited).getWeight());
+				gv->setEdgeLabel(idEdge,s);
 				idEdge++;
 
 			}//else cout<<"Aresta Repetida"<<endl;
 
 		}
 	}
-
-
-	gv->rearrange();
-	/*
-		gv->setVertexColor(2,"green");
-		gv->setEdgeColor(2,"yellow");
-		gv->rearrange();
-	 */
 }
 
+
+void LojaElectronica::Caminho(vector<Zona*> vPath, vector<int> vZonasComProduto) {
+
+	//configurar uma janela
+	GraphViewer *gv = new GraphViewer(600, 600, true);
+	//gv->setBackground("abc.jpg");
+	gv->createWindow(600, 600);
+
+	//configurar a cor dos nos
+	gv->defineVertexColor("black");
+
+	//configurar a cor das arestas
+	gv->defineEdgeColor("black");
+
+	//criar os nos partir do vector vertexSet
+	for(unsigned int i=0;i<myGraph.getVertexSet().size();i++) {
+
+		gv->addNode(myGraph.getVertexSet()[i]->getInfo()->getCodZona());
+		gv->setVertexLabel(myGraph.getVertexSet()[i]->getInfo()->getCodZona(), myGraph.getVertexSet()[i]->getInfo()->getDesignacao()+"--Loja: "+myGraph.getVertexSet()[i]->getInfo()->getLoja()->getNome());
+		gv->rearrange();
+	}
+
+	int idEdge=0;
+
+	vector<Vertex<Zona*> *> vs = myGraph.getVertexSet();
+	vector<Vertex<Zona*> *>::iterator it;
+	//cout<<"hello: "<<vs.size()<<endl; //Numero de Vertices
+
+	vector<int> arestas;
+
+
+	for(it=vs.begin(); it!=vs.end(); it++)
+	{
+		vector<Edge<Zona*> > vedges = (*it)->getAdj();  //Arestas de cada no
+		vector<Edge<Zona*> >::iterator ited;
+
+		for(ited=vedges.begin(); ited!=vedges.end(); ited++) {
+
+			int a=(*it)->getInfo()->getCodZona();
+			int b=ited->getDest()->getInfo()->getCodZona();
+
+			arestas.push_back(a);
+			arestas.push_back(b);
+
+			if(exists(arestas,a,b)==false){
+
+				//cout<<"aaa"<<(*it)->getInfo()->getDesignacao()<<endl;
+				//cout<<"bbb"<<(*it)->getInfo()->getCodZona()<<"-"<<ited->getDest()->getInfo()->getCodZona()<<endl;
+				gv->addEdge(idEdge, (*it)->getInfo()->getCodZona(), ited->getDest()->getInfo()->getCodZona(), EdgeType::UNDIRECTED);
+				string s = doubleToString((*ited).getWeight());
+				gv->setEdgeLabel(idEdge,s);
+				idEdge++;
+
+			}//else cout<<"Aresta Repetida"<<endl;
+
+		}
+	}
+	gv->rearrange();
+	Sleep(2000);
+	gv->setVertexColor(vPath[0]->getCodZona(),"blue");
+	gv->rearrange();
+	Sleep(1000);
+
+	for(it=vs.begin(); it!=vs.end(); it++)
+		gv->setVertexColor((*it)->getInfo()->getCodZona(),"red");
+	for(unsigned int i=0; i<vZonasComProduto.size(); i++) {
+
+		gv->setVertexColor(vZonasComProduto[i],"green");
+	}
+	gv->rearrange();
+
+	Sleep(2000);
+	for(unsigned int j=0;j<vPath.size();j++) {
+		gv->setVertexColor(vPath[j]->getCodZona(),"yellow");
+		gv->rearrange();
+		Sleep(1500);
+		gv->setEdgeLabel(vPath[j]->getCodZona(),"yellow");
+		gv->rearrange();
+		Sleep(1500);
+
+	}
+	gv->rearrange();
+}
 /*
  *    fica para depois
  *

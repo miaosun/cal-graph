@@ -17,9 +17,7 @@
 //#include "Zona.h"
 #include "Graph.h"
 #include "graphviewer.h"
-//#include "insertionSort.h"
 #include "funcoes.h"
-//#include "sequentialSearch.h"
 #include <stdlib.h>
 #include <vector>
 #include <sstream>
@@ -145,7 +143,8 @@ public:
 	void editLoja(Loja *l);
 
 	bool exists(vector<int>arestas, int a, int b);
-	void windows();
+	void Mapa();
+	void Caminho(vector<Zona*> vPath, vector<int> vZonasComProduto);
 	void startLojaElectronica();
 
 };
