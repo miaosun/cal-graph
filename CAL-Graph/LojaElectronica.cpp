@@ -13,6 +13,17 @@
 
 int algoritmoPesado=1;
 
+void insertionSort(vector<Vertex<Zona*> *> &v)
+{
+	for (unsigned int p = 1; p < v.size(); p++)
+	{
+		Vertex<Zona*>* tmp = v[p];
+		int j;
+		for (j = p; j > 0 && tmp->getDist() < v[j-1]->getDist(); j--)
+			v[j] = v[j-1];
+		v[j] = tmp;
+	}
+}
 
 LojaElectronica::LojaElectronica()
 {
@@ -221,7 +232,13 @@ void LojaElectronica::menuEncomenda()
 		switch(op)
 		{
 		case 1:
-			addEncomenda();
+			try{
+				addEncomenda();
+			}
+			catch(Excepcao &ex) {
+				cout << ex.getMessage() << endl;
+			}
+
 			menuEncomenda();
 			break;
 		case 2:
@@ -1162,7 +1179,10 @@ void LojaElectronica::addEncomenda()
 	cout << "Insira o nome do cliente: ";
 	fflush(stdin);
 	getline(cin,nome);
-	Cliente *c = ProcuraCliente_nome(nome); //TODO excepcao
+	Cliente *c = ProcuraCliente_nome(nome);
+	if(c==NULL)
+		throw Excepcao("Cliente nao existente");
+
 	Zona *noOrigem = c->getZona();
 
 	cout << "	Seleccionar Produto" << endl;
@@ -1183,19 +1203,37 @@ void LojaElectronica::addEncomenda()
 
 	vector<Vertex<Zona*>* > vDist = myGraph.getVertexSet();
 	insertionSort(vDist);
+	for(int i=0; i<vDist.size();i++) {
+		cout << vDist[i]->getDist() << " -   "<< vDist[i]->getInfo()->getCodZona() << endl;
+	}
 
 	vector<Vertex<Zona*>* >::iterator it = vDist.begin();
 	vector<Produto*>::iterator it2;
 	for(;it!=vDist.end();it++) {
-		for(it2==(*it)->getInfo()->getLoja()->getProdutos().begin();it2!=(*it)->getInfo()->getLoja()->getProdutos().end();it2++) {
-			if(((*it2)->getDesignacao() == produto) && ((*it2)->getStock()>0)) {
-				p=(*it2);
+		for(unsigned int i=0; i< (*it)->getInfo()->getLoja()->getProdutos().size();i++) {
+			if((*it)->getInfo()->getLoja()->getProdutos()[i]->getDesignacao()==produto /* && (*it)->getInfo()->getLoja()->getProdutos()[i]->getStock()>0 */) {
+				cout << "entrou if" << endl;
+				cout << (*it)->getInfo()->getDesignacao()<< endl;
+				p=(*it)->getInfo()->getLoja()->getProdutos()[i];
 				l=(*it)->getInfo()->getLoja();
-				(*it2)->decStock();
+				(*it)->getInfo()->getLoja()->getProdutos()[i]->decStock();
 				enc=true;
 				break;
 			}
 		}
+		if(enc==true) break;
+		//		for(it2==(*it)->getInfo()->getLoja()->getProdutos().begin();it2!=(*it)->getInfo()->getLoja()->getProdutos().end();it2++) {
+		//			cout << "for" << endl;
+		//			Produto *p=(*it2);
+		//			if((p->getDesignacao() == produto) && (p->getStock()>0)) {
+		//				cout << "encontrou" << endl;
+		//				p=(*it2);
+		//				l=(*it)->getInfo()->getLoja();
+		//				(*it2)->decStock();
+		//				enc=true;
+		//				break;
+		//			}
+		//		}
 	}
 	if(enc==true) {
 		Encomenda *e = new Encomenda(data,l,c,p);
@@ -1248,10 +1286,12 @@ void LojaElectronica::listaProdutos()
 {
 	vector<string> vp = nomesProdutos();
 	cout << "Produtos existentes:" << endl << endl;
-	for(unsigned int i=0; i< vp.size(); i++)
+	for(unsigned int i=0; i< vp.size(); i++) {
 		cout << vp[i];
+		if(i!=(vp.size()-1))cout << " | ";
+	}
+	cout << endl << endl;
 }
-
 
 vector<string> LojaElectronica::nomesProdutos(){
 
@@ -1527,7 +1567,7 @@ void LojaElectronica::saveEncomendas(string filename)
 		while (i < tam) {
 			if(encomendas[i] != NULL){
 				myfile << encomendas[i]->getcodEncomenda() << endl;
-				myfile << encomendas[i]->getData() << endl;
+				myfile << encomendas[i]->getData();
 				myfile << encomendas[i]->getCliente()->getNome() << endl;
 				myfile << encomendas[i]->getLoja()->getCodLoja() << endl;
 				myfile << encomendas[i]->getProduto()->getCodProduto() << endl;
@@ -1764,6 +1804,7 @@ void LojaElectronica::startLojaElectronica()
 	loadClientes("clientes.txt");
 	loadLojas("lojas.txt");
 	loadProdutos("produtos.txt");
+	//loadEncomendas("encomendas.txt");
 	welcome();
 	menuPrincipal();
 	saveProdutos("produtos.txt");
@@ -1771,6 +1812,6 @@ void LojaElectronica::startLojaElectronica()
 	saveClientes("clientes.txt");
 	saveVertices("nos.txt");
 	saveEdges("arestas.txt");
-	//saveEncomendas("encomendas.txt");
+	saveEncomendas("encomendas.txt");
 	system("PAUSE");
 }

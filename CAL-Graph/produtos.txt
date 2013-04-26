@@ -4,10 +4,11 @@
 |1|Lapis|0.5|50|
 |1|Caderno|0.6|70|
 |1|Livro|30|12|
-|2|Bola|5|20|
+|2|Bola|5|18|
 |2|Quadro|25|10|
 |2|Lapis|0.5|50|
 |2|Livro|30|12|
+|3|Bola|5|19|
 |3|Caneta|1|50|
 |3|Lapis|0.5|50|
 |3|Caderno|0.6|70|
