@@ -1,7 +1,7 @@
 /*
- *     FICHEIRO: Loja.h
- *    PROJECTO: Projecto CAL - Loja de Comercio Electronico (T3)
- *    DESCRICAO: Definicao da classe Loja
+ *  FICHEIRO: Loja.h
+ *  PROJECTO: Projecto CAL - Loja de Comercio Electronico (T3)
+ *  DESCRICAO: Definicao da classe Loja
  *  TURMA / GRUPO: Turma 2MIEIC2 / Grupo D
  *  AUTORES:
  *  - Jorge Miguel Reis
