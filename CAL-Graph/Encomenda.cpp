@@ -66,7 +66,6 @@ void Encomenda::setProduto(Produto *prod) {
 	produto=prod;
 }
 
-
 // IMPRIME
 
 void Encomenda::imprimeEncomendas() const {
@@ -80,7 +79,6 @@ void Encomenda::imprimeEncomendas() const {
 void Encomenda::resumo() const {
 	cout << "Encomenda "<<codEncomenda<<" | "<< cliente->getNome()<<" | "<<"Produto: "<<produto->getDesignacao()<<" | "<<"Loja: "<< loja->getNome()<<endl;
 }
-
 
 // OPERATOR ==
 bool Encomenda::operator== (const Encomenda& x) const{

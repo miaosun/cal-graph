@@ -36,25 +36,27 @@ public:
 	/** recebe um string como um atribuito, titulo dum menu
 	 *  um vector de string, as opcoes disponiveis dum menu */
 	void showMenu(string titulo, vector <string> opcoes);
+
 	//! Membro-funcao que mostra o menu principal ao utilizador
 	void menuPrincipal();
-	//! Membro-funcao que mostra o menu encomenda ao utilizador
-	void menuEncomenda();
 	//! Membro-funcao que mostra o menu cliente ao utilizador
 	void menuCliente();
-	//! Membro-funcao que mostra o menu produto ao utilizador
-	void menuProduto(Loja *l);
+	//! Membro-funcao que mostra o menu encomenda ao utilizador
+	void menuEncomenda();
 	//! Membro-funcao que mostra o menu zona ao utilizador
 	void menuZona();
 	//! Membro-funcao que mostra o menu loja ao utilizador
 	void menuLoja();
+	//! Membro-funcao que mostra o menu produto ao utilizador
+	void menuProduto(Loja *l);
+
 	//! Membro-funcao que permite a adicao de clientes novos
 	void addCliente();
 	//! Membro-funcao que permite a remocao de clientes existentes
 	/** dado o nome do cliente que pretende remover */
 	void removeCliente(string nome);
-	//! Membro-funcao que permite a remocao de clientes existentes
-	/** dado o nome do cliente que pretende remover */
+	//! Membro-funcao que procura clientes existentes
+	/** dado o nome do cliente que pretende procurar */
 	Cliente *ProcuraCliente_nome(string nome);
 
 	vector<string> nomesProdutos();
@@ -63,18 +65,29 @@ public:
 	void addZona();
 	//! Membro-funcao que permite a adicao de zonas novas ao grafo
 	void addZonaGrafo(Zona* z);
-
+	//! Membro-funcao que permite a adicao de arestas novas a zona
 	void addAresta(Zona *z);
+	//! Membro-funcao que permite a remocao de arestas duma zona
 	void removeAresta(Zona *z);
+	//! Membro-funcao que permite a edicao do peso das arestas duma zona
 	void editPesoAresta(Zona *z);
+	//! Membro-funcao que devolve o vertex duma zona
 	Vertex<Zona*> * devolveVertex(Zona *z);
+	//! Membro-funcao que lista todas as arestas existentes duma zona origin
 	void listaArestasDesde(Zona *z);
+	//! Membro-funcao que adiciona uma aresta bidirecional a 2 zonas com distancia
 	void addArestaBidireccional(Zona* z1, Zona* z2, int dist);
 	void removeArestaBidireccional(Zona* z1, Zona *z2);
 	void editArestaBidireccional(Zona* z1, Zona *z2);
 
+	//! Membro-funcao que procura zonas existentes
+	/** dado a designacao da zona que pretende procurar */
 	Zona* procuraZona(string designacao);
+	//! Membro-funcao que procura zonas existentes
+	/** dado o id da zona que pretende procurar */
 	Zona* procuraZona(unsigned int id);
+	//! Membro-funcao que procura lojas existentes
+	/** dado o id da loja que pretende procurar */
 	Loja* procuraLoja(unsigned int id);
 	//! Membro-funcao que permite a remocao de zonas novos
 	/** dado a designacao da zona que pretende remover */
