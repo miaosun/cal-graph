@@ -50,7 +50,7 @@ public:
 	vector<Edge<T> > getAdj() const;
 	Vertex<T>* getPath() const;
 
-	bool operator<(const Vertex<T> vertex);
+	bool operator<(Vertex<T>* vertex);
 
 	Vertex* path;
 
@@ -58,8 +58,9 @@ public:
 };
 
 template <class T>
-bool Vertex<T>::operator<(const Vertex<T> vertex) {
-	return this->dist < vertex->dist;
+bool Vertex<T>::operator<(Vertex<T> * v) {
+
+	//return this->dist < vertex->lsdhlsand;
 }
 
 template <class T>

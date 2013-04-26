@@ -1,4 +1,4 @@
-3
-|01|Miao|123456789|Morada1|Contacto1|Email1|02|
-|02|Jorge|234567890|Morada2|Contacto2|Email2|03|
-|03|Vitor|345678901|Morada3|Contacto3|Email3|01|
+1
+|1|Miao|123456789|Morada1|Contacto1|Email1|2|
+|2|Jorge|234567890|Morada2|Contacto2|Email2|3|
+|3|Vitor|345678901|Morada3|Contacto3|Email3|1|
