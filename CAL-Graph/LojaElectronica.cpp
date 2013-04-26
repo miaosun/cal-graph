@@ -1511,6 +1511,7 @@ void LojaElectronica::saveLojas(string filename) {
 		system("pause");
 	}
 }
+/*
 void LojaElectronica::loadEncomendas(string filename)
 {
 	ifstream file;
@@ -1557,6 +1558,52 @@ void LojaElectronica::loadEncomendas(string filename)
 		cout<<"Nao foi possivel abrir o ficheiro "<<filename<<"!"<<endl<<endl;
 	}
 }
+*/
+void LojaElectronica::loadEncomendas(string filename)
+{
+	ifstream file;
+	string line;
+	vector<string> v;
+	string data, clnome;
+	unsigned int idenc, idloja, idprod;
+
+	file.open(filename.c_str());
+
+	if (file.is_open()) {
+
+		getline(file, line);
+		Cliente::setCount(atoi(line.c_str()));
+		while(!file.eof() ){
+
+			getline(file, line);
+			if(line == "") break;
+			v=split('|', line);
+			idenc = atoi(v[0].c_str());
+			data = v[1].c_str();
+			clnome = v[2].c_str();
+			idloja = atoi(v[3].c_str());
+			idprod = atoi(v[4].c_str());
+
+			Produto *p = NULL;
+			Cliente *c = ProcuraCliente_nome(clnome);
+			Loja *l = procuraLoja(idloja);
+			for(unsigned int i=0;i<l->getProdutos().size();i++){
+				if(l->getProdutos()[i]->getCodProduto()==idprod) {
+					p = l->getProdutos()[i];
+					break;
+				}
+			}
+			Encomenda *e = new Encomenda(data,l,c,p,idenc);
+			encomendas.push_back(e);
+		}
+		cout<<endl<<"Encomendas importadas com sucesso!"<<endl<<endl;
+		file.close();
+	}else
+	{
+		cout<<"Nao foi possivel abrir o ficheiro "<<filename<<"!"<<endl<<endl;
+	}
+}
+/*
 void LojaElectronica::saveEncomendas(string filename)
 {
 	int i = 0;
@@ -1584,6 +1631,31 @@ void LojaElectronica::saveEncomendas(string filename)
 	}
 }
 
+*/
+void LojaElectronica::saveEncomendas(string filename)
+{
+	int i = 0;
+	int tam = encomendas.size();
+	ofstream myfile(filename.c_str());
+	if (myfile.is_open()) {
+		myfile << Encomenda::getCount() << endl;
+		for(unsigned int i=0; i<encomendas.size(); i++)
+		{
+			if(encomendas[i] != NULL){
+				string data = encomendas[i]->getData();
+				data[data.size()-1]='\0';
+				myfile<<"|"<<encomendas[i]->getcodEncomenda()<<"|"<<data<<"|"<<encomendas[i]->getCliente()->getNome()<<"|"<<encomendas[i]->getLoja()->getCodLoja()<<"|"<<encomendas[i]->getProduto()->getCodProduto()<<"|"<<endl;
+			}
+		}
+		cout<<endl<<"Encomendas exportadas com sucesso!"<<endl;
+		myfile.close();
+	}
+	else
+	{
+		cout<<"Nao foi possivel abrir o ficheiro!"<<endl<<endl;
+		system("pause");
+	}
+}
 ///////////////////// loads e saves para grafo
 void LojaElectronica::loadVertices(string filename)
 {
