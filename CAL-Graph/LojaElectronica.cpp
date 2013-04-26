@@ -531,11 +531,18 @@ void LojaElectronica::menuLoja()
 	opcoes.push_back("Escolha uma das seguintes opcoes:");
 	opcoes.push_back("");
 	opcoes.push_back("1 - Adicionar uma Loja");
-	if(listaLojas()>0)
+	try{
+		if(listaLojas()>0)
+		{
+			opcoes.push_back("2 - Editar uma Loja");
+			opcoes.push_back("3 - Remover uma Loja");
+			opcoes.push_back("4 - Gerir Produtos duma Loja");
+		}
+	}
+	catch(Excepcao &e)
 	{
-		opcoes.push_back("2 - Editar uma Loja");
-		opcoes.push_back("3 - Remover uma Loja");
-		opcoes.push_back("4 - Gerir Produtos duma Loja");
+		cout<<e.getMessage();
+		system("pause");
 	}
 
 	opcoes.push_back("");
