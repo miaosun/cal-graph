@@ -1471,7 +1471,6 @@ void LojaElectronica::loadProdutos(string filename)
 
 			Produto *p = new Produto(desig,stock,preco);
 			Loja *l1 = procuraLoja(idloja);
-			cout << l1->getCodLoja() << "|" << l1->getNome() << endl;
 			l1->insertProd(p);
 		}
 		cout<<endl<<"Produtos importadas com sucesso!"<<endl<<endl;
