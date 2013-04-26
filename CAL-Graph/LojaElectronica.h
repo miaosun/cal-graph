@@ -112,7 +112,7 @@ public:
 	//! Membro-funcao que lista os produtos existentes na determinada loja no base de dados
 	void listaProdutos();
 	//! Membro-funcao que lista as lojas existentes no base de dados
-	void listaLojas();
+	int listaLojas();
 	//! Membro-funcao que lista as encomendas existentes no base de dados
 	void listaEncomendas();
 

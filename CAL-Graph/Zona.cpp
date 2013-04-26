@@ -23,6 +23,7 @@ Zona::Zona(string Localidade):codZona(++countZonas)
 Zona::Zona(unsigned int cod, string designacao): codZona(cod)
 {
 	this->designacao = designacao;
+	this->loja=NULL;
 }
 
 Zona::~Zona(){}
