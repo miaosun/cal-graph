@@ -50,12 +50,12 @@ public:
 	//! Membro-funcao que mostra o menu cliente ao utilizador
 	void menuCliente();
 	//! Membro-funcao que mostra o menu produto ao utilizador
-	void menuProduto();
+	void menuProduto(Loja *l);
 	//! Membro-funcao que permite a adicao de clientes novos
 
 	void menuZona();
 	void menuLoja();
-	void menuProduto(Loja *l);
+
 
 	void addCliente();
 	//! Membro-funcao que permite a remocao de clientes existentes
