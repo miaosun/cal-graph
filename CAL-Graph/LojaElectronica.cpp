@@ -185,13 +185,13 @@ void LojaElectronica::menuPrincipal()
 		break;
 	default:
 		cout<<"Opcao invalida! Insira uma das opcoes disponiveis"<<endl;
-		//menuPrincipal();
+		menuPrincipal();
 	}
 }
 
 void LojaElectronica::menuEncomenda()
 {
-	int op, cod;
+	unsigned int op, cod;
 	Encomenda *e;
 	vector<string> opcoes;
 	string filename;
@@ -252,7 +252,7 @@ void LojaElectronica::menuEncomenda()
 				//showMenu("Detalhes da Encomenda", e->resumo());
 				removeEncomenda(e->getcodEncomenda());
 			}
-			catch (NotFound)
+			catch (NotFound &)
 			{
 				cout<<endl<<"Encomenda nao encontrado!"<<endl;
 				system("pause");
@@ -314,7 +314,7 @@ void LojaElectronica::menuEncomenda()
 
 void LojaElectronica::menuCliente()
 {
-	int op, cod;
+	unsigned int op, cod;
 	Cliente *c;
 	vector<string> opcoes;
 	string filename;
@@ -364,7 +364,7 @@ void LojaElectronica::menuCliente()
 				}
 				showMenu("Detalhes do Cliente", c->imprimeCliente());
 			}
-			catch (NotFound)
+			catch (NotFound &)
 			{
 				cout<<endl<<"Cliente nao encontrado!"<<endl;
 			}
@@ -387,7 +387,7 @@ void LojaElectronica::menuCliente()
 				}
 				editCliente(c);
 			}
-			catch (NotFound)
+			catch (NotFound &)
 			{
 				cout<<endl<<"Cliente nao encontrado!"<<endl;
 			}
@@ -413,7 +413,7 @@ void LojaElectronica::menuCliente()
 				showMenu("Detalhes do Cliente", c->imprimeCliente());
 				removeCliente(c->getNome());
 			}
-			catch (NotFound)
+			catch (NotFound &)
 			{
 				cout<<endl<<"Cliente nao encontrado!"<<endl;
 				system("pause");
@@ -480,7 +480,7 @@ void LojaElectronica::menuProduto()
 
 void LojaElectronica::menuZona()
 {
-	int op, cod;
+	unsigned int op, cod;
 	Zona *z;
 	vector<string> opcoes;
 	opcoes.push_back("Escolha uma das seguintes opcoes:");
@@ -525,7 +525,7 @@ void LojaElectronica::menuZona()
 			//showMenu("Detalhes do Cliente", z->imprimeZona());
 			removeZona(z->getDesignacao());
 		}
-		catch (NotFound)
+		catch (NotFound &)
 		{
 			cout<<endl<<"Zona nao encontrada!"<<endl;
 		}
@@ -587,8 +587,7 @@ void LojaElectronica::editLoja(Loja *l)
 
 void LojaElectronica::menuLoja()
 {
-	unsigned int cod;
-	int op;
+	unsigned int op, cod;
 	string filename;
 	Loja *l;
 	vector<string> opcoes;
@@ -637,7 +636,7 @@ void LojaElectronica::menuLoja()
 					}
 				}
 			}
-			catch (NotFound)
+			catch (NotFound &)
 			{
 				cout<<endl<<"Loja nao encontrada!"<<endl;
 			}
@@ -661,7 +660,7 @@ void LojaElectronica::menuLoja()
 				//showMenu("Detalhes do Lojas", l->imprimeLoja());
 				removeLoja(l->getCodLoja());
 			}
-			catch (NotFound)
+			catch (NotFound &)
 			{
 				cout<<endl<<"Loja nao encontrada!"<<endl;
 			}
@@ -684,7 +683,7 @@ void LojaElectronica::menuLoja()
 				}
 				//showMenu("Detalhes do Lojas", l->imprimeLoja());
 			}
-			catch (NotFound)
+			catch (NotFound &)
 			{
 				cout<<endl<<"Loja nao encontrada!"<<endl;
 			}
@@ -705,7 +704,7 @@ void LojaElectronica::menuLoja()
 			cout<<"   --Exportar Lojas--"<<endl<<endl;
 			cout<<"Nome do ficheiro para onde vai exportar: ";
 			getline(cin, filename);
-			saveClientes(filename);
+			saveLojas(filename);
 			system("pause");
 			menuLoja();
 			break;
@@ -746,8 +745,7 @@ void LojaElectronica::menuLoja()
 
 void LojaElectronica::menuProduto(Loja *l)
 {
-	int op;
-	unsigned int cod;
+	unsigned int op, cod;
 	string filename;
 	vector<string> opcoes;
 	opcoes.push_back("Escolha uma das seguintes opcoes:");
@@ -797,7 +795,7 @@ void LojaElectronica::menuProduto(Loja *l)
 					}
 				}
 			}
-			catch (NotFound)
+			catch (NotFound &)
 			{
 				cout<<endl<<"Produto nao encontrada!"<<endl;
 			}
@@ -1075,7 +1073,6 @@ void LojaElectronica::removeAresta(Zona *z) {
 	cout << "Remover Ligacao" << endl << endl;
 	listaArestasDesde(z);
 	string desig;
-
 	cout << "Insira a designacao da Zona destino da ligacao a remover: ";
 	fflush(stdin);
 	getline(cin,desig);
