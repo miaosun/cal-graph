@@ -1100,9 +1100,14 @@ void LojaElectronica::removeZona(string desig)
 	for(unsigned int i=0;i<myGraph.getVertexSet().size();i++) {
 		if(myGraph.getVertexSet()[i]->getInfo()->getDesignacao()==desig) {
 			encontrou=true;
-			myGraph.getVertexSet().erase(myGraph.getVertexSet().begin()+i);
-			break;
+			Zona *z = myGraph.getVertexSet()[i]->getInfo();
+			myGraph.removeVertex(z);
+			for(unsigned int i=0; i<myGraph.getVertexSet()[i]->getAdj().size();i++) {
+
+				myGraph.removeEdge(z, myGraph.getVertexSet()[i]->getAdj()[i].getDest()->getInfo());
+			}
 		}
+		break;
 	}
 	if(encontrou==false)
 		throw Excepcao("\n Nao existe nenhuma zona com esse ID \n");
