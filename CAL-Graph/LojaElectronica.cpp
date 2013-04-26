@@ -180,6 +180,7 @@ void LojaElectronica::menuPrincipal()
 		loadClientes("clientes.txt");
 		loadLojas("lojas.txt");
 		loadProdutos("produtos.txt");
+		//loadEncomendas("encomendas.txt");
 		menuPrincipal();
 		break;
 	case 6:
@@ -187,7 +188,12 @@ void LojaElectronica::menuPrincipal()
 		menuPrincipal();
 		break;
 	case 0:
-		//sair e gravar nos ficheiros; TODO
+		saveProdutos("produtos.txt");
+		saveLojas("lojas.txt");
+		saveClientes("clientes.txt");
+		saveVertices("nos.txt");
+		saveEdges("arestas.txt");
+		saveEncomendas("encomendas.txt");
 		break;
 	default:
 		cout<<"Opcao invalida! Insira uma das opcoes disponiveis"<<endl;
@@ -208,11 +214,7 @@ void LojaElectronica::menuEncomenda()
 	{
 		opcoes.push_back("2 - Listar Encomenda");//opcao 2
 		opcoes.push_back("3 - Remover uma Encomenda");//opcao 4
-		opcoes.push_back("4 - Importar Encomendas dum ficheiro");//opcao 5
-		opcoes.push_back("5 - Exportar Encomendas para ficheiro");//opcao 6
 	}
-	else
-		opcoes.push_back("2 - Importar Encomendas dum ficheiro");
 	opcoes.push_back("");
 	opcoes.push_back("0 - Voltar atras");//opcao 7
 
@@ -220,7 +222,6 @@ void LojaElectronica::menuEncomenda()
 	cout<<"    Opcao: ";
 	op=intinput();
 	system("cls");
-
 
 	if(encomendas.size()>0)
 	{
@@ -233,7 +234,6 @@ void LojaElectronica::menuEncomenda()
 			catch(Excepcao &ex) {
 				cout << ex.getMessage() << endl;
 			}
-
 			menuEncomenda();
 			break;
 		case 2:
@@ -247,39 +247,13 @@ void LojaElectronica::menuEncomenda()
 			cod=intinput();
 			try
 			{
-				for(unsigned int i=0; i<encomendas.size(); i++)
-				{
-					if(cod == encomendas[i]->getcodEncomenda())
-					{
-						e = encomendas[i];
-						break;
-					}
-				}
-				//showMenu("Detalhes da Encomenda", e->resumo());
+				e = procuraEncomenda(cod);
 				removeEncomenda(e->getcodEncomenda());
 			}
-			catch (NotFound &)
+			catch (Excepcao &e)
 			{
-				cout<<endl<<"Encomenda nao encontrado!"<<endl;
-				system("pause");
+				cout<<e.getMessage();
 			}
-			menuEncomenda();
-			break;
-		case 5://importar Encomenda
-			system("cls");
-			cout<<"   --Importar Encomenda--"<<endl<<endl;
-			cout<<"Nome do ficheiro: ";
-			getline(cin, filename);
-			loadEncomendas(filename);
-			system("pause");
-			menuEncomenda();
-			break;
-		case 6://exportar Cliente
-			system("cls");
-			cout<<"   --Exportar Encomenda--"<<endl<<endl;
-			cout<<"Nome do ficheiro para onde vai exportar: ";
-			getline(cin, filename);
-			saveEncomendas(filename);
 			system("pause");
 			menuEncomenda();
 			break;
@@ -291,36 +265,11 @@ void LojaElectronica::menuEncomenda()
 			menuEncomenda();
 		}
 	}
-	else
-	{
-		switch(op)
-		{
-		case 1://criar Encomenda
-			addEncomenda();
-			menuEncomenda();
-			break;
-		case 2://importar Encomenda
-			system("cls");
-			cout<<"   --Importar Encomenda--"<<endl<<endl;
-			cout<<"Nome do ficheiro: ";
-			getline(cin, filename);
-			loadEncomendas(filename);
-			system("pause");
-			menuEncomenda();
-			break;
-		case 0://voltar ao menu anterior
-			break;
-		default:
-			cout<<"Opcao invalida! Insira uma das opcoes disponiveis"<<endl;
-			system("pause");
-			menuEncomenda();
-		}
-	}
 }
 
 void LojaElectronica::menuCliente()
 {
-	unsigned int op, cod;
+	unsigned int op;
 	Cliente *c;
 	vector<string> opcoes;
 	string nome;
@@ -333,11 +282,7 @@ void LojaElectronica::menuCliente()
 		opcoes.push_back("2 - Ver detalho dum Cliente");//opcao 2
 		opcoes.push_back("3 - Editar um Cliente");//opcao 3
 		opcoes.push_back("4 - Remover um Cliente");//opcao 4
-		opcoes.push_back("5 - Importar Clientes dum ficheiro");//opcao 5
-		opcoes.push_back("6 - Exportar Clientes para ficheiro");//opcao 6
 	}
-	else
-		opcoes.push_back("2 - Importar Clientes dum ficheiro");
 	opcoes.push_back("");
 	opcoes.push_back("0 - Voltar atras");
 
@@ -413,24 +358,6 @@ void LojaElectronica::menuCliente()
 			system("pause");
 			menuCliente();
 			break;
-		case 5://importar Cliente
-			system("cls");
-			cout<<"   --Importar Cliente--"<<endl<<endl;
-			cout<<"Nome do ficheiro: ";
-			getline(cin, filename);
-			loadClientes(filename);
-			system("pause");
-			menuCliente();
-			break;
-		case 6://exportar Cliente
-			system("cls");
-			cout<<"   --Exportar Cliente--"<<endl<<endl;
-			cout<<"Nome do ficheiro para onde vai exportar: ";
-			getline(cin, filename);
-			saveClientes(filename);
-			system("pause");
-			menuCliente();
-			break;
 		case 0:
 			break;
 		default:
@@ -439,36 +366,6 @@ void LojaElectronica::menuCliente()
 			menuCliente();
 		}
 	}
-	else
-	{
-		switch(op)
-		{
-		case 1://criar Cliente
-			addCliente();
-			menuCliente();
-			break;
-		case 2://importar Cliente
-			system("cls");
-			cout<<"   --Importar Cliente--"<<endl<<endl;
-			cout<<"Nome do ficheiro: ";
-			getline(cin, filename);
-			loadClientes(filename);
-			system("pause");
-			menuCliente();
-			break;
-		case 0://voltar ao menu anterior
-			break;
-		default:
-			cout<<"Opcao invalida! Insira uma das opcoes disponiveis"<<endl;
-			system("pause");
-			menuCliente();
-		}
-	}
-}
-
-void LojaElectronica::menuProduto()
-{
-
 }
 
 void LojaElectronica::menuZona()
@@ -479,82 +376,91 @@ void LojaElectronica::menuZona()
 	vector<string> opcoes;
 	opcoes.push_back("Escolha uma das seguintes opcoes:");
 	opcoes.push_back("");
-
 	opcoes.push_back("1 - Adicionar uma Zona");
-
-	opcoes.push_back("2 - Remover uma Zona");
-	opcoes.push_back("3 - Adicionar Ligacao entre Zonas");
-	opcoes.push_back("4 - Remover Ligacao entre Zonas");
+	if(myGraph.getVertexSet().size()>0)
+	{
+		opcoes.push_back("2 - Remover uma Zona");
+		opcoes.push_back("3 - Adicionar Ligacao entre Zonas");
+		opcoes.push_back("4 - Remover Ligacao entre Zonas");
+	}
 	opcoes.push_back("");
 	opcoes.push_back("0 - Voltar atras");
 
 	showMenu("Menu Zona", opcoes);
 	cout<<"    Opcao: ";
 	op=intinput();
-
-	switch(op)
+	if(myGraph.getVertexSet().size()>0)
 	{
-	case 1:
-		addZona();
-		menuZona();
-		break;
-	case 2:
-		listaZonas();
-		cout<<endl<<"Introduza a Designacao da Zona que pretende apagar: ";
-		fflush(stdin);
-		getline(cin, designacao);
-		try
+		switch(op)
 		{
-			z = procuraZona(designacao);
-			removeZona(z->getDesignacao());
+		case 1:
+			try{
+				addZona();
+			}
+			catch(Excepcao &e)
+			{
+				cout<<e.getMessage();
+			}
+			menuZona();
+			break;
+		case 2:
+			listaZonas();
+			cout<<endl<<"Introduza a Designacao da Zona que pretende apagar: ";
+			fflush(stdin);
+			getline(cin, designacao);
+			try
+			{
+				z = procuraZona(designacao);
+				removeZona(z->getDesignacao());
+			}
+			catch (Excepcao &e)
+			{
+				e.getMessage();
+			}
+			system("pause");
+			menuZona();
+			break;
+		case 3:
+			listaZonas();
+			cout<<endl<<"Introduza a Designacao da Zona que pretende adicionar ligacao: ";
+			fflush(stdin);
+			getline(cin, designacao);
+			try
+			{
+				z = procuraZona(designacao);
+				addAresta(z);
+			}
+			catch (Excepcao &e)
+			{
+				cout<<e.getMessage()<<endl;
+			}
+			system("pause");
+			menuZona();
+			break;
+		case 4:
+			listaZonas();
+			cout<<endl<<"Introduza a Designacao da Zona que pretende remover ligacao: ";
+			fflush(stdin);
+			getline(cin, designacao);
+			try
+			{
+				z = procuraZona(designacao);
+				removeAresta(z);
+			}
+			catch (Excepcao &e)
+			{
+				cout<<e.getMessage()<<endl;
+			}
+			system("pause");
+			menuZona();
+			break;
+		case 0:
+			break;
+		default:
+			cout<<"Opcao invalida! Insira uma das opcoes disponiveis"<<endl;
+			system("pause");
+			menuZona();
 		}
-		catch (Excepcao &e)
-		{
-			e.getMessage();
-		}
-		system("pause");
-		menuZona();
-		break;
-	case 3:
-		listaZonas();
-		cout<<endl<<"Introduza a Designacao da Zona que pretende adicionar ligacao: ";
-		fflush(stdin);
-		getline(cin, designacao);
-		try
-		{
-			z = procuraZona(designacao);
-			addAresta(z);
-		}
-		catch (Excepcao &e)
-		{
-			cout<<e.getMessage()<<endl;
-		}
-		system("pause");
-		menuZona();
-		break;
-	case 4:
-		listaZonas();
-		cout<<endl<<"Introduza a Designacao da Zona que pretende remover ligacao: ";
-		fflush(stdin);
-		getline(cin, designacao);
-		try
-		{
-			z = procuraZona(designacao);
-			removeAresta(z);
-		}
-		catch (Excepcao &e)
-		{
-			cout<<e.getMessage()<<endl;
-		}
-		system("pause");
-		menuZona();
-		break;
-	case 0:
-		break;
-	default:
-		cout<<"Opcao invalida! Insira uma das opcoes disponiveis"<<endl;
-		system("pause");
-		menuZona();
 	}
 }
 
@@ -607,11 +513,7 @@ void LojaElectronica::menuLoja()
 		opcoes.push_back("2 - Editar uma Loja");
 		opcoes.push_back("3 - Remover uma Loja");
 		opcoes.push_back("4 - Gerir Produtos duma Loja");
-		opcoes.push_back("5 - Importar Lojas dum ficheiro");
-		opcoes.push_back("6 - Exportar Lojas para um ficheiro");
 	}
-	else
-		opcoes.push_back("2 - Importar Lojas dum ficheiro");
 
 	opcoes.push_back("");
 	opcoes.push_back("0 - Voltar atras");
@@ -634,19 +536,12 @@ void LojaElectronica::menuLoja()
 			cod=intinput();
 			try
 			{
-				for(unsigned int i=0; i<myGraph.getVertexSet().size(); i++)
-				{
-					if(cod == myGraph.getVertexSet()[i]->getInfo()->getLoja()->getCodLoja())
-					{
-						l = myGraph.getVertexSet()[i]->getInfo()->getLoja();
-						editLoja(l);
-						break;
-					}
-				}
+				l = procuraLoja(cod);
+				editLoja(l);
 			}
-			catch (NotFound &)
+			catch (Excepcao &e)
 			{
-				cout<<endl<<"Loja nao encontrada!"<<endl;
+				cout<<e.getMessage();
 			}
 			system("pause");
 			menuLoja();
@@ -657,20 +552,12 @@ void LojaElectronica::menuLoja()
 			cod=intinput();
 			try
 			{
-				for(unsigned int i=0; i<myGraph.getVertexSet().size(); i++)
-				{
-					if(cod == myGraph.getVertexSet()[i]->getInfo()->getLoja()->getCodLoja())
-					{
-						l = myGraph.getVertexSet()[i]->getInfo()->getLoja();
-						break;
-					}
-				}
-				//showMenu("Detalhes do Lojas", l->imprimeLoja());
+				l = procuraLoja(cod);
 				removeLoja(l->getCodLoja());
 			}
-			catch (NotFound &)
+			catch (Excepcao &e)
 			{
-				cout<<endl<<"Loja nao encontrada!"<<endl;
+				cout<<e.getMessage();
 			}
 			system("pause");
 			menuLoja();
@@ -681,64 +568,13 @@ void LojaElectronica::menuLoja()
 			cod=intinput();
 			try
 			{
-				for(unsigned int i=0; i<myGraph.getVertexSet().size(); i++)
-				{
-					if(cod == myGraph.getVertexSet()[i]->getInfo()->getLoja()->getCodLoja())
-					{
-						l = myGraph.getVertexSet()[i]->getInfo()->getLoja();
-						break;
-					}
-				}
-				//showMenu("Detalhes do Lojas", l->imprimeLoja());
+				l = procuraLoja(cod);
 			}
-			catch (NotFound &)
+			catch (Excepcao &e)
 			{
-				cout<<endl<<"Loja nao encontrada!"<<endl;
+				cout<<e.getMessage();
 			}
 			menuProduto(l);
-			menuLoja();
-			break;
-		case 5://importar Lojas
-			system("cls");
-			cout<<"   --Importar Lojas--"<<endl<<endl;
-			cout<<"Nome do ficheiro: ";
-			getline(cin, filename);
-			loadClientes(filename);
-			system("pause");
-			menuLoja();
-			break;
-		case 6://exportar Lojas
-			system("cls");
-			cout<<"   --Exportar Lojas--"<<endl<<endl;
-			cout<<"Nome do ficheiro para onde vai exportar: ";
-			getline(cin, filename);
-			saveLojas(filename);
-			system("pause");
-			menuLoja();
-			break;
-		case 0:
-			break;
-		default:
-			cout<<"Opcao invalida! Insira uma das opcoes disponiveis"<<endl;
-			system("pause");
-			menuZona();
-		}
-	}
-	else
-	{
-		switch(op)
-		{
-		case 1:
-			addLoja();
-			menuLoja();
-			break;
-		case 2://importar Lojas
-			system("cls");
-			cout<<"   --Importar Lojas--"<<endl<<endl;
-			cout<<"Nome do ficheiro: ";
-			getline(cin, filename);
-			loadClientes(filename);
-			system("pause");
 			menuLoja();
 			break;
 		case 0:
@@ -763,11 +599,7 @@ void LojaElectronica::menuProduto(Loja *l)
 	{
 		opcoes.push_back("2 - Editar um Protudo");
 		opcoes.push_back("3 - Remover um Produto");
-		opcoes.push_back("4 - Importar Produtos dum ficheiro");
-		opcoes.push_back("5 - Exportar Produtos para um ficheiro");
 	}
-	else
-		opcoes.push_back("2 - Importar Produtos dum ficheiro");
 	opcoes.push_back("");
 	opcoes.push_back("0 - Voltar atras");
 
@@ -794,6 +626,7 @@ void LojaElectronica::menuProduto(Loja *l)
 			cod=intinput();
 			try
 			{
+				l = NULL;
 				for(unsigned int i=0; i<l->getProdutos().size(); i++)
 				{
 					if(cod == l->getProdutos()[i]->getCodProduto())
@@ -802,54 +635,13 @@ void LojaElectronica::menuProduto(Loja *l)
 						break;
 					}
 				}
+				if(l == NULL)
+					throw Excepcao("Produto nao encontrado!\n");
 			}
-			catch (NotFound &)
+			catch (Excepcao &e)
 			{
-				cout<<endl<<"Produto nao encontrada!"<<endl;
+				cout<<e.getMessage();
 			}
-			system("pause");
-			menuProduto(l);
-			break;
-		case 4://importar Produto
-			system("cls");
-			cout<<"   --Importar Produto--"<<endl<<endl;
-			cout<<"Nome do ficheiro: ";
-			getline(cin, filename);
-			loadProdutos(filename);
-			system("pause");
-			menuProduto(l);
-			break;
-		case 5://exportar Produto
-			system("cls");
-			cout<<"   --Exportar Produto--"<<endl<<endl;
-			cout<<"Nome do ficheiro para onde vai exportar: ";
-			getline(cin, filename);
-			saveProdutos(filename);
-			system("pause");
-			menuProduto(l);
-			break;
-		case 0:
-			break;
-		default:
-			cout<<"Opcao invalida! Insira uma das opcoes disponiveis"<<endl;
-			system("pause");
-			menuProduto(l);
-		}
-	}
-	else
-	{
-		switch(op)
-		{
-		case 1:
-			l->addProduto();
-			menuProduto(l);
-			break;
-		case 2://importar Produto
-			system("cls");
-			cout<<"   --Importar Produto--"<<endl<<endl;
-			cout<<"Nome do ficheiro: ";
-			getline(cin, filename);
-			loadProdutos(filename);
 			system("pause");
 			menuProduto(l);
 			break;
@@ -980,7 +772,7 @@ Zona* LojaElectronica::procuraZona(unsigned int id) {
 		if((*it)->getInfo()->getCodZona()==id)
 			return (*it)->getInfo();
 	}
-	return NULL;
+	throw Excepcao("Zona nao encontrada!");
 }
 
 Loja* LojaElectronica::procuraLoja(unsigned int id) {
@@ -991,7 +783,7 @@ Loja* LojaElectronica::procuraLoja(unsigned int id) {
 		if((*it)->getInfo()->getLoja()->getCodLoja()==id)
 			return (*it)->getInfo()->getLoja();
 	}
-	return NULL;
+	throw Excepcao("Loja nao encontrada!\n");
 }
 
 void LojaElectronica::addZona()
@@ -1002,8 +794,12 @@ void LojaElectronica::addZona()
 	fflush(stdin);
 	getline(cin,designacao);
 	//verifica se ja existe alguma zona c mesma designacao
-	if(procuraZona(designacao)!=NULL) {
-		//TODO excepcao! tratar
+
+	vector<Vertex<Zona*> *> vs = myGraph.getVertexSet();
+	vector<Vertex<Zona*> *>::iterator it = vs.begin();
+	for(;it != vs.end();it++) {
+		if((*it)->getInfo()->getDesignacao()==designacao)
+			throw Excepcao("Zona ja existe!\n");
 	}
 
 	Zona *zona=new Zona(designacao);
@@ -1019,27 +815,34 @@ void LojaElectronica::addZonaGrafo(Zona* z1) {
 		listaZonas();
 		string desig;
 		int dist;
-		cout << "Insira a designacao de uma Zona a qual ligar: ";
-		fflush(stdin);
-		getline(cin,desig);
-
-		Zona *z2 = procuraZona(desig);
-		if(z2==NULL) {
-			//TODO excepcao! tratar (voltar a pedir)
-			cout << "Zona nao existente!" << endl;
-		}
-		else
+		Zona *z2 = NULL;
+		bool b=false;
+		do
 		{
-			cout << "Distancia: ";
+			cout << "Insira a designacao de uma Zona a qual ligar: ";
 			fflush(stdin);
-			cin >> dist;
+			getline(cin,desig);
 
-			addArestaBidireccional(z1,z2,dist);
+			try{
+				z2 = procuraZona(desig);
+				b = true;
+			}
+			catch(Excepcao &e)
+			{
+				cout<<e.getMessage()<<endl;
+			}
+		}while(b == false);
 
-			cout << "Deseja inserir mais alguma distancia a outra zona? (S/N): ";
-			fflush(stdin);
-			cin >> resp;
-		}
+		cout << "Distancia: ";
+		fflush(stdin);
+		cin >> dist;
+
+		addArestaBidireccional(z1,z2,dist);
+
+		cout << "Deseja inserir mais alguma distancia a outra zona? (S/N): ";
+		fflush(stdin);
+		cin >> resp;
+
 	} while(resp!='n' || resp != 'N');
 }
 
@@ -1048,22 +851,28 @@ void LojaElectronica::addAresta(Zona *z) {
 	listaZonas();
 	string desig;
 	int dist;
-	cout << "Insira a designacao de uma Zona a qual ligar: ";
-	fflush(stdin);
-	getline(cin,desig);
-
-	Zona *z2 = procuraZona(desig);
-	if(z2==NULL) {
-		cout << "Zona nao existente!" << endl;
-		//TODO excepcao! tratar (voltar a pedir)
-	}
-	else
-	{
-		cout << "Distancia: ";
+	Zona *z2 = NULL;
+	bool b=false;
+	do{
+		cout << "Insira a designacao de uma Zona a qual ligar: ";
 		fflush(stdin);
-		cin >> dist;
-		addArestaBidireccional(z,z2,dist);
-	}
+		getline(cin,desig);
+		try
+		{
+			z2 = procuraZona(desig);
+			b=true;
+		}
+		catch(Excepcao &e)
+		{
+			cout<<e.getMessage()<<endl;
+		}
+	}while(b == false);
+
+	cout << "Distancia: ";
+	fflush(stdin);
+	cin >> dist;
+	addArestaBidireccional(z,z2,dist);
+
 }
 
 void LojaElectronica::listaArestasDesde(Zona *z) {
@@ -1079,20 +888,26 @@ void LojaElectronica::removeAresta(Zona *z) {
 	cout << "Remover Ligacao" << endl << endl;
 	listaArestasDesde(z);
 	string desig;
-	cout << "Insira a designacao da Zona destino da ligacao a remover: ";
-	fflush(stdin);
-	getline(cin,desig);
+	Zona *z2 = NULL;
+	bool b=false;
+	do{
+		cout << "Insira a designacao da Zona destino da ligacao a remover: ";
+		fflush(stdin);
+		getline(cin,desig);
 
-	Zona *z2 = procuraZona(desig);
-	if(z2==NULL) {
-		cout << "Zona nao existente!" << endl;
-		//TODO excepcao! tratar (voltar a pedir)
-	}
-	else
-	{
-		removeArestaBidireccional(z,z2);
-		cout << "Ligacao Eliminada!"<< endl;
-	}
+		try{
+			z2 = procuraZona(desig);
+			b=true;
+		}
+		catch(Excepcao &e)
+		{
+			cout<<e.getMessage()<<endl;
+		}
+	}while(b==false);
+
+	removeArestaBidireccional(z,z2);
+	cout << "Ligacao Eliminada!"<< endl;
+
 }
 
 void LojaElectronica::editPesoAresta(Zona *z) {
@@ -1100,24 +915,30 @@ void LojaElectronica::editPesoAresta(Zona *z) {
 	listaArestasDesde(z);
 	string desig;
 	int dist;
-	cout << "Insira a designacao da Zona destino da ligacao a editar: ";
-	fflush(stdin);
-	getline(cin,desig);
-
-	Zona *z2 = procuraZona(desig);
-	if(z2==NULL) {
-		cout << "Zona nao existente!" << endl;
-		//TODO excepcao! tratar (voltar a pedir)
-	}
-	else
-	{
-		cout << "Insira o nova distancia: ";
+	Zona *z2 = NULL;
+	bool b=false;
+	do{
+		cout << "Insira a designacao da Zona destino da ligacao a editar: ";
 		fflush(stdin);
-		cin >> dist;
-		removeArestaBidireccional(z,z2);
-		addArestaBidireccional(z,z2,dist);
-		cout << "Aresta Editada!"<< endl;
-	}
+		getline(cin,desig);
+
+		try{
+			z2 = procuraZona(desig);
+			b=true;
+		}
+		catch(Excepcao &e)
+		{
+			cout<<e.getMessage()<<endl;
+		}
+	}while(b==false);
+
+	cout << "Insira o nova distancia: ";
+	fflush(stdin);
+	cin >> dist;
+	removeArestaBidireccional(z,z2);
+	addArestaBidireccional(z,z2,dist);
+	cout << "Aresta Editada!"<< endl;
+
 }
 
 void LojaElectronica::addArestaBidireccional(Zona* z1, Zona* z2, int dist) {
@@ -1325,7 +1146,7 @@ Encomenda * LojaElectronica::procuraEncomenda(unsigned int id) {
 			return encomendas[i];
 		}
 	}
-	return NULL;
+	throw Excepcao("Encomenda nao encontrada!\n");
 }
 
 void LojaElectronica::listaClientes()
@@ -1964,14 +1785,9 @@ void LojaElectronica::Caminho(vector<Zona*> vPath, vector<int> vZonasComProduto)
  */
 void LojaElectronica::startLojaElectronica()
 {
-	//loadEncomendas("encomendas.txt");
+
 	welcome();
 	menuPrincipal();
-	saveProdutos("produtos.txt");
-	saveLojas("lojas.txt");
-	saveClientes("clientes.txt");
-	saveVertices("nos.txt");
-	saveEdges("arestas.txt");
-	saveEncomendas("encomendas.txt");
+
 	system("PAUSE");
 }
