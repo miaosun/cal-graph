@@ -142,6 +142,7 @@ public:
 	void saveEncomendas(string filename);
 
 	void editCliente(Cliente *c);
+	void editLoja(Loja *l);
 
 	bool exists(vector<int>arestas, int a, int b);
 	void windows();
