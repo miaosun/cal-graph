@@ -60,10 +60,10 @@ void Produto::decStock() {
 // IMPRIME
 
 void Produto::info() const {
-	cout << "\nProduto numero: " << codProduto << endl ;
-	cout << "Designação: " << designacao << endl;
+	cout << "Produto numero: " << codProduto << endl ;
+	cout << "Designacao: " << designacao << endl;
 	cout << "Quantidade em Stock: " << stock << endl;
-	cout << "Preço: " << preco << endl;
+	cout << "Preco: " << preco << endl;
 }
 
 void Produto::resumo() {

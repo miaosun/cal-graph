@@ -1075,7 +1075,7 @@ void LojaElectronica::removeAresta(Zona *z) {
 	cout << "Remover Ligacao" << endl << endl;
 	listaArestasDesde(z);
 	string desig;
-	int dist;
+
 	cout << "Insira a designacao da Zona destino da ligacao a remover: ";
 	fflush(stdin);
 	getline(cin,desig);
@@ -1223,7 +1223,7 @@ void LojaElectronica::addEncomenda()
 	string data = dataActual();
 	bool enc=false;
 
-	cout << "	ENCOMENDA" << endl << endl;
+	cout << "ENCOMENDA" << endl << endl;
 
 	listaClientes();
 	cout << "Insira o nome do cliente: ";
@@ -1236,7 +1236,7 @@ void LojaElectronica::addEncomenda()
 	Zona *noOrigem = c->getZona();
 	Zona *noDest;
 
-	cout << "	Seleccionar Produto" << endl;
+	cout << endl<< endl<< "Seleccionar Produto" << endl << endl;
 	listaProdutos();
 
 	cout << "Nome do produto desejado: ";
@@ -1254,9 +1254,9 @@ void LojaElectronica::addEncomenda()
 
 	vector<Vertex<Zona*>* > vDist = myGraph.getVertexSet();
 	myGraph.insertionSort(vDist);
-	for(unsigned int i=0; i<vDist.size();i++) {
-		cout << vDist[i]->getDist() << " -   "<< vDist[i]->getInfo()->getCodZona() << endl;
-	}
+	//	for(unsigned int i=0; i<vDist.size();i++) {
+	//		cout << vDist[i]->getDist() << " -   "<< vDist[i]->getInfo()->getCodZona() << endl;
+	//	}
 
 	//Procurar Produtos nas Lojas TOdas
 	vector<int> codigoZonascomProduto;
@@ -1273,8 +1273,6 @@ void LojaElectronica::addEncomenda()
 	for(;it!=vDist.end();it++) {
 		for(unsigned int i=0; i< (*it)->getInfo()->getLoja()->getProdutos().size();i++) {
 			if((*it)->getInfo()->getLoja()->getProdutos()[i]->getDesignacao()==produto  && (*it)->getInfo()->getLoja()->getProdutos()[i]->getStock()>0 ) {
-				cout << "entrou if" << endl;
-				cout << (*it)->getInfo()->getDesignacao()<< endl;
 				p=(*it)->getInfo()->getLoja()->getProdutos()[i];
 				l=(*it)->getInfo()->getLoja();
 				(*it)->getInfo()->getLoja()->getProdutos()[i]->decStock();
@@ -1286,16 +1284,17 @@ void LojaElectronica::addEncomenda()
 		if(enc==true) break;
 	}
 	if(enc==true) {
+		cout << endl << "Produto Disponivel na Loja: " << l->getNome() << ", Zona: "<< noDest->getDesignacao() << endl << endl;
 		Encomenda *e = new Encomenda(data,l,c,p);
+		e->imprimeEncomendas();
 		encomendas.push_back(e);
+		cout << endl <<"Encomenda Registada com sucesso! A abrir Mapa..."<< endl << endl;
 		vector<Zona*> vPath = myGraph.getPath(noOrigem,noDest);
 		Caminho(vPath, codigoZonascomProduto);
 	}
 	else {
 		cout << "O produto pretendido nao se encontra disponivel em nenhuma loja." << endl<<endl;
 	}
-
-
 }
 
 
@@ -1767,10 +1766,14 @@ bool LojaElectronica::exists(vector<int>arestas, int a, int b){
 	return ok;
 }
 
-//void LojaElectronica::Caminho(Vertex<T>* cam, ) {
-//
-//}
-
+int LojaElectronica::SearchIdAresta(vector<int> v, int a, int b) {
+	for(unsigned int i=0; i<v.size()-2; i=i+3) {
+		if( (v[i]==a && v[i+1]==b) || (v[i]==b && v[i+1]==a) ){
+			return v[i+2];
+		}
+	}
+	return -1;
+}
 
 
 void LojaElectronica::Mapa(){
@@ -1810,9 +1813,9 @@ void LojaElectronica::Mapa(){
 
 	vector<Vertex<Zona*> *> vs = myGraph.getVertexSet();
 	vector<Vertex<Zona*> *>::iterator it;
-	//cout<<"hello: "<<vs.size()<<endl; //Numero de Vertices
 
 	vector<int> arestas;
+	vector<int> vIdsArestas;
 
 
 	for(it=vs.begin(); it!=vs.end(); it++)
@@ -1835,9 +1838,14 @@ void LojaElectronica::Mapa(){
 				gv->addEdge(idEdge, (*it)->getInfo()->getCodZona(), ited->getDest()->getInfo()->getCodZona(), EdgeType::UNDIRECTED);
 				string s = doubleToString((*ited).getWeight());
 				gv->setEdgeLabel(idEdge,s);
-				idEdge++;
 
-			}//else cout<<"Aresta Repetida"<<endl;
+				//push codZona1.CodZona2,IdEdge
+				vIdsArestas.push_back((*it)->getInfo()->getCodZona());
+				vIdsArestas.push_back(ited->getDest()->getInfo()->getCodZona());
+				vIdsArestas.push_back(idEdge);
+
+				idEdge++;
+			}
 
 		}
 	}
@@ -1845,6 +1853,11 @@ void LojaElectronica::Mapa(){
 
 
 void LojaElectronica::Caminho(vector<Zona*> vPath, vector<int> vZonasComProduto) {
+
+	//disable stdout
+	streambuf* cout_sbuf = std::cout.rdbuf(); // save original sbuf
+	ofstream   fout("/dev/null");
+	cout.rdbuf(fout.rdbuf()); // redirect 'cout' to a 'fout'
 
 	//configurar uma janela
 	GraphViewer *gv = new GraphViewer(600, 600, true);
@@ -1872,7 +1885,7 @@ void LojaElectronica::Caminho(vector<Zona*> vPath, vector<int> vZonasComProduto)
 	//cout<<"hello: "<<vs.size()<<endl; //Numero de Vertices
 
 	vector<int> arestas;
-
+	vector<int> vIdsArestas;
 
 	for(it=vs.begin(); it!=vs.end(); it++)
 	{
@@ -1888,14 +1901,18 @@ void LojaElectronica::Caminho(vector<Zona*> vPath, vector<int> vZonasComProduto)
 			arestas.push_back(b);
 
 			if(exists(arestas,a,b)==false){
-
 				//cout<<"aaa"<<(*it)->getInfo()->getDesignacao()<<endl;
 				//cout<<"bbb"<<(*it)->getInfo()->getCodZona()<<"-"<<ited->getDest()->getInfo()->getCodZona()<<endl;
 				gv->addEdge(idEdge, (*it)->getInfo()->getCodZona(), ited->getDest()->getInfo()->getCodZona(), EdgeType::UNDIRECTED);
 				string s = doubleToString((*ited).getWeight());
 				gv->setEdgeLabel(idEdge,s);
-				idEdge++;
 
+				//push codZona1.CodZona2,IdEdge
+				vIdsArestas.push_back((*it)->getInfo()->getCodZona());
+				vIdsArestas.push_back(ited->getDest()->getInfo()->getCodZona());
+				vIdsArestas.push_back(idEdge);
+
+				idEdge++;
 			}//else cout<<"Aresta Repetida"<<endl;
 
 		}
@@ -1904,28 +1921,41 @@ void LojaElectronica::Caminho(vector<Zona*> vPath, vector<int> vZonasComProduto)
 	Sleep(2000);
 	gv->setVertexColor(vPath[0]->getCodZona(),"blue");
 	gv->rearrange();
-	Sleep(1000);
+	Sleep(2000);
 
 	for(it=vs.begin(); it!=vs.end(); it++)
 		gv->setVertexColor((*it)->getInfo()->getCodZona(),"red");
-	for(unsigned int i=0; i<vZonasComProduto.size(); i++) {
 
+	for(unsigned int i=0; i<vZonasComProduto.size(); i++) {
 		gv->setVertexColor(vZonasComProduto[i],"green");
 	}
+
 	gv->rearrange();
 
 	Sleep(2000);
-	for(unsigned int j=0;j<vPath.size();j++) {
+	unsigned int j=0;
+	for(;j<vPath.size();j++) {
 		gv->setVertexColor(vPath[j]->getCodZona(),"yellow");
 		gv->rearrange();
-		Sleep(1500);
-		gv->setEdgeLabel(vPath[j]->getCodZona(),"yellow");
-		gv->rearrange();
-		Sleep(1500);
-
+		Sleep(2000);
+		if(j+1!=vPath.size()) {
+			int idAresta = SearchIdAresta(vIdsArestas, vPath[j]->getCodZona(), vPath[j+1]->getCodZona());
+			gv->setEdgeColor(idAresta,"yellow");
+			gv->rearrange();
+			Sleep(2000);
+		}
 	}
+	gv->setVertexColor(vPath[j-1]->getCodZona(),"orange");
 	gv->rearrange();
+
+
+	cout.rdbuf(cout_sbuf); // restore the original stream buffer
+
+	system("PAUSE");
+	gv->closeWindow();
 }
+
+
 /*
  *    fica para depois
  *

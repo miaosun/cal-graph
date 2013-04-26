@@ -72,12 +72,9 @@ void Encomenda::setProduto(Produto *prod) {
 
 void Encomenda::imprimeEncomendas() const {
 	cout << "\nEncomenda numero: " << codEncomenda << endl ;
-	cout << "Data: " << data << endl;
-	cout << "\nDados do Cliente: ";
-	cout << "Cliente: " << endl;
-	cliente->imprimeCliente();
-	cout << "\nDados do Produto: ";
-	cout << "Produto: " << endl;
+	cout << "Data: " << data;
+	cliente->resumo();
+	cout << "\nDados do Produto: " << endl;
 	produto->info();
 }
 
