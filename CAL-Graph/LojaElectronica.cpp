@@ -323,6 +323,7 @@ void LojaElectronica::menuCliente()
 	unsigned int op, cod;
 	Cliente *c;
 	vector<string> opcoes;
+	string nome;
 	string filename;
 	opcoes.push_back("Escolha uma das seguintes opcoes:");
 	opcoes.push_back("");
@@ -351,79 +352,65 @@ void LojaElectronica::menuCliente()
 		switch(op)
 		{
 		case 1:
-			addCliente();
+			try {
+				addCliente();
+			}
+			catch(Excepcao &e) {
+				cout << e.getMessage() << endl;
+			}
+			system("PAUSE");
 			menuCliente();
 			break;
 		case 2:
 			listaClientes();
-			cout<<endl<<"Introduza o Codigo do Cliente que pretende ver os detalhes: ";
-			cod=intinput();
+			cout<<endl<<"Introduza o nome do Cliente que pretende ver os detalhes: ";
+			fflush(stdin);
+			getline(cin,nome);
 			try
 			{
-				for(unsigned int i=0; i<clientes.size(); i++)
-				{
-					if(cod == clientes[i]->getCodCliente())
-					{
-						c = clientes[i];
-						break;
-					}
-				}
+				c = ProcuraCliente_nome(nome);
 				showMenu("Detalhes do Cliente", c->imprimeCliente());
 			}
-			catch (NotFound &)
+			catch (Excepcao &e)
 			{
-				cout<<endl<<"Cliente nao encontrado!"<<endl;
+				cout << e.getMessage() << endl;
 			}
 			system("pause");
 			menuCliente();//volta ao menu Cliente
 			break;
 		case 3://editar Cliente
 			listaClientes();
-			cout<<endl<<"Introduza o Codigo do Cliente que pretende editar: ";
-			cod=intinput();
+			cout<<endl<<"Introduza o nome do Cliente que pretende ver os detalhes: ";
+			fflush(stdin);
+			getline(cin,nome);
 			try
 			{
-				for(unsigned int i=0; i<clientes.size(); i++)
-				{
-					if(cod == clientes[i]->getCodCliente())
-					{
-						c = clientes[i];
-						break;
-					}
-				}
+				c = ProcuraCliente_nome(nome);
 				editCliente(c);
+				cout<<"\nAlteracao com sucesso!\n";
 			}
-			catch (NotFound &)
+			catch (Excepcao &e)
 			{
-				cout<<endl<<"Cliente nao encontrado!"<<endl;
+				cout<<e.getMessage()<<endl;
 			}
-			cout<<"\nAlteracao com sucesso!\n";
 			system("pause");
 			menuCliente();
 			break;
 		case 4://apagar Cliente
 			listaClientes();
-			cout<<endl<<"Introduza o Codigo do Cliente que pretende apagar: ";
-			cod=intinput();
-
-			try
-			{
-				for(unsigned int i=0; i<clientes.size(); i++)
-				{
-					if(cod == clientes[i]->getCodCliente())
-					{
-						c = clientes[i];
-						break;
-					}
-				}
+			cout<<endl<<"Introduza o nome do Cliente que pretende ver os detalhes: ";
+			fflush(stdin);
+			getline(cin,nome);
+			try {
+				c = ProcuraCliente_nome(nome);
 				showMenu("Detalhes do Cliente", c->imprimeCliente());
 				removeCliente(c->getNome());
 			}
-			catch (NotFound &)
+			catch (Excepcao &e)
 			{
-				cout<<endl<<"Cliente nao encontrado!"<<endl;
-				system("pause");
+				cout<<e.getMessage()<<endl;
 			}
+			system("pause");
 			menuCliente();
 			break;
 		case 5://importar Cliente
@@ -494,6 +481,7 @@ void LojaElectronica::menuZona()
 	opcoes.push_back("");
 
 	opcoes.push_back("1 - Adicionar uma Zona");
+
 	opcoes.push_back("2 - Remover uma Zona");
 	opcoes.push_back("3 - Adicionar Ligacao entre Zonas");
 	opcoes.push_back("4 - Remover Ligacao entre Zonas");
@@ -901,7 +889,6 @@ void LojaElectronica::addCliente()
 	getline(cin,zona);
 
 	Zona *zonaCliente=procuraZona(zona);
-	//TODO excepcao
 
 	Cliente *c=new Cliente(nome,morada,contacto,email,nif,zonaCliente);
 
@@ -973,7 +960,6 @@ Cliente *LojaElectronica::ProcuraCliente_nome(string nome)
 			return clientes.at(i);
 
 	throw Excepcao("\n Nao existe nenhum cliente com esse nome \n");
-	return NULL;
 }
 
 Zona* LojaElectronica::procuraZona(string designacao) {
@@ -1085,7 +1071,7 @@ void LojaElectronica::listaArestasDesde(Zona *z) {
 	if(v->getAdj().size()==0)
 		cout << "Nao existem ligacoes a partir desta Zona!" << endl;
 	for(unsigned int i=0; i<v->getAdj().size();i++) {
-		cout << v->getAdj()[i].getDest()->getInfo()->getDesignacao() << " | Distância: " << v->getAdj()[i].getWeight()<<endl;
+		cout << v->getAdj()[i].getDest()->getInfo()->getDesignacao() << " | Distancia: " << v->getAdj()[i].getWeight()<<endl;
 	}
 }
 
