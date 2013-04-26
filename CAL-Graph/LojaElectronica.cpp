@@ -147,8 +147,8 @@ void LojaElectronica::menuPrincipal()
 	opcoes.push_back("2 - Gestao de Encomendas");
 	opcoes.push_back("3 - Gestao de Zonas");
 	opcoes.push_back("4 - Gestao de Lojas");
-	//opcoes.push_back("5 - Importar Ficheiros");
-	opcoes.push_back("5 - GraphViewer");
+	opcoes.push_back("5 - Importar Ficheiros");
+	opcoes.push_back("6 - GraphViewer");
 	opcoes.push_back("");
 	opcoes.push_back("0 - Gravar e sair");
 
@@ -174,9 +174,15 @@ void LojaElectronica::menuPrincipal()
 		menuLoja();
 		menuPrincipal();
 		break;
-		//case 5:
-		//importar ficheiro  TODO
 	case 5:
+		loadVertices("nos.txt");
+		loadEdges("arestas.txt");
+		loadClientes("clientes.txt");
+		loadLojas("lojas.txt");
+		loadProdutos("produtos.txt");
+		menuPrincipal();
+		break;
+	case 6:
 		Mapa();
 		menuPrincipal();
 		break;
@@ -480,17 +486,17 @@ void LojaElectronica::menuProduto()
 
 void LojaElectronica::menuZona()
 {
-	unsigned int op, cod;
+	unsigned int op;
+	string designacao;
 	Zona *z;
 	vector<string> opcoes;
 	opcoes.push_back("Escolha uma das seguintes opcoes:");
 	opcoes.push_back("");
 
 	opcoes.push_back("1 - Adicionar uma Zona");
-	opcoes.push_back("2 - Editar uma Zona");
-	opcoes.push_back("3 - Remover uma Zona");
-//	opcoes.push_back("4 - Adicionar Ligacao entre Zonas");
-//	opcoes.push_back("5 - Remover Ligacao entre Zonas");
+	opcoes.push_back("2 - Remover uma Zona");
+	opcoes.push_back("3 - Adicionar Ligacao entre Zonas");
+	opcoes.push_back("4 - Remover Ligacao entre Zonas");
 	opcoes.push_back("");
 	opcoes.push_back("0 - Voltar atras");
 
@@ -505,43 +511,54 @@ void LojaElectronica::menuZona()
 		menuZona();
 		break;
 	case 2:
-		//editZona(); //TODO
+		listaZonas();
+		cout<<endl<<"Introduza a Designacao da Zona que pretende apagar: ";
+		fflush(stdin);
+		getline(cin, designacao);
+		try
+		{
+			z = procuraZona(designacao);
+			removeZona(z->getDesignacao());
+		}
+		catch (Excepcao &e)
+		{
+			e.getMessage();
+		}
+		system("pause");
 		menuZona();
 		break;
 	case 3:
 		listaZonas();
-		cout<<endl<<"Introduza o Codigo da Zona que pretende apagar: ";
-		cod=intinput();
+		cout<<endl<<"Introduza a Designacao da Zona que pretende adicionar ligacao: ";
+		fflush(stdin);
+		getline(cin, designacao);
 		try
 		{
-			z=NULL;
-			for(unsigned int i=0; i<myGraph.getVertexSet().size(); i++)
-			{
-				if(cod == myGraph.getVertexSet()[i]->getInfo()->getCodZona())
-				{
-					z = myGraph.getVertexSet()[i]->getInfo();
-					break;
-				}
-			}
-			if(z==NULL) {
-				throw Excepcao("");
-			}
-			//showMenu("Detalhes do Cliente", z->imprimeZona());
-			removeZona(z->getDesignacao());
+			z = procuraZona(designacao);
+			addAresta(z);
 		}
-		catch(Excepcao &ex) {
-			cout<<endl<<"Zona nao encontrada!"<<endl;
+		catch (Excepcao &e)
+		{
+			cout<<e.getMessage()<<endl;
 		}
 		system("pause");
-		cout<<"test menuZona: "<<endl;
-		//menuZona();
-		break;
-	case 4:
-		addAresta(z);
 		menuZona();
 		break;
-	case 5:
-		//removeLigacao(); TODO
+	case 4:
+		listaZonas();
+		cout<<endl<<"Introduza a Designacao da Zona que pretende remover ligacao: ";
+		fflush(stdin);
+		getline(cin, designacao);
+		try
+		{
+			z = procuraZona(designacao);
+			removeAresta(z);
+		}
+		catch (Excepcao &e)
+		{
+			cout<<e.getMessage()<<endl;
+		}
+		system("pause");
 		menuZona();
 		break;
 	case 0:
@@ -967,7 +984,7 @@ Zona* LojaElectronica::procuraZona(string designacao) {
 		if((*it)->getInfo()->getDesignacao()==designacao)
 			return (*it)->getInfo();
 	}
-	return NULL;
+	throw Excepcao("Zona nao encontrada!");
 }
 Zona* LojaElectronica::procuraZona(unsigned int id) {
 	vector<Vertex<Zona*> *> vs = myGraph.getVertexSet();
@@ -1144,16 +1161,13 @@ void LojaElectronica::removeZona(string desig)
 	bool encontrou=false;
 
 	for(unsigned int i=0;i<myGraph.getVertexSet().size();i++) {
-		cout << "for" << endl;
 		if(myGraph.getVertexSet()[i]->getInfo()->getDesignacao()==desig) {
 			encontrou=true;
 			Zona *z = myGraph.getVertexSet()[i]->getInfo();
 			for(unsigned int i=0; i<myGraph.getVertexSet()[i]->getAdj().size();i++) {
 				removeArestaBidireccional(z,myGraph.getVertexSet()[i]->getAdj()[i].getDest()->getInfo());
 			}
-			cout << "arestas removidas" << endl;
 			myGraph.removeVertex(z);
-			cout << "vertice removido" << endl;
 			break;
 		}
 	}
@@ -1965,11 +1979,6 @@ void LojaElectronica::Caminho(vector<Zona*> vPath, vector<int> vZonasComProduto)
  */
 void LojaElectronica::startLojaElectronica()
 {
-	loadVertices("nos.txt");
-	loadEdges("arestas.txt");
-	loadClientes("clientes.txt");
-	loadLojas("lojas.txt");
-	loadProdutos("produtos.txt");
 	//loadEncomendas("encomendas.txt");
 	welcome();
 	menuPrincipal();
