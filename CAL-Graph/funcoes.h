@@ -16,7 +16,6 @@
 #include <stdlib.h>
 #include <ctype.h>
 #include <time.h>
-#include "Exception.h"
 
 using namespace std;
 
@@ -29,7 +28,6 @@ bool isDigit(const string& s);
 int intinput();
 
 int pesquisaSequencial(vector<string> v, string s);
-
 
 string dataActual();
 

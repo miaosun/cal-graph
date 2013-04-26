@@ -12,9 +12,8 @@
 #ifndef LOJAELECTRONICA_H_
 #define LOJAELECTRONICA_H_
 
-//#include "Cliente.h"
 #include "Encomenda.h"
-//#include "Zona.h"
+#include "Excepcao.h"
 #include "Graph.h"
 #include "graphviewer.h"
 #include "funcoes.h"
@@ -148,15 +147,6 @@ public:
 	void Caminho(vector<Zona*> vPath, vector<int> vZonasComProduto);
 	void startLojaElectronica();
 
-};
-
-//Classe Excepcao utilizada para excepcoes. Retorna uma mensagem para o utilizador com a excepcao
-class Excepcao{
-private:
-	string message;
-public:
-	Excepcao( string mens ){message=mens;};
-	string getMessage() { return message; };
 };
 
 #endif /* LOJAELECTRONICA_H_ */

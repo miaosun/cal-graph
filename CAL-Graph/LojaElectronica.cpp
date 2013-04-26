@@ -727,7 +727,7 @@ void LojaElectronica::editCliente(Cliente *c)
 {
 	string morada, contacto, email, zona;
 	int op;
-
+	Zona *z = NULL;
 	vector<string> opcoes;
 	opcoes = c->editCliente();
 	opcoes.push_back("");
@@ -758,12 +758,11 @@ void LojaElectronica::editCliente(Cliente *c)
 	case 4:
 		cout<<"Nova Zona do Cliente: ";
 		getline(cin, zona);
-		Zona *z=procuraZona(zona);
+		z=procuraZona(zona);
 		c->setZona(z);
 		break;
 	case 0: //voltar atras
 		return;
-		break;
 	default:
 		editCliente(c);
 	}
