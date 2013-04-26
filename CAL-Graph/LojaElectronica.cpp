@@ -200,8 +200,8 @@ void LojaElectronica::menuPrincipal()
 
 void LojaElectronica::escolhaAlgoritmo() {
 	cout << "Qual o Algoritmo de Pesquisa a utilizar:" << endl;
-	cout << "1 - Menor distância da loja que possui esse produto ao cliente (Grafo Pesado - Dijkstra)" << endl;
-	cout << "2 - Menor número de zonas a atravessar, entre a loja que possui esse produto e a residência do cliente (Grafo nao Pesado)" << endl;
+	cout << "1 - Menor distancia da loja que possui esse produto ao cliente (Grafo Pesado - Dijkstra)" << endl;
+	cout << "2 - Menor numero de zonas a atravessar, entre a loja que possui esse produto e a residancia do cliente (Grafo nao Pesado)" << endl;
 	int i;
 	do {
 		cout << "Escolha: ";
@@ -320,6 +320,7 @@ void LojaElectronica::menuCliente()
 		system("PAUSE");
 		menuCliente();
 		break;
+
 		if(clientes.size()>0)
 		{
 	case 2:
@@ -375,6 +376,7 @@ void LojaElectronica::menuCliente()
 		menuCliente();
 		break;
 		}break;
+
 	case 0:
 		break;
 	default:
@@ -406,79 +408,83 @@ void LojaElectronica::menuZona()
 	showMenu("Menu Zona", opcoes);
 	cout<<"    Opcao: ";
 	op=intinput();
-	if(myGraph.getVertexSet().size()>0)
+
+	switch(op)
 	{
-		switch(op)
-		{
-		case 1:
-			try{
-				addZona();
-			}
-			catch(Excepcao &e)
-			{
-				cout<<e.getMessage();
-			}
-			menuZona();
-			break;
-		case 2:
-			listaZonas();
-			cout<<endl<<"Introduza a Designacao da Zona que pretende apagar: ";
-			fflush(stdin);
-			getline(cin, designacao);
-			try
-			{
-				z = procuraZona(designacao);
-				removeZona(z->getDesignacao());
-			}
-			catch (Excepcao &e)
-			{
-				e.getMessage();
-			}
-			system("pause");
-			menuZona();
-			break;
-		case 3:
-			listaZonas();
-			cout<<endl<<"Introduza a Designacao da Zona que pretende adicionar ligacao: ";
-			fflush(stdin);
-			getline(cin, designacao);
-			try
-			{
-				z = procuraZona(designacao);
-				addAresta(z);
-			}
-			catch (Excepcao &e)
-			{
-				cout<<e.getMessage()<<endl;
-			}
-			system("pause");
-			menuZona();
-			break;
-		case 4:
-			listaZonas();
-			cout<<endl<<"Introduza a Designacao da Zona que pretende remover ligacao: ";
-			fflush(stdin);
-			getline(cin, designacao);
-			try
-			{
-				z = procuraZona(designacao);
-				removeAresta(z);
-			}
-			catch (Excepcao &e)
-			{
-				cout<<e.getMessage()<<endl;
-			}
-			system("pause");
-			menuZona();
-			break;
-		case 0:
-			break;
-		default:
-			cout<<"Opcao invalida! Insira uma das opcoes disponiveis"<<endl;
-			system("pause");
-			menuZona();
+	case 1:
+		try{
+			addZona();
 		}
+		catch(Excepcao &e)
+		{
+			cout<<e.getMessage();
+		}
+		menuZona();
+		break;
+
+		if(myGraph.getVertexSet().size()>0)
+		{
+	case 2:
+		listaZonas();
+		cout<<endl<<"Introduza a Designacao da Zona que pretende apagar: ";
+		fflush(stdin);
+		getline(cin, designacao);
+		try
+		{
+			z = procuraZona(designacao);
+			removeZona(z->getDesignacao());
+		}
+		catch (Excepcao &e)
+		{
+			e.getMessage();
+		}
+		system("pause");
+		menuZona();
+		break;
+	case 3:
+		listaZonas();
+		cout<<endl<<"Introduza a Designacao da Zona que pretende adicionar ligacao: ";
+		fflush(stdin);
+		getline(cin, designacao);
+		try
+		{
+			z = procuraZona(designacao);
+			addAresta(z);
+		}
+		catch (Excepcao &e)
+		{
+			cout<<e.getMessage()<<endl;
+		}
+		system("pause");
+		menuZona();
+		break;
+	case 4:
+		listaZonas();
+		cout<<endl<<"Introduza a Designacao da Zona que pretende remover ligacao: ";
+		fflush(stdin);
+		getline(cin, designacao);
+		try
+		{
+			z = procuraZona(designacao);
+			removeAresta(z);
+		}
+		catch (Excepcao &e)
+		{
+			cout<<e.getMessage()<<endl;
+		}
+		system("pause");
+		menuZona();
+		break;
+		}break;
+
+	case 0:
+		break;
+	default:
+		cout<<"Opcao invalida! Insira uma das opcoes disponiveis"<<endl;
+		system("pause");
+		menuZona();
 	}
+
 }
 
 void LojaElectronica::editLoja(Loja *l)
@@ -539,69 +545,73 @@ void LojaElectronica::menuLoja()
 	cout<<"    Opcao: ";
 	op=intinput();
 
-	if(listaLojas()>0)
+
+	switch(op)
 	{
-		switch(op)
+	case 1:
+		addLoja();
+		menuLoja();
+		break;
+
+		if(listaLojas()>0)
 		{
-		case 1:
-			addLoja();
-			menuLoja();
-			break;
-		case 2:
-			//listaLojas();
-			cout<<endl<<"Introduza o Codigo da Loja que pretende editar: ";
-			cod=intinput();
-			try
-			{
-				l = procuraLoja(cod);
-				editLoja(l);
-			}
-			catch (Excepcao &e)
-			{
-				cout<<e.getMessage();
-			}
-			system("pause");
-			menuLoja();
-			break;
-		case 3:
-			//listaLojas();
-			cout<<endl<<"Introduza o Codigo da Loja que pretende apagar: ";
-			cod=intinput();
-			try
-			{
-				l = procuraLoja(cod);
-				removeLoja(l->getCodLoja());
-			}
-			catch (Excepcao &e)
-			{
-				cout<<e.getMessage();
-			}
-			system("pause");
-			menuLoja();
-			break;
-		case 4:
-			//listaLojas();
-			cout<<endl<<"Introduza o Codigo da Loja que pretende gerir os Produtos: ";
-			cod=intinput();
-			try
-			{
-				l = procuraLoja(cod);
-			}
-			catch (Excepcao &e)
-			{
-				cout<<e.getMessage();
-			}
-			menuProduto(l);
-			menuLoja();
-			break;
-		case 0:
-			break;
-		default:
-			cout<<"Opcao invalida! Insira uma das opcoes disponiveis"<<endl;
-			system("pause");
-			menuZona();
+	case 2:
+		//listaLojas();
+		cout<<endl<<"Introduza o Codigo da Loja que pretende editar: ";
+		cod=intinput();
+		try
+		{
+			l = procuraLoja(cod);
+			editLoja(l);
 		}
+		catch (Excepcao &e)
+		{
+			cout<<e.getMessage();
+		}
+		system("pause");
+		menuLoja();
+		break;
+	case 3:
+		//listaLojas();
+		cout<<endl<<"Introduza o Codigo da Loja que pretende apagar: ";
+		cod=intinput();
+		try
+		{
+			l = procuraLoja(cod);
+			removeLoja(l->getCodLoja());
+		}
+		catch (Excepcao &e)
+		{
+			cout<<e.getMessage();
+		}
+		system("pause");
+		menuLoja();
+		break;
+	case 4:
+		//listaLojas();
+		cout<<endl<<"Introduza o Codigo da Loja que pretende gerir os Produtos: ";
+		cod=intinput();
+		try
+		{
+			l = procuraLoja(cod);
+		}
+		catch (Excepcao &e)
+		{
+			cout<<e.getMessage();
+		}
+		menuProduto(l);
+		menuLoja();
+		break;
+		}break;
+
+	case 0:
+		break;
+	default:
+		cout<<"Opcao invalida! Insira uma das opcoes disponiveis"<<endl;
+		system("pause");
+		menuZona();
 	}
+
 }
 
 void LojaElectronica::menuProduto(Loja *l)
@@ -625,51 +635,56 @@ void LojaElectronica::menuProduto(Loja *l)
 	op=intinput();
 	system("cls");
 
-	if(l->getProdutos().size()>0)
+
+
+	switch(op)
 	{
-		switch(op)
+	case 1:
+		l->addProduto();
+		menuProduto(l);
+		break;
+
+		if(l->getProdutos().size()>0)
 		{
-		case 1:
-			l->addProduto();
-			menuProduto(l);
-			break;
-		case 2:
-			l->editProduto();
-			menuProduto(l);
-			break;
-		case 3:
-			l->listaProduto();
-			cout<<endl<<"Introduza o Codigo do Produto que pretende apagar: ";
-			cod=intinput();
-			try
+	case 2:
+		l->editProduto();
+		menuProduto(l);
+		break;
+	case 3:
+		l->listaProduto();
+		cout<<endl<<"Introduza o Codigo do Produto que pretende apagar: ";
+		cod=intinput();
+		try
+		{
+			l = NULL;
+			for(unsigned int i=0; i<l->getProdutos().size(); i++)
 			{
-				l = NULL;
-				for(unsigned int i=0; i<l->getProdutos().size(); i++)
+				if(cod == l->getProdutos()[i]->getCodProduto())
 				{
-					if(cod == l->getProdutos()[i]->getCodProduto())
-					{
-						l->removeProduto(cod);
-						break;
-					}
+					l->removeProduto(cod);
+					break;
 				}
-				if(l == NULL)
-					throw Excepcao("Produto nao encontrado!\n");
 			}
-			catch (Excepcao &e)
-			{
-				cout<<e.getMessage();
-			}
-			system("pause");
-			menuProduto(l);
-			break;
-		case 0:
-			break;
-		default:
-			cout<<"Opcao invalida! Insira uma das opcoes disponiveis"<<endl;
-			system("pause");
-			menuProduto(l);
+			if(l == NULL)
+				throw Excepcao("Produto nao encontrado!\n");
 		}
+		catch (Excepcao &e)
+		{
+			cout<<e.getMessage();
+		}
+		system("pause");
+		menuProduto(l);
+		break;
+		}break;
+
+	case 0:
+		break;
+	default:
+		cout<<"Opcao invalida! Insira uma das opcoes disponiveis"<<endl;
+		system("pause");
+		menuProduto(l);
 	}
+
 }
 
 void LojaElectronica::addCliente()
@@ -1772,7 +1787,7 @@ void LojaElectronica::startLojaElectronica()
 	loadClientes("clientes.txt");
 	loadLojas("lojas.txt");
 	loadProdutos("produtos.txt");
-	//loadEncomendas("encomendas.txt");
+	loadEncomendas("encomendas.txt");
 	welcome();
 	menuPrincipal();
 
