@@ -147,7 +147,7 @@ void LojaElectronica::menuPrincipal()
 	opcoes.push_back("2 - Gestao de Encomendas");
 	opcoes.push_back("3 - Gestao de Zonas");
 	opcoes.push_back("4 - Gestao de Lojas");
-	//opcoes.push_back("5 - Importar Ficheiro");
+	//opcoes.push_back("5 - Importar Ficheiros");
 	opcoes.push_back("5 - GraphViewer");
 	opcoes.push_back("");
 	opcoes.push_back("0 - Gravar e sair");
@@ -483,7 +483,7 @@ void LojaElectronica::menuZona()
 	opcoes.push_back("1 - Adicionar uma Zona");
 	opcoes.push_back("2 - Editar uma Zona");
 	opcoes.push_back("3 - Remover uma Zona");
-	opcoes.push_back("4 - Addicionar Ligacao entre Zonas");
+	opcoes.push_back("4 - Adicionar Ligacao entre Zonas");
 	opcoes.push_back("5 - Remover Ligacao entre Zonas");
 	opcoes.push_back("");
 	opcoes.push_back("0 - Voltar atras");
@@ -562,7 +562,7 @@ void LojaElectronica::editLoja(Loja *l)
 	{
 	case 1: //editar nome
 		cout<<"Novo nome da Loja: ";
-		getline(cin, morada);
+		getline(cin, nome);
 		l->setNome(nome);
 		break;
 	case 2: //editar morada
@@ -1096,24 +1096,26 @@ void LojaElectronica::removeZona(string desig)
 void LojaElectronica::listaZonas()
 {
 	if(myGraph.getVertexSet().size()==0 ) throw Excepcao("\n Nao existem zonas no sistema \n");
-
+	cout << endl;
 	for (unsigned int i=0; i < myGraph.getVertexSet().size(); i++)
 	{
-		cout << myGraph.getVertexSet()[i]->getInfo()->toString() << endl << endl;
+		cout << myGraph.getVertexSet()[i]->getInfo()->toString() << endl;
 	}
+	cout << endl;
+
 }
 
 void LojaElectronica::addLoja()
 {
 	string nome, morada, zona;
 
-	cout << "Nome: " << endl;
+	cout << "Nome: ";
 	getline(cin,nome);
-	cout << "Morada: " << endl;
+	cout << "Morada: ";
 	getline(cin,morada);
 
 	listaZonas();
-	cout << "Defina a Zona onde pertence a loja: " << endl;
+	cout << "Indique o nome da Zona onde pertence a loja: ";
 	getline(cin,zona);
 
 	Loja *l1=new Loja(nome,morada);
@@ -1220,7 +1222,7 @@ void LojaElectronica::removeEncomenda(unsigned int codEncomenda)
 			return;
 		}
 	}
-	cout << "Encomenda n�o encontrada!"<< endl;
+	cout << "Encomenda nao encontrada!"<< endl;
 }
 
 Encomenda * LojaElectronica::procuraEncomenda(unsigned int id) {
@@ -1235,12 +1237,11 @@ Encomenda * LojaElectronica::procuraEncomenda(unsigned int id) {
 void LojaElectronica::listaClientes()
 {
 	if(clientes.size()==0 ) throw Excepcao("\n Nao existem clientes no sistema \n");
-
-	for (unsigned int i=0; i < clientes.size(); i++)
-	{
+	cout << endl;
+	for (unsigned int i=0; i < clientes.size(); i++) {
 		clientes[i]->resumo();
 	}
-
+	cout << endl;
 }
 
 void LojaElectronica::listaProdutos()
@@ -1270,13 +1271,13 @@ vector<string> LojaElectronica::nomesProdutos(){
 
 void LojaElectronica::listaLojas()
 {
-	if(myGraph.getVertexSet().size()==0 ) throw Excepcao("\n Nao existem lojas no sistema \n");
+	if(myGraph.getVertexSet().size()==0) throw Excepcao("\n Nao existem lojas no sistema \n");
 
 	for (unsigned int i=0; i < myGraph.getVertexSet().size(); i++)
 		if(myGraph.getVertexSet()[i]->getInfo()->getLoja() != NULL)
 		{
-			cout<<"listaLojas test : "<<endl;     //TODO    continua sem funcionar!!
-			//cout << myGraph.getVertexSet()[i]->getInfo()->getLoja()->toString() << endl;
+			//cout<<"listaLojas test : " << endl;     //TODO    continua sem funcionar!!
+			cout << myGraph.getVertexSet()[i]->getInfo()->getLoja()->toString() << endl;
 		}
 }
 
@@ -1320,7 +1321,7 @@ void LojaElectronica::loadClientes(string filename)
 			clientes.push_back(c1);
 		}
 		file.close();
-		cout<<endl<<endl<<"Edges importadas com sucesso!"<<endl<<endl;
+		cout<<endl<<"Edges importadas com sucesso!"<<endl<<endl;
 	}
 	else
 	{
@@ -1338,9 +1339,8 @@ void LojaElectronica::saveClientes(string filename)
 			myfile<<"|"<<clientes[i]->getCodCliente()<<"|"<<clientes[i]->getNome()<<"|"<<clientes[i]->getNIF()<<"|"<<clientes[i]->getMorada()<<"|"<<clientes[i]->getContacto()<<"|"<<clientes[i]->getEmail()<<"|"<<clientes[i]->getZona()->getCodZona()<<"|"<<endl;
 		}
 		myfile.close();
-		cout<<endl<<endl<<"Clientes exportadas com sucesso!"<<endl;
+		cout<<endl<<"Clientes exportadas com sucesso!"<<endl;
 	}
-
 	else
 	{
 		cout<<"Nao foi possivel abrir o ficheiro!"<<endl<<endl;
@@ -1361,7 +1361,7 @@ void LojaElectronica::loadProdutos(string filename)
 
 	if (file.is_open()) {
 
-		while(! file.eof() ){
+		while(!file.eof() ) {
 
 			getline(file, line);
 			if(line=="") break;
@@ -1374,9 +1374,10 @@ void LojaElectronica::loadProdutos(string filename)
 
 			Produto *p = new Produto(desig,stock,preco);
 			Loja *l1 = procuraLoja(idloja);
-			l1->getProdutos().push_back(p);
+			cout << l1->getCodLoja() << "|" << l1->getNome() << endl;
+			l1->insertProd(p);
 		}
-		cout<<endl<<endl<<"Produtos importadas com sucesso!"<<endl<<endl;
+		cout<<endl<<"Produtos importadas com sucesso!"<<endl<<endl;
 		file.close();
 	}
 	else
@@ -1394,11 +1395,11 @@ void LojaElectronica::saveProdutos(string filename)
 	{
 		for(; it!=vs.end(); it++) {
 			for(unsigned int i=0;i<(*it)->getInfo()->getLoja()->getProdutos().size();i++) {
-				myfile << "|" << (*it)->getInfo()->getLoja()->getCodLoja()<<"|";
+				myfile << "|" << (*it)->getInfo()->getLoja()->getCodLoja();
 				myfile << (*it)->getInfo()->getLoja()->getProdutos()[i]->toString() << endl;
 			}
 		}
-		cout<<endl<<endl<<"Produtos exportadas com sucesso!"<<endl;
+		cout<<endl<<"Produtos exportadas com sucesso!"<<endl;
 		myfile.close();
 	}
 	else
@@ -1438,7 +1439,7 @@ void LojaElectronica::loadLojas(string filename)
 			Zona *z = procuraZona(idzona);
 			z->setLoja(l1);
 		}
-		cout<<endl<<endl<<"Lojas importadas com sucesso!"<<endl<<endl;
+		cout<<endl<<"Lojas importadas com sucesso!"<<endl<<endl;
 		file.close();
 	}
 	else
@@ -1454,12 +1455,12 @@ void LojaElectronica::saveLojas(string filename) {
 	ofstream myfile(filename.c_str());
 	if(myfile.is_open())
 	{
-		myfile << Loja::getCount();
+		myfile << Loja::getCount() << endl;
 
 		for(; it!=vs.end(); it++)
 			myfile << "|" << (*it)->getInfo()->getCodZona()<<"|"<< (*it)->getInfo()->getLoja()->toString() << endl;
 
-		cout<<endl<<endl<<"Lojas exportadas com sucesso!"<<endl;
+		cout<<endl<<"Lojas exportadas com sucesso!"<<endl;
 		myfile.close();
 	}
 	else
@@ -1508,7 +1509,7 @@ void LojaElectronica::loadEncomendas(string filename)
 			Encomenda *e = new Encomenda(data,l,c,p,idenc);
 			encomendas.push_back(e);
 		}
-		cout<<endl<<endl<<"Encomendas importadas com sucesso!"<<endl<<endl;
+		cout<<endl<<"Encomendas importadas com sucesso!"<<endl<<endl;
 		file.close();
 	}else
 	{
@@ -1533,7 +1534,7 @@ void LojaElectronica::saveEncomendas(string filename)
 			}
 			i++;
 		}
-		cout<<endl<<endl<<"Encomendas exportadas com sucesso!"<<endl;
+		cout<<endl<<"Encomendas exportadas com sucesso!"<<endl;
 		myfile.close();
 	}
 	else
@@ -1566,7 +1567,7 @@ void LojaElectronica::loadVertices(string filename)
 			Zona *z = new Zona(atoi(v[0].c_str()), v[1].c_str());
 			myGraph.addVertex(z);
 		}
-		cout<<endl<<endl<<"Vertices importadas com sucesso!"<<endl<<endl;
+		cout<<endl<<"Vertices importadas com sucesso!"<<endl<<endl;
 		myfile.close();
 	}
 	else
@@ -1589,7 +1590,7 @@ void LojaElectronica::saveVertices(string filename)
 			myfile<<(*it)->getInfo()->toString()<<endl;
 
 		myfile.close();
-		cout<<endl<<endl<<"Vertices exportadas com sucesso!"<<endl;
+		cout<<endl<<"Vertices exportadas com sucesso!"<<endl;
 	}
 	else
 	{
@@ -1621,7 +1622,7 @@ void LojaElectronica::loadEdges(string filename)
 			myGraph.addEdge(z1, z2, peso, 0);
 		}
 		myfile.close();
-		cout<<endl<<endl<<"Edges importadas com sucesso!"<<endl<<endl;
+		cout<<endl<<"Edges importadas com sucesso!"<<endl<<endl;
 	}
 	else
 	{
@@ -1644,7 +1645,7 @@ void LojaElectronica::saveEdges(string filename)
 				myfile<<"|"<<(*it)->getInfo()->getCodZona()<<"|"<<ited->getDest()->getInfo()->getCodZona()<<"|"<<ited->getWeight()<<"|"<<endl;
 		}
 		myfile.close();
-		cout<<endl<<endl<<"Edges exportadas com sucesso!"<<endl;
+		cout<<endl<<"Edges exportadas com sucesso!"<<endl;
 	}
 	else
 	{
@@ -1761,7 +1762,15 @@ void LojaElectronica::startLojaElectronica()
 	loadVertices("nos.txt");
 	loadEdges("arestas.txt");
 	loadClientes("clientes.txt");
+	loadLojas("lojas.txt");
+	loadProdutos("produtos.txt");
 	welcome();
 	menuPrincipal();
-	saveEncomendas("encomendas.txt");
+	saveProdutos("produtos.txt");
+	saveLojas("lojas.txt");
+	saveClientes("clientes.txt");
+	saveVertices("nos.txt");
+	saveEdges("arestas.txt");
+	//saveEncomendas("encomendas.txt");
+	system("PAUSE");
 }

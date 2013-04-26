@@ -80,7 +80,7 @@ public:
 
 	//! Membro-funcao que permite a adicao de produtos novos
 	void addProduto();
-
+	void insertProd(Produto *p);
 	void editProduto();
 	int procuraProduto(string desig);
 	void listaProduto();
@@ -112,7 +112,6 @@ public:
 	void imprimeLoja() const;
 	friend ostream & operator << (ostream & o, const Loja & l);
 	string toString();
-
 	vector<string> editLoja();
 
 };
