@@ -1458,7 +1458,7 @@ void LojaElectronica::saveLojas(string filename) {
 		myfile << Loja::getCount() << endl;
 
 		for(; it!=vs.end(); it++)
-			myfile << "|" << (*it)->getInfo()->getCodZona()<<"|"<< (*it)->getInfo()->getLoja()->toString() << endl;
+			myfile << "|" << (*it)->getInfo()->getCodZona()<< (*it)->getInfo()->getLoja()->toString() << endl;
 
 		cout<<endl<<"Lojas exportadas com sucesso!"<<endl;
 		myfile.close();
