@@ -147,8 +147,7 @@ void LojaElectronica::menuPrincipal()
 	opcoes.push_back("2 - Gestao de Encomendas");
 	opcoes.push_back("3 - Gestao de Zonas");
 	opcoes.push_back("4 - Gestao de Lojas");
-	opcoes.push_back("5 - Importar Ficheiros");
-	opcoes.push_back("6 - GraphViewer");
+	opcoes.push_back("5 - GraphViewer");
 	opcoes.push_back("");
 	opcoes.push_back("0 - Gravar e sair");
 
@@ -175,15 +174,6 @@ void LojaElectronica::menuPrincipal()
 		menuPrincipal();
 		break;
 	case 5:
-		loadVertices("nos.txt");
-		loadEdges("arestas.txt");
-		loadClientes("clientes.txt");
-		loadLojas("lojas.txt");
-		loadProdutos("produtos.txt");
-		//loadEncomendas("encomendas.txt");
-		menuPrincipal();
-		break;
-	case 6:
 		Mapa();
 		system("PAUSE");
 		menuPrincipal();
@@ -224,48 +214,50 @@ void LojaElectronica::menuEncomenda()
 	op=intinput();
 	system("cls");
 
-	if(encomendas.size()>0)
+	switch(op)
 	{
-		switch(op)
-		{
-		case 1:
-			try{
-				addEncomenda();
-			}
-			catch(Excepcao &ex) {
-				cout << ex.getMessage() << endl;
-			}
-			menuEncomenda();
-			break;
-		case 2:
-			listaEncomendas();
-			system("pause");
-			menuEncomenda();//volta ao menu Encomenda
-			break;
-		case 3://apagar Encomenda
-			listaEncomendas();
-			cout<<endl<<"Introduza o ID da Encomenda que pretende apagar: ";
-			cod=intinput();
-			try
-			{
-				e = procuraEncomenda(cod);
-				removeEncomenda(e->getcodEncomenda());
-			}
-			catch (Excepcao &e)
-			{
-				cout<<e.getMessage();
-			}
-			system("pause");
-			menuEncomenda();
-			break;
-		case 0:
-			break;
-		default:
-			cout<<"Opcao invalida! Insira uma das opcoes disponiveis"<<endl;
-			system("pause");
-			menuEncomenda();
+	case 1:
+		try{
+			cout<<"addEncomenda: "<<endl;
+			addEncomenda();
 		}
+		catch(Excepcao &ex) {
+			cout << ex.getMessage() << endl;
+		}
+		menuEncomenda();
+		break;
+	if(encomendas.size()>0)
+		{
+	case 2:
+		listaEncomendas();
+		system("pause");
+		menuEncomenda();//volta ao menu Encomenda
+		break;
+	case 3://apagar Encomenda
+		listaEncomendas();
+		cout<<endl<<"Introduza o ID da Encomenda que pretende apagar: ";
+		cod=intinput();
+		try
+		{
+			e = procuraEncomenda(cod);
+			removeEncomenda(e->getcodEncomenda());
+		}
+		catch (Excepcao &e)
+		{
+			cout<<e.getMessage();
+		}
+		system("pause");
+		menuEncomenda();
+		break;
+	}break;
+	case 0:
+		break;
+	default:
+		cout<<"Opcao invalida! Insira uma das opcoes disponiveis"<<endl;
+		system("pause");
+		menuEncomenda();
 	}
+
 }
 
 void LojaElectronica::menuCliente()
@@ -293,80 +285,79 @@ void LojaElectronica::menuCliente()
 	op=intinput();
 	system("cls");
 
-
+	switch(op)
+	{
+	case 1:
+		try {
+			addCliente();
+		}
+		catch(Excepcao &e) {
+			cout << e.getMessage() << endl;
+		}
+		system("PAUSE");
+		menuCliente();
+		break;
 	if(clientes.size()>0)
 	{
-		switch(op)
+	case 2:
+		listaClientes();
+		cout<<endl<<"Introduza o nome do Cliente que pretende ver os detalhes: ";
+		fflush(stdin);
+		getline(cin,nome);
+		try
 		{
-		case 1:
-			try {
-				addCliente();
-			}
-			catch(Excepcao &e) {
-				cout << e.getMessage() << endl;
-			}
-			system("PAUSE");
-			menuCliente();
-			break;
-		case 2:
-			listaClientes();
-			cout<<endl<<"Introduza o nome do Cliente que pretende ver os detalhes: ";
-			fflush(stdin);
-			getline(cin,nome);
-			try
-			{
-				c = ProcuraCliente_nome(nome);
-				showMenu("Detalhes do Cliente", c->imprimeCliente());
-			}
-			catch (Excepcao &e)
-			{
-				cout << e.getMessage() << endl;
-			}
-			system("pause");
-			menuCliente();//volta ao menu Cliente
-			break;
-		case 3://editar Cliente
-			listaClientes();
-			cout<<endl<<"Introduza o nome do Cliente que pretende ver os detalhes: ";
-			fflush(stdin);
-			getline(cin,nome);
-			try
-			{
-				c = ProcuraCliente_nome(nome);
-				editCliente(c);
-				cout<<"\nAlteracao com sucesso!\n";
-			}
-			catch (Excepcao &e)
-			{
-				cout<<e.getMessage()<<endl;
-			}
-			system("pause");
-			menuCliente();
-			break;
-		case 4://apagar Cliente
-			listaClientes();
-			cout<<endl<<"Introduza o nome do Cliente que pretende ver os detalhes: ";
-			fflush(stdin);
-			getline(cin,nome);
-			try {
-				c = ProcuraCliente_nome(nome);
-				showMenu("Detalhes do Cliente", c->imprimeCliente());
-				removeCliente(c->getNome());
-			}
-			catch (Excepcao &e)
-			{
-				cout<<e.getMessage()<<endl;
-			}
-			system("pause");
-			menuCliente();
-			break;
-		case 0:
-			break;
-		default:
-			cout<<"Opcao invalida! Insira uma das opcoes disponiveis"<<endl;
-			system("pause");
-			menuCliente();
+			c = ProcuraCliente_nome(nome);
+			showMenu("Detalhes do Cliente", c->imprimeCliente());
 		}
+		catch (Excepcao &e)
+		{
+			cout << e.getMessage() << endl;
+		}
+		system("pause");
+		menuCliente();//volta ao menu Cliente
+		break;
+	case 3://editar Cliente
+		listaClientes();
+		cout<<endl<<"Introduza o nome do Cliente que pretende ver os detalhes: ";
+		fflush(stdin);
+		getline(cin,nome);
+		try
+		{
+			c = ProcuraCliente_nome(nome);
+			editCliente(c);
+			cout<<"\nAlteracao com sucesso!\n";
+		}
+		catch (Excepcao &e)
+		{
+			cout<<e.getMessage()<<endl;
+		}
+		system("pause");
+		menuCliente();
+		break;
+	case 4://apagar Cliente
+		listaClientes();
+		cout<<endl<<"Introduza o nome do Cliente que pretende ver os detalhes: ";
+		fflush(stdin);
+		getline(cin,nome);
+		try {
+			c = ProcuraCliente_nome(nome);
+			showMenu("Detalhes do Cliente", c->imprimeCliente());
+			removeCliente(c->getNome());
+		}
+		catch (Excepcao &e)
+		{
+			cout<<e.getMessage()<<endl;
+		}
+		system("pause");
+		menuCliente();
+		break;
+	}break;
+	case 0:
+		break;
+	default:
+		cout<<"Opcao invalida! Insira uma das opcoes disponiveis"<<endl;
+		system("pause");
+		menuCliente();
 	}
 }
 
@@ -1753,7 +1744,12 @@ void LojaElectronica::Caminho(vector<Zona*> vPath, vector<int> vZonasComProduto)
  */
 void LojaElectronica::startLojaElectronica()
 {
-
+	loadVertices("nos.txt");
+	loadEdges("arestas.txt");
+	loadClientes("clientes.txt");
+	loadLojas("lojas.txt");
+	loadProdutos("produtos.txt");
+	//loadEncomendas("encomendas.txt");
 	welcome();
 	menuPrincipal();
 
