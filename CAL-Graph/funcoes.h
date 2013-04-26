@@ -36,4 +36,5 @@ int pesquisaSequencial(vector<string> v, string s);
 string dataActual();
 
 string doubleToString(double d);
+
 #endif /* FUNCOES_H_ */
