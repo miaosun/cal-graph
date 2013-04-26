@@ -752,41 +752,6 @@ void LojaElectronica::escolhaAlgoritmo() {
 		algoritmo=2;
 }
 
-void LojaElectronica::editLoja(Loja *l)
-{
-	string nome, morada;
-	int op;
-
-	vector<string> opcoes;
-	opcoes = l->editLoja();
-	opcoes.push_back("");
-	opcoes.push_back("0 - Voltar atras");
-
-	showMenu("Editar Loja", opcoes);
-	cout<<"    Opcao: ";
-	op=intinput();
-	system("cls");
-
-	switch(op)
-	{
-	case 1: //editar nome
-		cout<<"Novo nome da Loja: ";
-		getline(cin, nome);
-		l->setNome(nome);
-		break;
-	case 2: //editar morada
-		cout<<"Nova morada da Loja: ";
-		getline(cin, morada);
-		l->setMorada(morada);
-		break;
-	case 0: //voltar atras
-		return;
-		break;
-	default:
-		editLoja(l);
-	}
-}
-
 void LojaElectronica::addCliente()
 {
 	int nif;
@@ -817,6 +782,16 @@ void LojaElectronica::addCliente()
 	Cliente *c=new Cliente(nome,morada,contacto,email,nif,zonaCliente);
 
 	clientes.push_back(c);
+}
+
+void LojaElectronica::listaClientes()
+{
+	if(clientes.size()==0 ) throw Excepcao("\n Nao existem clientes no sistema \n");
+	cout << endl;
+	for (unsigned int i=0; i < clientes.size(); i++) {
+		clientes[i]->resumo();
+	}
+	cout << endl;
 }
 
 void LojaElectronica::editCliente(Cliente *c)
@@ -888,6 +863,175 @@ Cliente *LojaElectronica::ProcuraCliente_nome(string nome)
 	throw Excepcao("\n Nao existe nenhum cliente com esse nome \n");
 }
 
+void LojaElectronica::addEncomenda()
+{
+	system("cls");
+	string nome, produto;
+	Produto *p;
+	Loja *l;
+	string data = dataActual();
+	bool enc=false;
+
+	cout << "ENCOMENDA" << endl << endl;
+
+	listaClientes();
+	cout << "Insira o nome do cliente: ";
+	fflush(stdin);
+	getline(cin,nome);
+	Cliente *c = ProcuraCliente_nome(nome);
+	if(c==NULL)
+		throw Excepcao("Cliente nao existente");
+
+	Zona *noOrigem = c->getZona();
+	Zona *noDest;
+
+	cout << endl<< endl<< "Seleccionar Produto" << endl << endl;
+	listaProdutos();
+
+	cout << "Nome do produto desejado: ";
+	fflush(stdin);
+	getline(cin,produto);
+
+	if(algoritmo==1) {
+		//Caminhos mais curtos a partir de noOrigem --> Grafos Pesados - Djikstra
+		myGraph.dijkstraShortestPath(noOrigem);
+	}
+	else {
+		//Caminhos mais curtos a partir de noOrigem --> Grafos Nao Pesados
+		myGraph.unweightedShortestPath(noOrigem);
+	}
+
+	vector<Vertex<Zona*>* > vDist = myGraph.getVertexSet();
+	myGraph.insertionSort(vDist);
+
+	//Procurar Produtos nas Lojas TOdas
+	vector<int> codigoZonascomProduto;
+	vector<Vertex<Zona*>* >::iterator it = vDist.begin();
+	for(;it!=vDist.end();it++) {
+		for(unsigned int i=0; i< (*it)->getInfo()->getLoja()->getProdutos().size();i++) {
+			if((*it)->getInfo()->getLoja()->getProdutos()[i]->getDesignacao()==produto  && (*it)->getInfo()->getLoja()->getProdutos()[i]->getStock()>0 ) {
+				codigoZonascomProduto.push_back((*it)->getInfo()->getCodZona());
+			}
+		}
+	}
+
+	it = vDist.begin();
+	for(;it!=vDist.end();it++) {
+		for(unsigned int i=0; i< (*it)->getInfo()->getLoja()->getProdutos().size();i++) {
+			if((*it)->getInfo()->getLoja()->getProdutos()[i]->getDesignacao()==produto  && (*it)->getInfo()->getLoja()->getProdutos()[i]->getStock()>0 ) {
+				p=(*it)->getInfo()->getLoja()->getProdutos()[i];
+				l=(*it)->getInfo()->getLoja();
+				(*it)->getInfo()->getLoja()->getProdutos()[i]->decStock();
+				noDest=(*it)->getInfo();
+				enc=true;
+				break;
+			}
+		}
+		if(enc==true) break;
+	}
+	if(enc==true) {
+		cout << endl << "Produto Disponivel na Loja: " << l->getNome() << ", Zona: "<< noDest->getDesignacao() << endl << endl;
+		Encomenda *e = new Encomenda(data,l,c,p);
+		e->imprimeEncomendas();
+		encomendas.push_back(e);
+		cout << endl <<"Encomenda Registada com sucesso! A abrir Mapa..."<< endl << endl;
+		vector<Zona*> vPath = myGraph.getPath(noOrigem,noDest);
+		Caminho(vPath, codigoZonascomProduto);
+	}
+	else {
+		cout << "O produto pretendido nao se encontra disponivel em nenhuma loja." << endl<<endl;
+	}
+}
+
+void LojaElectronica::listaEncomendas()
+{
+	for(unsigned int i=0;i<encomendas.size();i++) {
+		encomendas[i]->resumo();
+	}
+	cout<< endl;
+}
+
+void LojaElectronica::removeEncomenda(unsigned int codEncomenda)
+{
+	unsigned int idenc;
+	listaEncomendas();
+	cout << "Id da encomenda a eliminar: ";
+	fflush(stdin);
+	cin >> idenc;
+
+	for(unsigned int i=0; i<encomendas.size();i++) {
+		if(encomendas[i]->getcodEncomenda()==idenc) {
+			encomendas.erase(encomendas.begin()+i);
+			cout << "Encomenda removida com sucesso!"<< endl;
+			return;
+		}
+	}
+	cout << "Encomenda nao encontrada!"<< endl;
+}
+
+Encomenda * LojaElectronica::procuraEncomenda(unsigned int id) {
+	for(unsigned int i=0; i<encomendas.size();i++) {
+		if(encomendas[i]->getcodEncomenda()==id) {
+			return encomendas[i];
+		}
+	}
+	throw Excepcao("Encomenda nao encontrada!\n");
+}
+
+void LojaElectronica::addZona()
+{
+	string designacao;
+
+	cout << "Designacao da Zona: " << endl;
+	fflush(stdin);
+	getline(cin,designacao);
+	//verifica se ja existe alguma zona c mesma designacao
+
+	vector<Vertex<Zona*> *> vs = myGraph.getVertexSet();
+	vector<Vertex<Zona*> *>::iterator it = vs.begin();
+	for(;it != vs.end();it++) {
+		if((*it)->getInfo()->getDesignacao()==designacao)
+			throw Excepcao("Zona ja existe!\n");
+	}
+
+	Zona *zona=new Zona(designacao);
+
+	addZonaGrafo(zona);
+}
+
+void LojaElectronica::listaZonas()
+{
+	if(myGraph.getVertexSet().size()==0 ) throw Excepcao("\n Nao existem zonas no sistema \n");
+	cout << endl;
+	for (unsigned int i=0; i < myGraph.getVertexSet().size(); i++)
+	{
+		cout << myGraph.getVertexSet()[i]->getInfo()->toString() << endl;
+	}
+	cout << endl;
+
+}
+
+void LojaElectronica::removeZona(string desig)
+{
+	bool encontrou=false;
+
+	for(unsigned int i=0;i<myGraph.getVertexSet().size();i++) {
+		if(myGraph.getVertexSet()[i]->getInfo()->getDesignacao()==desig) {
+			encontrou=true;
+			Zona *z = myGraph.getVertexSet()[i]->getInfo();
+			for(unsigned int i=0; i<myGraph.getVertexSet()[i]->getAdj().size();i++) {
+				removeArestaBidireccional(z,myGraph.getVertexSet()[i]->getAdj()[i].getDest()->getInfo());
+			}
+			myGraph.removeVertex(z);
+			break;
+		}
+	}
+	if(encontrou==false)
+		throw Excepcao("\n Nao existe nenhuma zona com esse ID \n");
+	else
+		cout<<"Zona Eliminada com sucesso"<<endl;
+}
+
 Zona* LojaElectronica::procuraZona(string designacao) {
 	vector<Vertex<Zona*> *> vs = myGraph.getVertexSet();
 	vector<Vertex<Zona*> *>::iterator it = vs.begin();
@@ -910,6 +1054,92 @@ Zona* LojaElectronica::procuraZona(unsigned int id) {
 	throw Excepcao("Zona nao encontrada!");
 }
 
+void LojaElectronica::addLoja()
+{
+	string nome, morada, zona;
+
+	cout << "Nome: ";
+	getline(cin,nome);
+	cout << "Morada: ";
+	getline(cin,morada);
+
+	listaZonas();
+	cout << "Indique o nome da Zona onde pertence a loja: ";
+	getline(cin,zona);
+
+	Loja *l1=new Loja(nome,morada);
+	Zona *zonaLoja=procuraZona(zona);
+
+	zonaLoja->setLoja(l1);
+	cout << "Loja adicionada com sucesso!" << endl;
+}
+
+int LojaElectronica::listaLojas()
+{
+	if(myGraph.getVertexSet().size()==0) throw Excepcao("\n Nao existem lojas no sistema \n");
+	int nLojas = 0;
+	for (unsigned int i=0; i < myGraph.getVertexSet().size(); i++)
+		if(myGraph.getVertexSet()[i]->getInfo()->getLoja() != NULL)
+		{
+			cout << myGraph.getVertexSet()[i]->getInfo()->getLoja()->toString() << endl;
+			nLojas++;
+		}
+	return nLojas;
+}
+
+void LojaElectronica::editLoja(Loja *l)
+{
+	string nome, morada;
+	int op;
+
+	vector<string> opcoes;
+	opcoes = l->editLoja();
+	opcoes.push_back("");
+	opcoes.push_back("0 - Voltar atras");
+
+	showMenu("Editar Loja", opcoes);
+	cout<<"    Opcao: ";
+	op=intinput();
+	system("cls");
+
+	switch(op)
+	{
+	case 1: //editar nome
+		cout<<"Novo nome da Loja: ";
+		getline(cin, nome);
+		l->setNome(nome);
+		break;
+	case 2: //editar morada
+		cout<<"Nova morada da Loja: ";
+		getline(cin, morada);
+		l->setMorada(morada);
+		break;
+	case 0: //voltar atras
+		return;
+		break;
+	default:
+		editLoja(l);
+	}
+}
+
+void LojaElectronica::removeLoja(unsigned int codLoja)
+{
+	bool enc=false;
+	vector<Vertex<Zona*> *> vs = myGraph.getVertexSet();
+	vector<Vertex<Zona*> *>::iterator it = vs.begin();
+
+	for(;it != vs.end();it++) {
+		if((*it)->getInfo()->getLoja()->getCodLoja()==codLoja) {
+			(*it)->getInfo()->setLoja(NULL);
+			enc=true;
+			break;
+		}
+	}
+	if(enc==true){
+		cout<<"Loja Eliminada com sucesso"<<endl;
+	} else throw Excepcao("\n Nao existe nenhuma loja com esse ID \n");
+}
+
 Loja* LojaElectronica::procuraLoja(unsigned int id) {
 	vector<Vertex<Zona*> *> vs = myGraph.getVertexSet();
 	vector<Vertex<Zona*> *>::iterator it = vs.begin();
@@ -919,27 +1149,6 @@ Loja* LojaElectronica::procuraLoja(unsigned int id) {
 			return (*it)->getInfo()->getLoja();
 	}
 	throw Excepcao("Loja nao encontrada!\n");
-}
-
-void LojaElectronica::addZona()
-{
-	string designacao;
-
-	cout << "Designacao da Zona: " << endl;
-	fflush(stdin);
-	getline(cin,designacao);
-	//verifica se ja existe alguma zona c mesma designacao
-
-	vector<Vertex<Zona*> *> vs = myGraph.getVertexSet();
-	vector<Vertex<Zona*> *>::iterator it = vs.begin();
-	for(;it != vs.end();it++) {
-		if((*it)->getInfo()->getDesignacao()==designacao)
-			throw Excepcao("Zona ja existe!\n");
-	}
-
-	Zona *zona=new Zona(designacao);
-
-	addZonaGrafo(zona);
 }
 
 void LojaElectronica::addZonaGrafo(Zona* z1) {
@@ -1099,194 +1308,6 @@ Vertex<Zona*>* LojaElectronica::devolveVertex(Zona* z) {
 	return NULL;
 }
 
-void LojaElectronica::removeZona(string desig)
-{
-	bool encontrou=false;
-
-	for(unsigned int i=0;i<myGraph.getVertexSet().size();i++) {
-		if(myGraph.getVertexSet()[i]->getInfo()->getDesignacao()==desig) {
-			encontrou=true;
-			Zona *z = myGraph.getVertexSet()[i]->getInfo();
-			for(unsigned int i=0; i<myGraph.getVertexSet()[i]->getAdj().size();i++) {
-				removeArestaBidireccional(z,myGraph.getVertexSet()[i]->getAdj()[i].getDest()->getInfo());
-			}
-			myGraph.removeVertex(z);
-			break;
-		}
-	}
-	if(encontrou==false)
-		throw Excepcao("\n Nao existe nenhuma zona com esse ID \n");
-	else
-		cout<<"Zona Eliminada com sucesso"<<endl;
-}
-
-void LojaElectronica::listaZonas()
-{
-	if(myGraph.getVertexSet().size()==0 ) throw Excepcao("\n Nao existem zonas no sistema \n");
-	cout << endl;
-	for (unsigned int i=0; i < myGraph.getVertexSet().size(); i++)
-	{
-		cout << myGraph.getVertexSet()[i]->getInfo()->toString() << endl;
-	}
-	cout << endl;
-
-}
-
-void LojaElectronica::addLoja()
-{
-	string nome, morada, zona;
-
-	cout << "Nome: ";
-	getline(cin,nome);
-	cout << "Morada: ";
-	getline(cin,morada);
-
-	listaZonas();
-	cout << "Indique o nome da Zona onde pertence a loja: ";
-	getline(cin,zona);
-
-	Loja *l1=new Loja(nome,morada);
-	Zona *zonaLoja=procuraZona(zona);
-
-	zonaLoja->setLoja(l1);
-	cout << "Loja adicionada com sucesso!" << endl;
-}
-
-void LojaElectronica::removeLoja(unsigned int codLoja)
-{
-	bool enc=false;
-	vector<Vertex<Zona*> *> vs = myGraph.getVertexSet();
-	vector<Vertex<Zona*> *>::iterator it = vs.begin();
-
-	for(;it != vs.end();it++) {
-		if((*it)->getInfo()->getLoja()->getCodLoja()==codLoja) {
-			(*it)->getInfo()->setLoja(NULL);
-			enc=true;
-			break;
-		}
-	}
-	if(enc==true){
-		cout<<"Loja Eliminada com sucesso"<<endl;
-	} else throw Excepcao("\n Nao existe nenhuma loja com esse ID \n");
-}
-
-void LojaElectronica::addEncomenda()
-{
-	system("cls");
-	string nome, produto;
-	Produto *p;
-	Loja *l;
-	string data = dataActual();
-	bool enc=false;
-
-	cout << "ENCOMENDA" << endl << endl;
-
-	listaClientes();
-	cout << "Insira o nome do cliente: ";
-	fflush(stdin);
-	getline(cin,nome);
-	Cliente *c = ProcuraCliente_nome(nome);
-	if(c==NULL)
-		throw Excepcao("Cliente nao existente");
-
-	Zona *noOrigem = c->getZona();
-	Zona *noDest;
-
-	cout << endl<< endl<< "Seleccionar Produto" << endl << endl;
-	listaProdutos();
-
-	cout << "Nome do produto desejado: ";
-	fflush(stdin);
-	getline(cin,produto);
-
-	if(algoritmo==1) {
-		//Caminhos mais curtos a partir de noOrigem --> Grafos Pesados - Djikstra
-		myGraph.dijkstraShortestPath(noOrigem);
-	}
-	else {
-		//Caminhos mais curtos a partir de noOrigem --> Grafos Nao Pesados
-		myGraph.unweightedShortestPath(noOrigem);
-	}
-
-	vector<Vertex<Zona*>* > vDist = myGraph.getVertexSet();
-	myGraph.insertionSort(vDist);
-
-	//Procurar Produtos nas Lojas TOdas
-	vector<int> codigoZonascomProduto;
-	vector<Vertex<Zona*>* >::iterator it = vDist.begin();
-	for(;it!=vDist.end();it++) {
-		for(unsigned int i=0; i< (*it)->getInfo()->getLoja()->getProdutos().size();i++) {
-			if((*it)->getInfo()->getLoja()->getProdutos()[i]->getDesignacao()==produto  && (*it)->getInfo()->getLoja()->getProdutos()[i]->getStock()>0 ) {
-				codigoZonascomProduto.push_back((*it)->getInfo()->getCodZona());
-			}
-		}
-	}
-
-	it = vDist.begin();
-	for(;it!=vDist.end();it++) {
-		for(unsigned int i=0; i< (*it)->getInfo()->getLoja()->getProdutos().size();i++) {
-			if((*it)->getInfo()->getLoja()->getProdutos()[i]->getDesignacao()==produto  && (*it)->getInfo()->getLoja()->getProdutos()[i]->getStock()>0 ) {
-				p=(*it)->getInfo()->getLoja()->getProdutos()[i];
-				l=(*it)->getInfo()->getLoja();
-				(*it)->getInfo()->getLoja()->getProdutos()[i]->decStock();
-				noDest=(*it)->getInfo();
-				enc=true;
-				break;
-			}
-		}
-		if(enc==true) break;
-	}
-	if(enc==true) {
-		cout << endl << "Produto Disponivel na Loja: " << l->getNome() << ", Zona: "<< noDest->getDesignacao() << endl << endl;
-		Encomenda *e = new Encomenda(data,l,c,p);
-		e->imprimeEncomendas();
-		encomendas.push_back(e);
-		cout << endl <<"Encomenda Registada com sucesso! A abrir Mapa..."<< endl << endl;
-		vector<Zona*> vPath = myGraph.getPath(noOrigem,noDest);
-		Caminho(vPath, codigoZonascomProduto);
-	}
-	else {
-		cout << "O produto pretendido nao se encontra disponivel em nenhuma loja." << endl<<endl;
-	}
-}
-
-void LojaElectronica::removeEncomenda(unsigned int codEncomenda)
-{
-	unsigned int idenc;
-	listaEncomendas();
-	cout << "Id da encomenda a eliminar: ";
-	fflush(stdin);
-	cin >> idenc;
-
-	for(unsigned int i=0; i<encomendas.size();i++) {
-		if(encomendas[i]->getcodEncomenda()==idenc) {
-			encomendas.erase(encomendas.begin()+i);
-			cout << "Encomenda removida com sucesso!"<< endl;
-			return;
-		}
-	}
-	cout << "Encomenda nao encontrada!"<< endl;
-}
-
-Encomenda * LojaElectronica::procuraEncomenda(unsigned int id) {
-	for(unsigned int i=0; i<encomendas.size();i++) {
-		if(encomendas[i]->getcodEncomenda()==id) {
-			return encomendas[i];
-		}
-	}
-	throw Excepcao("Encomenda nao encontrada!\n");
-}
-
-void LojaElectronica::listaClientes()
-{
-	if(clientes.size()==0 ) throw Excepcao("\n Nao existem clientes no sistema \n");
-	cout << endl;
-	for (unsigned int i=0; i < clientes.size(); i++) {
-		clientes[i]->resumo();
-	}
-	cout << endl;
-}
-
 void LojaElectronica::listaProdutos()
 {
 	vector<string> vp = nomesProdutos();
@@ -1312,27 +1333,6 @@ vector<string> LojaElectronica::nomesProdutos(){
 		}
 	}
 	return res;
-}
-
-int LojaElectronica::listaLojas()
-{
-	if(myGraph.getVertexSet().size()==0) throw Excepcao("\n Nao existem lojas no sistema \n");
-	int nLojas = 0;
-	for (unsigned int i=0; i < myGraph.getVertexSet().size(); i++)
-		if(myGraph.getVertexSet()[i]->getInfo()->getLoja() != NULL)
-		{
-			cout << myGraph.getVertexSet()[i]->getInfo()->getLoja()->toString() << endl;
-			nLojas++;
-		}
-	return nLojas;
-}
-
-void LojaElectronica::listaEncomendas()
-{
-	for(unsigned int i=0;i<encomendas.size();i++) {
-		encomendas[i]->resumo();
-	}
-	cout<< endl;
 }
 
 void LojaElectronica::loadClientes(string filename)
@@ -1393,6 +1393,7 @@ void LojaElectronica::saveClientes(string filename)
 		system("pause");
 	}
 }
+
 
 void LojaElectronica::loadProdutos(string filename)
 {
