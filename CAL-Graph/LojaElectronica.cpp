@@ -1103,8 +1103,7 @@ void LojaElectronica::removeZona(string desig)
 			Zona *z = myGraph.getVertexSet()[i]->getInfo();
 			myGraph.removeVertex(z);
 			for(unsigned int i=0; i<myGraph.getVertexSet()[i]->getAdj().size();i++) {
-
-				myGraph.removeEdge(z, myGraph.getVertexSet()[i]->getAdj()[i].getDest()->getInfo());
+				removeArestaBidireccional(z,myGraph.getVertexSet()[i]->getAdj()[i].getDest()->getInfo());
 			}
 		}
 		break;
