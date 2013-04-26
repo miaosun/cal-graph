@@ -1,5 +1,5 @@
 /*
- * 	FICHEIRO: Zona.h
+ * 	FICHEIRO: Zona.cpp
  *	PROJECTO: Projecto CAL - Loja de Comercio Electronico (T3)
  *	DESCRICAO: Implementacao da classe Zona
  *  TURMA / GRUPO: Turma 2MIEIC2 / Grupo D
@@ -10,7 +10,6 @@
  */
 
 #include "Zona.h"
-
 
 unsigned int Zona::countZonas=0;
 
@@ -51,8 +50,6 @@ void Zona::setLoja(Loja* lj)
 {
 	this->loja = lj;
 }
-// IMPRIME
-
 
 // OPERATOR ==
 bool Zona::operator== (const Zona& x) const{
@@ -66,7 +63,6 @@ ostream & operator << (ostream & o, const Zona & z){
 	o << " | Loja: " << z.getLoja()->getNome();
 	return o;
 }
-
 
 string Zona::toString()
 {

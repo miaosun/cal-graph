@@ -14,9 +14,6 @@
 
 #include "Loja.h"
 
-#include <string>
-using namespace std;
-
 class Zona
 {
 	const unsigned int codZona;
@@ -60,7 +57,6 @@ public:
 	 * \return um inteiro com conteudo do membro-dado estatico countZonas. */
 	static unsigned int getCount() {return countZonas;}
 
-
 	//! Overloading do operador de comparacao == para objetos do tipo Zona
 	/**
 	 * Uma zona e igual a outra se seus nomes sao iguais.
@@ -75,7 +71,6 @@ public:
 	friend ostream & operator << (ostream & o, const Zona & z);
 
 	string toString();
-
 };
 
 #endif /* ZONA_H_ */

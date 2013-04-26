@@ -16,12 +16,6 @@
 #include "Excepcao.h"
 #include "Graph.h"
 #include "graphviewer.h"
-#include "funcoes.h"
-#include <stdlib.h>
-#include <vector>
-#include <sstream>
-#include <fstream>
-
 
 class LojaElectronica
 {
@@ -50,12 +44,11 @@ public:
 	void menuCliente();
 	//! Membro-funcao que mostra o menu produto ao utilizador
 	void menuProduto(Loja *l);
-	//! Membro-funcao que permite a adicao de clientes novos
-
+	//! Membro-funcao que mostra o menu zona ao utilizador
 	void menuZona();
+	//! Membro-funcao que mostra o menu loja ao utilizador
 	void menuLoja();
-
-
+	//! Membro-funcao que permite a adicao de clientes novos
 	void addCliente();
 	//! Membro-funcao que permite a remocao de clientes existentes
 	/** dado o nome do cliente que pretende remover */

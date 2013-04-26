@@ -13,12 +13,7 @@
 #ifndef CLIENTE_H_
 #define CLIENTE_H_
 
-#include "Loja.h"
 #include "Zona.h"
-#include <iostream>
-#include <string>
-
-using namespace std;
 
 class Cliente {
 	const unsigned int codCliente;
@@ -53,7 +48,7 @@ public:
 	 */
 	Cliente(string nome, string morada, string contacto, string email, unsigned int nif, unsigned int cod, Zona *zon);
 	//! Membro-funcao para retornar o valor do membro-dado codCliente
-	/** �um membro-funcao const para garantir a nao modificacao de nenhum membro-dado.
+	/** e um membro-funcao const para garantir a nao modificacao de nenhum membro-dado.
 	 * \return um unsigned int com valor do membro-dado codCliente. */
 	unsigned int getCodCliente() const;
 	//! Membro-funcao para retornar o valor do membro-dado nome
@@ -120,9 +115,6 @@ public:
 	void resumo() const;
 
 	vector<string> editCliente();
-
-
-	//TODO falta updates
 };
 
 

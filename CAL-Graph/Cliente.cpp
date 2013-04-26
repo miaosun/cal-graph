@@ -1,5 +1,5 @@
 /*
- * 	FICHEIRO: Cliente.h
+ * 	FICHEIRO: Cliente.cpp
  *	PROJECTO: Projecto CAL - Loja de Comercio Electronico (T3)
  *	DESCRICAO: Implementacao da classe Cliente
  *  TURMA / GRUPO: Turma 2MIEIC2 / Grupo D
@@ -14,7 +14,6 @@
 
 //inicializacao de variavel estatica
 unsigned int Cliente::countClientes=0;
-
 
 Cliente::Cliente(string nm, string mrd, string c, string e, unsigned int n,Zona *zon): NIF(n),codCliente(++countClientes) {
 	nome=nm;
@@ -88,18 +87,6 @@ void Cliente::setZona(Zona *z) {
 }
 
 // IMPRIME
-/*
-void Cliente::imprimeCliente() const {
-		cout << "\nCliente numero: " << codCliente << endl ;
-		cout << "Nome: " << nome << endl;
-		cout << "NIF: " << NIF << endl;
-		cout << "Morada: " << morada << endl;
-		cout << "Contacto: " << contacto << endl;
-		cout << "Email: " << email<< endl;
-		cout <<"CLIENTE DA ZONA: "<< zona->getDesignacao() << endl;
-		cout <<"FIM DA FICHA DO CLIENTE"<<endl;
-}
- */
 vector<string> Cliente::imprimeCliente() const {
 	vector<string> v;
 	stringstream ss;

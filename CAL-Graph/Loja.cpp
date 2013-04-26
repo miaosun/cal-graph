@@ -1,5 +1,5 @@
 /*
- * 	FICHEIRO: Loja.h
+ * 	FICHEIRO: Loja.cpp
  *	PROJECTO: Projecto CAL - Loja de Comercio Electronico (T3)
  *	DESCRICAO: Implementacao da classe Loja
  *  TURMA / GRUPO: Turma 2MIEIC2 / Grupo D
@@ -34,7 +34,6 @@ string Loja::getMorada() const {
 	return morada;
 }
 
-
 unsigned int Loja::getCodLoja() const{
 
 	return codLoja;
@@ -55,7 +54,6 @@ void Loja::setNome(string nm) {
 void Loja::setMorada(string m) {
 	morada=m;
 }
-
 
 void Loja::addProduto()
 {
@@ -153,7 +151,6 @@ ostream & operator << (ostream & o, const Loja & l){
 	return o;
 }
 
-
 void Loja::imprimeLoja() const {
 	cout << "\nLoja numero: " << codLoja << endl ;
 	cout << "Nome: " << nome << endl;
@@ -178,7 +175,6 @@ bool Loja::operator== (const Loja& x) const{
 		return true;	
 	else return false;
 }
-
 
 vector<string> Loja::editLoja()
 {

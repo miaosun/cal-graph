@@ -13,9 +13,6 @@
 #define ENCOMENDA_H_
 
 #include "Cliente.h"
-//#include "Produto.h"
-
-using namespace std;
 
 class Encomenda
 {
@@ -105,7 +102,6 @@ public:
 	void imprimeEncomendas() const;
 	void resumo() const;
 
-	//TODO falta updates
 };
 
 

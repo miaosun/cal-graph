@@ -1,5 +1,5 @@
 /*
- * 	FICHEIRO: LojaElectronica.h
+ * 	FICHEIRO: LojaElectronica.cpp
  *	PROJECTO: Projecto CAL - Loja de Comercio Electronico (T3)
  *	DESCRICAO: Implementacao da classe LojaElectronica
  *  TURMA / GRUPO: Turma 2MIEIC2 / Grupo D
@@ -12,7 +12,6 @@
 #include "LojaElectronica.h"
 
 int algoritmo=1;
-
 
 LojaElectronica::LojaElectronica()
 {
@@ -426,7 +425,6 @@ void LojaElectronica::menuCliente()
 		}
 	}
 }
-
 
 void LojaElectronica::menuZona()
 {
@@ -900,6 +898,7 @@ Zona* LojaElectronica::procuraZona(string designacao) {
 	}
 	throw Excepcao("Zona nao encontrada!");
 }
+
 Zona* LojaElectronica::procuraZona(unsigned int id) {
 	vector<Vertex<Zona*> *> vs = myGraph.getVertexSet();
 	vector<Vertex<Zona*> *>::iterator it = vs.begin();
@@ -1099,6 +1098,7 @@ Vertex<Zona*>* LojaElectronica::devolveVertex(Zona* z) {
 	}
 	return NULL;
 }
+
 void LojaElectronica::removeZona(string desig)
 {
 	bool encontrou=false;
@@ -1250,7 +1250,6 @@ void LojaElectronica::addEncomenda()
 	}
 }
 
-
 void LojaElectronica::removeEncomenda(unsigned int codEncomenda)
 {
 	unsigned int idenc;
@@ -1375,6 +1374,7 @@ void LojaElectronica::loadClientes(string filename)
 		cout<<"Nao foi possivel abrir o ficheiro "<<filename<<"!"<<endl<<endl;
 	}
 }
+
 void LojaElectronica::saveClientes(string filename)
 {
 	ofstream myfile(filename.c_str());
@@ -1393,6 +1393,7 @@ void LojaElectronica::saveClientes(string filename)
 		system("pause");
 	}
 }
+
 void LojaElectronica::loadProdutos(string filename)
 {
 	ifstream file;
@@ -1429,6 +1430,7 @@ void LojaElectronica::loadProdutos(string filename)
 		cout<<"Nao foi possivel abrir o ficheiro "<<filename<<"!"<<endl<<endl;
 	}
 }
+
 void LojaElectronica::saveProdutos(string filename)
 {
 	vector<Vertex<Zona*> *> vs = myGraph.getVertexSet();
@@ -1452,6 +1454,7 @@ void LojaElectronica::saveProdutos(string filename)
 		system("pause");
 	}
 }
+
 void LojaElectronica::loadLojas(string filename)
 {
 	vector<string> v;
@@ -1490,6 +1493,7 @@ void LojaElectronica::loadLojas(string filename)
 		cout<<"Nao foi possivel abrir o ficheiro "<<filename<<"!"<<endl<<endl;
 	}
 }
+
 void LojaElectronica::saveLojas(string filename) {
 	vector<Vertex<Zona*> *> vs = myGraph.getVertexSet();
 	vector<Vertex<Zona*> *>::iterator it = vs.begin();
@@ -1612,6 +1616,7 @@ void LojaElectronica::loadVertices(string filename)
 		cout<<"Nao foi possivel abrir o ficheiro "<<filename<<"!"<<endl<<endl;
 	}
 }
+
 void LojaElectronica::saveVertices(string filename)
 {
 	vector<Vertex<Zona*> *> vs = myGraph.getVertexSet();
@@ -1634,6 +1639,7 @@ void LojaElectronica::saveVertices(string filename)
 		system("pause");
 	}
 }
+
 void LojaElectronica::loadEdges(string filename)
 {
 	string linha;
@@ -1664,6 +1670,7 @@ void LojaElectronica::loadEdges(string filename)
 		cout<<"Nao foi possivel abrir o ficheiro "<<filename<<"!"<<endl<<endl;
 	}
 }
+
 void LojaElectronica::saveEdges(string filename)
 {
 	vector<Vertex<Zona*> *> vs = myGraph.getVertexSet();
@@ -1688,7 +1695,6 @@ void LojaElectronica::saveEdges(string filename)
 	}
 }
 
-
 bool LojaElectronica::exists(vector<int>arestas, int a, int b){
 
 	bool ok=false;
@@ -1708,7 +1714,6 @@ int LojaElectronica::SearchIdAresta(vector<int> v, int a, int b) {
 	}
 	return -1;
 }
-
 
 void LojaElectronica::Mapa(){
 
@@ -1765,7 +1770,6 @@ void LojaElectronica::Mapa(){
 	gv->rearrange();
 	gv->closeWindow();
 }
-
 
 void LojaElectronica::Caminho(vector<Zona*> vPath, vector<int> vZonasComProduto) {
 
@@ -1864,7 +1868,6 @@ void LojaElectronica::Caminho(vector<Zona*> vPath, vector<int> vZonasComProduto)
 	system("PAUSE");
 	gv->closeWindow();
 }
-
 
 void LojaElectronica::startLojaElectronica()
 {

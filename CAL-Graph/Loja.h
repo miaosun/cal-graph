@@ -12,18 +12,14 @@
 #ifndef LOJA_H_
 #define LOJA_H_
 
-#include <iostream>
-#include <string>
 #include "Produto.h"
 #include "funcoes.h"
 #include <stdlib.h>
 #include <vector>
-#include <sstream>
 #include <fstream>
 
 class Zona;
 
-using namespace std;
 class Loja
 {
 	const unsigned int codLoja;
@@ -113,7 +109,6 @@ public:
 	friend ostream & operator << (ostream & o, const Loja & l);
 	string toString();
 	vector<string> editLoja();
-
 };
 
 
