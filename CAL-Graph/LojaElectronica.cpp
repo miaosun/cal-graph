@@ -197,112 +197,6 @@ void LojaElectronica::menuPrincipal()
 	}
 }
 
-void LojaElectronica::escolhaAlgoritmo() {
-	cout << "Qual o Algoritmo de Pesquisa a utilizar:" << endl;
-	cout << "1 - Menor distancia da loja que possui esse produto ao cliente (Grafo Pesado - Dijkstra)" << endl;
-	cout << "2 - Menor numero de zonas a atravessar, entre a loja que possui esse produto e a residancia do cliente (Grafo nao Pesado)" << endl;
-	int i;
-	do {
-		cout << "Escolha: ";
-		fflush(stdin);
-		cin >> i;
-	}while(i!=1 || i!=2);
-
-	if(i==1)
-		algoritmo=1;
-	else
-		algoritmo=2;
-}
-
-void LojaElectronica::menuEncomenda()
-{
-	unsigned int op, cod;
-	Encomenda *e;
-	vector<string> opcoes;
-	string filename;
-	opcoes.push_back("Escolha uma das seguintes opcoes:");
-	opcoes.push_back("");
-	opcoes.push_back("1 - Adicionar Encomenda");//opcao 1
-	if(encomendas.size()>0)
-	{
-		opcoes.push_back("2 - Listar Encomenda");//opcao 2
-		opcoes.push_back("3 - Remover uma Encomenda");//opcao 4
-	}
-	opcoes.push_back("");
-	opcoes.push_back("0 - Voltar atras");//opcao 7
-
-	showMenu("Gestao de Encomendas", opcoes);
-	cout<<"    Opcao: ";
-	op=intinput();
-	system("cls");
-
-	if(encomendas.size()>0)
-	{
-		switch(op)
-		{
-		case 1:
-			try{
-				cout<<"addEncomenda: "<<endl;
-				addEncomenda();
-			}
-			catch(Excepcao &ex) {
-				cout << ex.getMessage() << endl;
-			}
-			menuEncomenda();
-			break;
-		case 2:
-			listaEncomendas();
-			system("pause");
-			menuEncomenda();//volta ao menu Encomenda
-			break;
-		case 3://apagar Encomenda
-			listaEncomendas();
-			cout<<endl<<"Introduza o ID da Encomenda que pretende apagar: ";
-			cod=intinput();
-			try
-			{
-				e = procuraEncomenda(cod);
-				removeEncomenda(e->getcodEncomenda());
-			}
-			catch (Excepcao &e)
-			{
-				cout<<e.getMessage();
-			}
-			system("pause");
-			menuEncomenda();
-			break;
-		case 0:
-			break;
-		default:
-			cout<<"Opcao invalida! Insira uma das opcoes disponiveis"<<endl;
-			system("pause");
-			menuEncomenda();
-		}
-	}
-	else
-	{
-		switch(op)
-		{
-		case 1:
-			try{
-				cout<<"addEncomenda: "<<endl;
-				addEncomenda();
-			}
-			catch(Excepcao &ex) {
-				cout << ex.getMessage() << endl;
-			}
-			menuEncomenda();
-			break;
-		case 0:
-			break;
-		default:
-			cout<<"Opcao invalida! Insira uma das opcoes disponiveis"<<endl;
-			system("pause");
-			menuEncomenda();
-		}
-	}
-}
-
 void LojaElectronica::menuCliente()
 {
 	unsigned int op;
@@ -426,6 +320,95 @@ void LojaElectronica::menuCliente()
 	}
 }
 
+void LojaElectronica::menuEncomenda()
+{
+	unsigned int op, cod;
+	Encomenda *e;
+	vector<string> opcoes;
+	string filename;
+	opcoes.push_back("Escolha uma das seguintes opcoes:");
+	opcoes.push_back("");
+	opcoes.push_back("1 - Adicionar Encomenda");//opcao 1
+	if(encomendas.size()>0)
+	{
+		opcoes.push_back("2 - Listar Encomenda");//opcao 2
+		opcoes.push_back("3 - Remover uma Encomenda");//opcao 4
+	}
+	opcoes.push_back("");
+	opcoes.push_back("0 - Voltar atras");//opcao 7
+
+	showMenu("Gestao de Encomendas", opcoes);
+	cout<<"    Opcao: ";
+	op=intinput();
+	system("cls");
+
+	if(encomendas.size()>0)
+	{
+		switch(op)
+		{
+		case 1:
+			try{
+				cout<<"addEncomenda: "<<endl;
+				addEncomenda();
+			}
+			catch(Excepcao &ex) {
+				cout << ex.getMessage() << endl;
+			}
+			menuEncomenda();
+			break;
+		case 2:
+			listaEncomendas();
+			system("pause");
+			menuEncomenda();//volta ao menu Encomenda
+			break;
+		case 3://apagar Encomenda
+			listaEncomendas();
+			cout<<endl<<"Introduza o ID da Encomenda que pretende apagar: ";
+			cod=intinput();
+			try
+			{
+				e = procuraEncomenda(cod);
+				removeEncomenda(e->getcodEncomenda());
+			}
+			catch (Excepcao &e)
+			{
+				cout<<e.getMessage();
+			}
+			system("pause");
+			menuEncomenda();
+			break;
+		case 0:
+			break;
+		default:
+			cout<<"Opcao invalida! Insira uma das opcoes disponiveis"<<endl;
+			system("pause");
+			menuEncomenda();
+		}
+	}
+	else
+	{
+		switch(op)
+		{
+		case 1:
+			try{
+				cout<<"addEncomenda: "<<endl;
+				addEncomenda();
+			}
+			catch(Excepcao &ex) {
+				cout << ex.getMessage() << endl;
+			}
+			menuEncomenda();
+			break;
+		case 0:
+			break;
+		default:
+			cout<<"Opcao invalida! Insira uma das opcoes disponiveis"<<endl;
+			system("pause");
+			menuEncomenda();
+		}
+	}
+}
+
 void LojaElectronica::menuZona()
 {
 	unsigned int op;
@@ -541,41 +524,6 @@ void LojaElectronica::menuZona()
 			system("pause");
 			menuZona();
 		}
-	}
-}
-
-void LojaElectronica::editLoja(Loja *l)
-{
-	string nome, morada;
-	int op;
-
-	vector<string> opcoes;
-	opcoes = l->editLoja();
-	opcoes.push_back("");
-	opcoes.push_back("0 - Voltar atras");
-
-	showMenu("Editar Loja", opcoes);
-	cout<<"    Opcao: ";
-	op=intinput();
-	system("cls");
-
-	switch(op)
-	{
-	case 1: //editar nome
-		cout<<"Novo nome da Loja: ";
-		getline(cin, nome);
-		l->setNome(nome);
-		break;
-	case 2: //editar morada
-		cout<<"Nova morada da Loja: ";
-		getline(cin, morada);
-		l->setMorada(morada);
-		break;
-	case 0: //voltar atras
-		return;
-		break;
-	default:
-		editLoja(l);
 	}
 }
 
@@ -784,6 +732,58 @@ void LojaElectronica::menuProduto(Loja *l)
 			system("pause");
 			menuProduto(l);
 		}
+	}
+}
+
+void LojaElectronica::escolhaAlgoritmo() {
+	cout << "Qual o Algoritmo de Pesquisa a utilizar:" << endl;
+	cout << "1 - Menor distancia da loja que possui esse produto ao cliente (Grafo Pesado - Dijkstra)" << endl;
+	cout << "2 - Menor numero de zonas a atravessar, entre a loja que possui esse produto e a residancia do cliente (Grafo nao Pesado)" << endl;
+	int i;
+	do {
+		cout << "Escolha: ";
+		fflush(stdin);
+		cin >> i;
+	}while(i!=1 || i!=2);
+
+	if(i==1)
+		algoritmo=1;
+	else
+		algoritmo=2;
+}
+
+void LojaElectronica::editLoja(Loja *l)
+{
+	string nome, morada;
+	int op;
+
+	vector<string> opcoes;
+	opcoes = l->editLoja();
+	opcoes.push_back("");
+	opcoes.push_back("0 - Voltar atras");
+
+	showMenu("Editar Loja", opcoes);
+	cout<<"    Opcao: ";
+	op=intinput();
+	system("cls");
+
+	switch(op)
+	{
+	case 1: //editar nome
+		cout<<"Novo nome da Loja: ";
+		getline(cin, nome);
+		l->setNome(nome);
+		break;
+	case 2: //editar morada
+		cout<<"Nova morada da Loja: ";
+		getline(cin, morada);
+		l->setMorada(morada);
+		break;
+	case 0: //voltar atras
+		return;
+		break;
+	default:
+		editLoja(l);
 	}
 }
 

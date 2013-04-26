@@ -78,7 +78,9 @@ public:
 	void listaArestasDesde(Zona *z);
 	//! Membro-funcao que adiciona uma aresta bidirecional a 2 zonas com distancia
 	void addArestaBidireccional(Zona* z1, Zona* z2, int dist);
+	//! Membro-funcao que remove uma aresta bidirecional de 2 zonas
 	void removeArestaBidireccional(Zona* z1, Zona *z2);
+	//! Membro-funcao que edita uma aresta bidirecional de 2 zonas
 	void editArestaBidireccional(Zona* z1, Zona *z2);
 
 	//! Membro-funcao que procura zonas existentes
@@ -101,15 +103,18 @@ public:
 	//! Membro-funcao que permite a remocao de lojas novos
 	/** dado o codigo da loja que pretende remover */
 	void removeLoja(unsigned int codLoja);
-
-
 	//! Membro-funcao que permite a adicao de encomendas novas
 	void addEncomenda();
 	//! Membro-funcao que permite a remocao de encomendas novos
 	/** dado o codigo da encomenda que pretende remover */
 	void removeEncomenda(unsigned int codEncomenda);
-
+	//! Membro-funcao que permite a procura de encomendas existentes
+	/** dado o codigo da encomenda que pretende procurar */
 	Encomenda * procuraEncomenda(unsigned int id);
+	//! Membro-funcao que faz edicao dum dado cliente
+	void editCliente(Cliente *c);
+	//! Membro-funcao que faz edicao duma dada loja
+	void editLoja(Loja *l);
 
 	//! Membro-funcao que lista os clientes existentes no base de dados
 	void listaClientes();
@@ -145,13 +150,16 @@ public:
 	//! Membro-funcao que grava as encomendas num ficheiro
 	void saveEncomendas(string filename);
 
-	void editCliente(Cliente *c);
-	void editLoja(Loja *l);
-	void escolhaAlgoritmo();
+	//! Membro-funcao que verifica se ja existe aresta entre 2 vertices
 	bool exists(vector<int>arestas, int a, int b);
+	//! Membro-funcao que devolve o id da aresta que existe entre 2 vertices
 	int SearchIdAresta(vector<int> v, int a, int b);
+
+	void escolhaAlgoritmo();
 	void Mapa();
 	void Caminho(vector<Zona*> vPath, vector<int> vZonasComProduto);
+
+	//! Membro-funcao onde comeca o lanco do programa
 	void startLojaElectronica();
 
 };
