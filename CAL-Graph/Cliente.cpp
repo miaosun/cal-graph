@@ -83,6 +83,9 @@ void Cliente::setEmail(string e) {
 	email=e;
 }
 
+void Cliente::setZona(Zona *z) {
+	zona=z;
+}
 
 // IMPRIME
 /*
@@ -140,8 +143,10 @@ vector<string> Cliente::editCliente()
 	ss<<"3 - Editar Email: "<<this->email;
 	opcoes.push_back(ss.str());
 	ss.str("");
+	ss<<"4 - Editar Zona: "<<this->zona->getDesignacao();
+	opcoes.push_back(ss.str());
+	ss.str("");
 
-	//edit zona TODO
 	return opcoes;
 }
 

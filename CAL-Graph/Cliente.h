@@ -95,6 +95,8 @@ public:
 	//! Membro-funcao para setar o membro-dado email de um objeto tipo Pessoa ja instanciado
 	/** \param email e o conteudo da string a ser atribuida ao membro-dado email. */
 	void setEmail(string email);
+
+	void setZona(Zona *z);
 	//! Overloading do operador de comparacao == para objetos do tipo Cliente
 	/**
 	 * Um cliente e igual a outro se seus nomes sao iguais ou se seus NIF's sao iguais.
@@ -118,6 +120,7 @@ public:
 	void resumo() const;
 
 	vector<string> editCliente();
+
 
 	//TODO falta updates
 };

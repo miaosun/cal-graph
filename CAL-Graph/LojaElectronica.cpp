@@ -549,14 +549,21 @@ void LojaElectronica::menuLoja()
 	switch(op)
 	{
 	case 1:
-		addLoja();
+		try
+		{
+			addLoja();
+		}
+		catch (Excepcao &e)
+		{
+			cout<<e.getMessage();
+		}
 		menuLoja();
 		break;
 
 		if(listaLojas()>0)
 		{
+
 	case 2:
-		//listaLojas();
 		cout<<endl<<"Introduza o Codigo da Loja que pretende editar: ";
 		cod=intinput();
 		try
@@ -572,7 +579,6 @@ void LojaElectronica::menuLoja()
 		menuLoja();
 		break;
 	case 3:
-		//listaLojas();
 		cout<<endl<<"Introduza o Codigo da Loja que pretende apagar: ";
 		cod=intinput();
 		try
@@ -588,7 +594,6 @@ void LojaElectronica::menuLoja()
 		menuLoja();
 		break;
 	case 4:
-		//listaLojas();
 		cout<<endl<<"Introduza o Codigo da Loja que pretende gerir os Produtos: ";
 		cod=intinput();
 		try
@@ -611,7 +616,6 @@ void LojaElectronica::menuLoja()
 		system("pause");
 		menuZona();
 	}
-
 }
 
 void LojaElectronica::menuProduto(Loja *l)
@@ -721,10 +725,7 @@ void LojaElectronica::addCliente()
 
 void LojaElectronica::editCliente(Cliente *c)
 {
-	//nao e permetido de alterar nome e NIF
-	string morada, contacto, email;
-	//Zona *zona;   editar zona do cliente
-	// TODO
+	string morada, contacto, email, zona;
 	int op;
 
 	vector<string> opcoes;
@@ -753,6 +754,12 @@ void LojaElectronica::editCliente(Cliente *c)
 		cout<<"Novo email do Cliente: ";
 		getline(cin, email);
 		c->setEmail(email);
+		break;
+	case 4:
+		cout<<"Nova Zona do Cliente: ";
+		getline(cin, zona);
+		Zona *z=procuraZona(zona);
+		c->setZona(z);
 		break;
 	case 0: //voltar atras
 		return;
@@ -1042,14 +1049,10 @@ void LojaElectronica::addLoja()
 	getline(cin,zona);
 
 	Loja *l1=new Loja(nome,morada);
-	Zona *zonaLoja=procuraZona(zona); //TODO excepcao
-	if(zonaLoja==NULL) {
-		cout << "Loja inserida nao existe!" << endl;
-	}
-	else {
-		cout << "Loja adicionada com sucesso!" << endl;
-		zonaLoja->setLoja(l1);
-	}
+	Zona *zonaLoja=procuraZona(zona);
+
+	zonaLoja->setLoja(l1);
+	cout << "Loja adicionada com sucesso!" << endl;
 }
 
 void LojaElectronica::removeLoja(unsigned int codLoja)
@@ -1592,21 +1595,14 @@ void LojaElectronica::saveEdges(string filename)
 }
 
 
-
 bool LojaElectronica::exists(vector<int>arestas, int a, int b){
-
-	//cout<<"Aresta"<<a<<"-"<<b<<endl;
 
 	bool ok=false;
 
 	for(unsigned int i=0; i<arestas.size()-1; i=i+2)
 		if(arestas[i]==b && arestas[i+1]==a){
-			//	cout<<"Entrou no if"<<endl;
 			ok=true;
 		}
-
-
-	//cout<<"ok"<<ok<<endl;
 	return ok;
 }
 
@@ -1776,10 +1772,6 @@ void LojaElectronica::Caminho(vector<Zona*> vPath, vector<int> vZonasComProduto)
 }
 
 
-/*
- *    fica para depois
- *
- */
 void LojaElectronica::startLojaElectronica()
 {
 	loadVertices("nos.txt");
