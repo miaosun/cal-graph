@@ -173,3 +173,20 @@ bool Loja::operator== (const Loja& x) const{
 		return true;	
 	else return false;
 }
+
+
+vector<string> Loja::editLoja()
+{
+	vector<string> opcoes;
+	stringstream ss;
+	opcoes.push_back("Escolha o que editar:");
+	opcoes.push_back("");
+	ss<<"1 - Editar Nome: "<<this->nome;
+	opcoes.push_back(ss.str());
+	ss.str("");
+	ss<<"2 - Editar Morada: "<<this->morada;
+	opcoes.push_back(ss.str());
+	ss.str("");
+
+	return opcoes;
+}

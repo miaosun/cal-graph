@@ -543,9 +543,43 @@ void LojaElectronica::menuZona()
 	}
 }
 
+void LojaElectronica::editLoja(Loja *l)
+{
+	string nome, morada;
+	int op;
+
+	vector<string> opcoes;
+	opcoes = l->editLoja();
+	opcoes.push_back("");
+	opcoes.push_back("0 - Voltar atras");
+
+	showMenu("Editar Loja", opcoes);
+	cout<<"    Opcao: ";
+	op=intinput();
+	system("cls");
+
+	switch(op)
+	{
+	case 1: //editar nome
+		cout<<"Novo nome da Loja: ";
+		getline(cin, morada);
+		l->setNome(nome);
+		break;
+	case 2: //editar morada
+		cout<<"Nova morada da Loja: ";
+		getline(cin, morada);
+		l->setMorada(morada);
+		break;
+	case 0: //voltar atras
+		return;
+		break;
+	default:
+		editLoja(l);
+	}
+}
+
 void LojaElectronica::menuLoja()
 {
-	//TODO
 	int op, cod;
 	Loja *l;
 	vector<string> opcoes;
@@ -570,7 +604,26 @@ void LojaElectronica::menuLoja()
 		menuLoja();
 		break;
 	case 2:
-		//editLoja(); //TODO
+		listaLojas();
+		cout<<endl<<"Introduza o Codigo da Loja que pretende editar: ";
+		cod=intinput();
+		try
+		{
+			for(unsigned int i=0; i<myGraph.getVertexSet().size(); i++)
+			{
+				if(cod == myGraph.getVertexSet()[i]->getInfo()->getLoja()->getCodLoja())
+				{
+					l = myGraph.getVertexSet()[i]->getInfo()->getLoja();
+					editLoja(l);
+					break;
+				}
+			}
+		}
+		catch (NotFound)
+		{
+			cout<<endl<<"Loja nao encontrada!"<<endl;
+		}
+		system("pause");
 		menuLoja();
 		break;
 	case 3:
@@ -618,8 +671,6 @@ void LojaElectronica::menuLoja()
 			cout<<endl<<"Loja nao encontrada!"<<endl;
 		}
 		menuProduto(l);
-		//l->listaProduto();
-		//TODO
 		menuLoja();
 		break;
 	case 0:
@@ -936,7 +987,7 @@ void LojaElectronica::addAresta(Zona *z) {
 
 	Zona *z2 = procuraZona(desig);
 	if(z2==NULL) {
-		cout << "Zona não existente!" << endl;
+		cout << "Zona nao existente!" << endl;
 		//TODO excepcao! tratar (voltar a pedir)
 	}
 	else
@@ -968,7 +1019,7 @@ void LojaElectronica::removeAresta(Zona *z) {
 
 	Zona *z2 = procuraZona(desig);
 	if(z2==NULL) {
-		cout << "Zona não existente!" << endl;
+		cout << "Zona nao existente!" << endl;
 		//TODO excepcao! tratar (voltar a pedir)
 	}
 	else
@@ -989,7 +1040,7 @@ void LojaElectronica::editPesoAresta(Zona *z) {
 
 	Zona *z2 = procuraZona(desig);
 	if(z2==NULL) {
-		cout << "Zona não existente!" << endl;
+		cout << "Zona nao existente!" << endl;
 		//TODO excepcao! tratar (voltar a pedir)
 	}
 	else
@@ -1068,7 +1119,7 @@ void LojaElectronica::addLoja()
 	Loja *l1=new Loja(nome,morada);
 	Zona *zonaLoja=procuraZona(zona); //TODO excepcao
 	if(zonaLoja==NULL) {
-		cout << "Loja inserida não existe!" << endl;
+		cout << "Loja inserida nao existe!" << endl;
 	}
 	else {
 		cout << "Loja adicionada com sucesso!" << endl;

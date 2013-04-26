@@ -113,6 +113,8 @@ public:
 	friend ostream & operator << (ostream & o, const Loja & l);
 	string toString();
 
+	vector<string> editLoja();
+
 };
 
 
