@@ -1090,8 +1090,8 @@ void LojaElectronica::removeLoja(unsigned int codLoja)
 		}
 	}
 	if(enc==true){
-		throw Excepcao("\n Nao existe nenhuma loja com esse ID \n");
-	} else cout<<"Loja Eliminada com sucesso";
+		cout<<"Loja Eliminada com sucesso";
+	} else throw Excepcao("\n Nao existe nenhuma loja com esse ID \n");
 }
 
 void LojaElectronica::addEncomenda()
@@ -1223,7 +1223,10 @@ void LojaElectronica::listaLojas()
 
 	for (unsigned int i=0; i < myGraph.getVertexSet().size(); i++)
 		if(myGraph.getVertexSet()[i]->getInfo()->getLoja() != NULL)
-			cout << myGraph.getVertexSet()[i]->getInfo()->getLoja()->toString() << endl;
+		{
+			cout<<"listaLojas test : "<<endl;     //TODO    continua sem funcionar!!
+			//cout << myGraph.getVertexSet()[i]->getInfo()->getLoja()->toString() << endl;
+		}
 }
 
 void LojaElectronica::listaEncomendas()
@@ -1322,7 +1325,12 @@ void LojaElectronica::loadProdutos(string filename)
 			Loja *l1 = procuraLoja(idloja);
 			l1->getProdutos().push_back(p);
 		}
+		cout<<endl<<endl<<"Produtos importadas com sucesso!"<<endl<<endl;
 		file.close();
+	}
+	else
+	{
+		cout<<"Nao foi possivel abrir o ficheiro "<<filename<<"!"<<endl<<endl;
 	}
 }
 void LojaElectronica::saveProdutos(string filename)
@@ -1339,7 +1347,13 @@ void LojaElectronica::saveProdutos(string filename)
 				myfile << (*it)->getInfo()->getLoja()->getProdutos()[i]->toString() << endl;
 			}
 		}
+		cout<<endl<<endl<<"Produtos exportadas com sucesso!"<<endl;
 		myfile.close();
+	}
+	else
+	{
+		cout<<"Nao foi possivel abrir o ficheiro!"<<endl<<endl;
+		system("pause");
 	}
 }
 
@@ -1373,7 +1387,12 @@ void LojaElectronica::loadLojas(string filename)
 			Zona *z = procuraZona(idzona);
 			z->setLoja(l1);
 		}
+		cout<<endl<<endl<<"Lojas importadas com sucesso!"<<endl<<endl;
 		file.close();
+	}
+	else
+	{
+		cout<<"Nao foi possivel abrir o ficheiro "<<filename<<"!"<<endl<<endl;
 	}
 }
 
@@ -1388,7 +1407,14 @@ void LojaElectronica::saveLojas(string filename) {
 
 		for(; it!=vs.end(); it++)
 			myfile << "|" << (*it)->getInfo()->getCodZona()<<"|"<< (*it)->getInfo()->getLoja()->toString() << endl;
+
+		cout<<endl<<endl<<"Lojas exportadas com sucesso!"<<endl;
 		myfile.close();
+	}
+	else
+	{
+		cout<<"Nao foi possivel abrir o ficheiro!"<<endl<<endl;
+		system("pause");
 	}
 }
 
@@ -1431,7 +1457,11 @@ void LojaElectronica::loadEncomendas(string filename)
 			Encomenda *e = new Encomenda(data,l,c,p,idenc);
 			encomendas.push_back(e);
 		}
+		cout<<endl<<endl<<"Encomendas importadas com sucesso!"<<endl<<endl;
 		file.close();
+	}else
+	{
+		cout<<"Nao foi possivel abrir o ficheiro "<<filename<<"!"<<endl<<endl;
 	}
 }
 
@@ -1452,7 +1482,13 @@ void LojaElectronica::saveEncomendas(string filename)
 			}
 			i++;
 		}
+		cout<<endl<<endl<<"Encomendas exportadas com sucesso!"<<endl;
 		myfile.close();
+	}
+	else
+	{
+		cout<<"Nao foi possivel abrir o ficheiro!"<<endl<<endl;
+		system("pause");
 	}
 }
 
