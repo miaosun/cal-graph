@@ -1511,54 +1511,7 @@ void LojaElectronica::saveLojas(string filename) {
 		system("pause");
 	}
 }
-/*
-void LojaElectronica::loadEncomendas(string filename)
-{
-	ifstream file;
-	string line;
 
-	string data, clnome;
-	unsigned int idenc, idloja, idprod;
-
-	file.open(filename.c_str());
-
-	if (file.is_open()) {
-
-		getline(file, line);
-		Cliente::setCount(atoi(line.c_str()));
-		while(!file.eof() ){
-
-			getline(file, line);
-			if(line == "") break;
-			idenc = atoi(line.c_str());
-
-			getline(file, data);
-			getline(file, clnome);
-			getline(file, line);
-			idloja = atoi(line.c_str());
-			getline(file, line);
-			idprod = atoi(line.c_str());
-
-			Produto *p = NULL;
-			Cliente *c = ProcuraCliente_nome(clnome);
-			Loja *l = procuraLoja(idloja);
-			for(unsigned int i=0;i<l->getProdutos().size();i++){
-				if(l->getProdutos()[i]->getCodProduto()==idprod) {
-					p = l->getProdutos()[i];
-					break;
-				}
-			}
-			Encomenda *e = new Encomenda(data,l,c,p,idenc);
-			encomendas.push_back(e);
-		}
-		cout<<endl<<"Encomendas importadas com sucesso!"<<endl<<endl;
-		file.close();
-	}else
-	{
-		cout<<"Nao foi possivel abrir o ficheiro "<<filename<<"!"<<endl<<endl;
-	}
-}
-*/
 void LojaElectronica::loadEncomendas(string filename)
 {
 	ifstream file;
@@ -1572,9 +1525,10 @@ void LojaElectronica::loadEncomendas(string filename)
 	if (file.is_open()) {
 
 		getline(file, line);
-		Cliente::setCount(atoi(line.c_str()));
-		while(!file.eof() ){
+		Encomenda::setCount(atoi(line.c_str()));
 
+		while(!file.eof() )
+		{
 			getline(file, line);
 			if(line == "") break;
 			v=split('|', line);
@@ -1598,44 +1552,15 @@ void LojaElectronica::loadEncomendas(string filename)
 		}
 		cout<<endl<<"Encomendas importadas com sucesso!"<<endl<<endl;
 		file.close();
-	}else
+	}
+	else
 	{
 		cout<<"Nao foi possivel abrir o ficheiro "<<filename<<"!"<<endl<<endl;
 	}
 }
-/*
-void LojaElectronica::saveEncomendas(string filename)
-{
-	int i = 0;
-	int tam = encomendas.size();
-	ofstream myfile(filename.c_str());
-	if (myfile.is_open()) {
-		myfile << Encomenda::getCount() << endl;
-		while (i < tam) {
-			if(encomendas[i] != NULL){
-				myfile << encomendas[i]->getcodEncomenda() << endl;
-				myfile << encomendas[i]->getData();
-				myfile << encomendas[i]->getCliente()->getNome() << endl;
-				myfile << encomendas[i]->getLoja()->getCodLoja() << endl;
-				myfile << encomendas[i]->getProduto()->getCodProduto() << endl;
-			}
-			i++;
-		}
-		cout<<endl<<"Encomendas exportadas com sucesso!"<<endl;
-		myfile.close();
-	}
-	else
-	{
-		cout<<"Nao foi possivel abrir o ficheiro!"<<endl<<endl;
-		system("pause");
-	}
-}
 
-*/
 void LojaElectronica::saveEncomendas(string filename)
 {
-	int i = 0;
-	int tam = encomendas.size();
 	ofstream myfile(filename.c_str());
 	if (myfile.is_open()) {
 		myfile << Encomenda::getCount() << endl;
@@ -1656,7 +1581,7 @@ void LojaElectronica::saveEncomendas(string filename)
 		system("pause");
 	}
 }
-///////////////////// loads e saves para grafo
+
 void LojaElectronica::loadVertices(string filename)
 {
 	string linha;
