@@ -11,7 +11,7 @@
 
 #include "LojaElectronica.h"
 
-int algoritmoPesado=1;
+int algoritmo=1;
 
 
 LojaElectronica::LojaElectronica()
@@ -147,7 +147,8 @@ void LojaElectronica::menuPrincipal()
 	opcoes.push_back("2 - Gestao de Encomendas");
 	opcoes.push_back("3 - Gestao de Zonas");
 	opcoes.push_back("4 - Gestao de Lojas");
-	opcoes.push_back("5 - GraphViewer");
+	opcoes.push_back("5 - Escolha Algoritmo Pesquisa no Grafo");
+	opcoes.push_back("6 - Mapa de Zonas");
 	opcoes.push_back("");
 	opcoes.push_back("0 - Gravar e sair");
 
@@ -174,6 +175,11 @@ void LojaElectronica::menuPrincipal()
 		menuPrincipal();
 		break;
 	case 5:
+		escolhaAlgoritmo();
+		system("PAUSE");
+		menuPrincipal();
+		break;
+	case 6:
 		Mapa();
 		system("PAUSE");
 		menuPrincipal();
@@ -190,6 +196,23 @@ void LojaElectronica::menuPrincipal()
 		cout<<"Opcao invalida! Insira uma das opcoes disponiveis"<<endl;
 		menuPrincipal();
 	}
+}
+
+void LojaElectronica::escolhaAlgoritmo() {
+	cout << "Qual o Algoritmo de Pesquisa a utilizar:" << endl;
+	cout << "1 - Menor distância da loja que possui esse produto ao cliente (Grafo Pesado - Dijkstra)" << endl;
+	cout << "2 - Menor número de zonas a atravessar, entre a loja que possui esse produto e a residência do cliente (Grafo nao Pesado)" << endl;
+	int i;
+	do {
+		cout << "Escolha: ";
+		fflush(stdin);
+		cin >> i;
+	}while(i!=1 || i!=2);
+
+	if(i==1)
+		algoritmo=1;
+	else
+		algoritmo=2;
 }
 
 void LojaElectronica::menuEncomenda()
@@ -226,7 +249,7 @@ void LojaElectronica::menuEncomenda()
 		}
 		menuEncomenda();
 		break;
-	if(encomendas.size()>0)
+		if(encomendas.size()>0)
 		{
 	case 2:
 		listaEncomendas();
@@ -249,7 +272,7 @@ void LojaElectronica::menuEncomenda()
 		system("pause");
 		menuEncomenda();
 		break;
-	}break;
+		}break;
 	case 0:
 		break;
 	default:
@@ -297,8 +320,8 @@ void LojaElectronica::menuCliente()
 		system("PAUSE");
 		menuCliente();
 		break;
-	if(clientes.size()>0)
-	{
+		if(clientes.size()>0)
+		{
 	case 2:
 		listaClientes();
 		cout<<endl<<"Introduza o nome do Cliente que pretende ver os detalhes: ";
@@ -351,7 +374,7 @@ void LojaElectronica::menuCliente()
 		system("pause");
 		menuCliente();
 		break;
-	}break;
+		}break;
 	case 0:
 		break;
 	default:
@@ -1061,7 +1084,7 @@ void LojaElectronica::addEncomenda()
 	fflush(stdin);
 	getline(cin,produto);
 
-	if(algoritmoPesado==1) {
+	if(algoritmo==1) {
 		//Caminhos mais curtos a partir de noOrigem --> Grafos Pesados - Djikstra
 		myGraph.dijkstraShortestPath(noOrigem);
 	}

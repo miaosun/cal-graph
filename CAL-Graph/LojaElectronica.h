@@ -141,7 +141,7 @@ public:
 
 	void editCliente(Cliente *c);
 	void editLoja(Loja *l);
-
+	void escolhaAlgoritmo();
 	bool exists(vector<int>arestas, int a, int b);
 	int SearchIdAresta(vector<int> v, int a, int b);
 	void Mapa();
