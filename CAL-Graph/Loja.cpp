@@ -35,13 +35,10 @@ string Loja::getMorada() const {
 }
 
 unsigned int Loja::getCodLoja() const{
-
 	return codLoja;
-
 }
 
-vector <Produto *> Loja::getProdutos() const{
-
+vector <Produto *> Loja::getProdutos() const {
 	return produtos;
 }
 
