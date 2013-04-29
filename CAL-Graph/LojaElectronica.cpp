@@ -1090,7 +1090,7 @@ int LojaElectronica::listaLojas()
 	for (unsigned int i=0; i < myGraph.getVertexSet().size(); i++)
 		if(myGraph.getVertexSet()[i]->getInfo()->getLoja() != NULL)
 		{
-			cout << myGraph.getVertexSet()[i]->getInfo()->getLoja()->toString() << endl;
+			cout << myGraph.getVertexSet()[i]->getInfo()->getLoja()->toString() << myGraph.getVertexSet()[i]->getInfo()->getDesignacao() << endl;
 			nLojas++;
 		}
 	return nLojas;
