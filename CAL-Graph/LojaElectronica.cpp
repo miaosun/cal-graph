@@ -1378,7 +1378,7 @@ void LojaElectronica::loadClientes(string filename)
 			clientes.push_back(c1);
 		}
 		file.close();
-		cout<<endl<<"Edges importadas com sucesso!"<<endl<<endl;
+		cout<<endl<<"Clientes importados com sucesso!"<<endl<<endl;
 	}
 	else
 	{
