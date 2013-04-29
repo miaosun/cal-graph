@@ -12,6 +12,7 @@
 #include "LojaElectronica.h"
 
 int algoritmo=1;
+int port=7772;
 
 LojaElectronica::LojaElectronica()
 {
@@ -180,7 +181,6 @@ void LojaElectronica::menuPrincipal()
 		break;
 	case 6:
 		Mapa();
-		system("PAUSE");
 		menuPrincipal();
 		break;
 	case 0:
@@ -744,7 +744,7 @@ void LojaElectronica::escolhaAlgoritmo() {
 		cout << "Escolha: ";
 		fflush(stdin);
 		cin >> i;
-	}while(i!=1 || i!=2);
+	}while(i!=1 && i!=2);
 
 	if(i==1)
 		algoritmo=1;
@@ -982,7 +982,7 @@ void LojaElectronica::addZona()
 {
 	string designacao;
 
-	cout << "Designacao da Zona: " << endl;
+	cout << "Designacao da Zona: ";
 	fflush(stdin);
 	getline(cin,designacao);
 	//verifica se ja existe alguma zona c mesma designacao
@@ -1019,9 +1019,9 @@ void LojaElectronica::removeZona(string desig)
 		if(myGraph.getVertexSet()[i]->getInfo()->getDesignacao()==desig) {
 			encontrou=true;
 			Zona *z = myGraph.getVertexSet()[i]->getInfo();
-			for(unsigned int i=0; i<myGraph.getVertexSet()[i]->getAdj().size();i++) {
-				removeArestaBidireccional(z,myGraph.getVertexSet()[i]->getAdj()[i].getDest()->getInfo());
-			}
+			//			for(unsigned int i=0; i<myGraph.getVertexSet()[i]->getAdj().size();i++) {
+			//				removeArestaBidireccional(z,myGraph.getVertexSet()[i]->getAdj()[i].getDest()->getInfo());
+			//			}
 			myGraph.removeVertex(z);
 			break;
 		}
@@ -1187,7 +1187,7 @@ void LojaElectronica::addZonaGrafo(Zona* z1) {
 		fflush(stdin);
 		cin >> resp;
 
-	} while(resp!='n' || resp != 'N');
+	} while(resp!='n' && resp != 'N');
 }
 
 void LojaElectronica::addAresta(Zona *z) {
@@ -1718,12 +1718,12 @@ int LojaElectronica::SearchIdAresta(vector<int> v, int a, int b) {
 
 void LojaElectronica::Mapa(){
 
-	GraphViewer *gv = new GraphViewer(1200, 700, true);
+	GraphViewer *gv = new GraphViewer(1200, 700, true, port++);
 	//gv->setBackground("");
 	gv->createWindow(1200, 700);
 
 	//configurar a cor dos nos e arestas
-	gv->defineVertexColor("black");
+	gv->defineVertexColor("lightGray");
 	gv->defineEdgeColor("black");
 
 	//criar os nos partir do vector vertexSet
@@ -1769,6 +1769,7 @@ void LojaElectronica::Mapa(){
 		}
 	}
 	gv->rearrange();
+	system("PAUSE");
 	gv->closeWindow();
 }
 
@@ -1779,7 +1780,7 @@ void LojaElectronica::Caminho(vector<Zona*> vPath, vector<int> vZonasComProduto)
 	ofstream   fout("/dev/null");
 	cout.rdbuf(fout.rdbuf()); // redirect 'cout' to a 'fout'
 
-	GraphViewer *gv = new GraphViewer(1200, 700, true);
+	GraphViewer *gv = new GraphViewer(1200, 700, true, port++);
 	//gv->setBackground("");
 	gv->createWindow(1200, 700);
 
@@ -1821,7 +1822,8 @@ void LojaElectronica::Caminho(vector<Zona*> vPath, vector<int> vZonasComProduto)
 			if(exists(arestas,a,b)==false){
 				gv->addEdge(idEdge, (*it)->getInfo()->getCodZona(), ited->getDest()->getInfo()->getCodZona(), EdgeType::UNDIRECTED);
 				string s = doubleToString((*ited).getWeight());
-				gv->setEdgeLabel(idEdge,s);
+				if(algoritmo==1)
+					gv->setEdgeLabel(idEdge,s);
 
 				//push codZona1.CodZona2,IdEdge
 				vIdsArestas.push_back((*it)->getInfo()->getCodZona());
