@@ -1729,7 +1729,10 @@ void LojaElectronica::Mapa(){
 	//criar os nos partir do vector vertexSet
 	for(unsigned int i=0;i<myGraph.getVertexSet().size();i++) {
 		gv->addNode(myGraph.getVertexSet()[i]->getInfo()->getCodZona());
-		gv->setVertexLabel(myGraph.getVertexSet()[i]->getInfo()->getCodZona(), myGraph.getVertexSet()[i]->getInfo()->getDesignacao()+"--Loja: "+myGraph.getVertexSet()[i]->getInfo()->getLoja()->getNome());
+		if(myGraph.getVertexSet()[i]->getInfo()->getLoja() == NULL)
+			gv->setVertexLabel(myGraph.getVertexSet()[i]->getInfo()->getCodZona(), myGraph.getVertexSet()[i]->getInfo()->getDesignacao()+"--SEM LOJA");
+		else
+			gv->setVertexLabel(myGraph.getVertexSet()[i]->getInfo()->getCodZona(), myGraph.getVertexSet()[i]->getInfo()->getDesignacao()+"--Loja: "+myGraph.getVertexSet()[i]->getInfo()->getLoja()->getNome());
 		gv->rearrange();
 	}
 
