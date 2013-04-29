@@ -1,6 +1,6 @@
 5
 |1|Porto|
-|2|Lisboa|
-|3|Coimbra|
-|4|Aveiro|
-|5|Algarve|
+|2|Gaia|
+|3|Gondomar|
+|4|Penafiel|
+|5|Santo Tirso|

@@ -59,8 +59,7 @@ public:
 
 template <class T>
 bool Vertex<T>::operator<(Vertex<T> * v) {
-
-	//return this->dist < vertex->lsdhlsand;
+	//return this->dist < vertex->dist;
 }
 
 template <class T>
